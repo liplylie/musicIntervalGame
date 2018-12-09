@@ -12,27 +12,136 @@ import {
     ActivityIndicator,
     Alert,
     KeyboardAvoidingView,
-    StyleSheet
+    StyleSheet,
+    Animated,
+    ListView
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
 import { Convert, Styles } from "../../styles";
 import propTypes from "prop-types";
+import LinearGradient from 'react-native-linear-gradient';
+import * as Animatable from "react-native-animatable";
 
 import NavBar from "../Common/NavBar";
 
 const { height, width } = Dimensions.get("window");
 
+const AnimatableListView = Animatable.createAnimatableComponent(ListView);
+
 
 class Game extends Component {
+    constructor(){
+        super()
+        this.state = {
+            noteSpringOne: new Animated.Value(0.7),
+            noteSpringTwo: new Animated.Value(0.7),
+            springSpeed: 500,
+            stopAnimation: false
+        }
+        this.springAnimation = this.springAnimation.bind(this);
+        this.stopAnimation = this.stopAnimation.bind(this);
+        this.renderButton = this.renderButton.bind(this);
+        this.ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        });
+    }
 
     componentWillMount() {
         const { dispatch } = this.props
 
     }
 
+    stopAnimation(){
+        this.setState({
+            stopAnimation: true
+        })
+    }
+
+    springAnimation(type){
+        let {springSpeed, stopAnimation, noteSpringOne, noteSpringTwo} = this.state
+        console.log(stopAnimation, "stop")
+        if (type === "One") {
+          Animated.spring(noteSpringOne, {
+              toValue: 1.7,
+              friction: springSpeed,
+              tension: springSpeed
+            }).start( stopAnimation ? () => {} : () => this.springAnimation("OneShrink"));
+        } else if (type === "Two") {
+          Animated.spring(noteSpringTwo, {
+            toValue: 1.7,
+            friction: springSpeed,
+            tension: springSpeed
+          }).start(() => this.springAnimation("TwoShrink"));
+        } else if (type === "OneShrink") {
+          Animated.spring(noteSpringOne, {
+            toValue: 1,
+            friction: springSpeed,
+            tension: springSpeed
+          }).start(() => this.springAnimation("Two"));
+        } else if (type === "TwoShrink") {
+          Animated.spring(noteSpringTwo, {
+            toValue: 1,
+            friction: springSpeed,
+            tension: springSpeed
+          }).start(() => this.springAnimation("One"));
+        }
+       
+    }
+
+    renderMusicIcon(type){
+        let icon;
+        if (type === "separate"){
+            icon = (
+                <View style={{display: "flex",flexDirection: "row"}}>
+                    <Animated.Image
+                        source={require("../../../assets/images/quarterNote.png")}
+                        style={{
+                            height: Convert(100),
+                            width: Convert(50),
+                            //top: Convert(1)/2,
+                            resizeMode: "contain",
+                            transform: [{scale: this.state.noteSpringOne}]
+                        }}
+                    /><Animated.Image
+                        source={require("../../../assets/images/quarterNote.png")}
+                        style={{
+                            height: Convert(100),
+                            width: Convert(50),
+                            //top: Convert(1)/2,
+                            resizeMode: "contain",
+                            transform: [{ scale: this.state.noteSpringTwo }]
+                        }}
+                    />
+                </View>
+                
+            );
+        }
+        this.springAnimation("One");
+        return icon
+    }
+
+    renderButton(item){
+        console.log(item, "shit face")
+        return (
+            <Animatable.View ref="view">
+            <LinearGradient 
+                style={styles.item} 
+                start={{ x: 0.0, y: 0.25 }} 
+                end={{ x: 0.5, y: 1.0 }} 
+                colors={["#4c669f", "#3b5998", "#192f6a"]}
+            >
+                <Text style={styles.fontStyle}>{item}</Text>
+            </LinearGradient>
+            </Animatable.View>
+            
+        )
+       
+    }
+
     render() {
-        const data = [{key: 'Major 2'},{key: 'Minor three'},{key: 'Major 5'},{key: 'Diminished Fifth'},];
+        const data = [{key: 'Major 2'},{key: 'Minor three'},{key: 'Major 5'},{key: 'Diminished Fifth'}];
+        const dataSource = this.ds.cloneWithRows(data);
         return (
             <View style={{display:"flex"}}>
                 <NavBar
@@ -41,13 +150,20 @@ class Game extends Component {
                     onLeftButtonPress={()=>Actions.pop()}
                 />
                 <View style={{display: "flex", flexDirection: "column"}}>
-                    <View style={{backgroundColor:"red", height: height * 1/3}}>
-                        <Text>symbol</Text>
+                    <View style={{backgroundColor:"white", height: height * 1/3, display: "flex", justifyContent:"center", alignItems: "center" }}>
+                        <View>
+                            <TouchableOpacity onPress={() => this.stopAnimation()} ><Text>Stop</Text></TouchableOpacity>
+                            {this.renderMusicIcon("separate")}
+                        </View>
                     </View>
-                    <View style={{backgroundColor:"blue",  height: height * 2/3}}>
-                        <FlatList
-                            data={data}
-                            renderItem={({item}) => <View style={styles.item}><Text >{item.key}</Text></View>}
+                    <View style={{ backgroundColor: "white", height: height * 2 / 3 }}>
+                        <AnimatableListView
+                            dataSource={dataSource}
+                            renderRow={({ key }) => this.renderButton(key)}
+                            animation="bounceInUp"
+                            duration={800}
+                            delay={0}
+                            removeClippedSubviews={false}
                         />
                     </View>
                 </View>
@@ -63,10 +179,26 @@ const styles = StyleSheet.create({
   },
   item: {
     fontSize: 18,
-    borderColor: "black",
-    borderWidth: 1,
-    height: height/7,
+    borderWidth: 0,
+    height: height/9,
+    borderRadius: 40,
+    backgroundColor: "#C8C8C8",
+    margin: Convert(8),
+      shadowColor: '#000000',
+      shadowOffset: {
+          width: 0,
+          height: 3
+      },
+      shadowRadius: 3,
+      shadowOpacity: 1.0,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
   },
+  fontStyle: {
+      textAlign: "center",
+      color: "white"
+  }
 })
 
 
