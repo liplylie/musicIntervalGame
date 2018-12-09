@@ -228,7 +228,7 @@ export default class NavBar extends Component {
     renderTitle = () => {
         const { title } = this.props;
         return (
-            <SuperText style={{ fontSize: Convert(21.3), letterSpacing: Convert(-0.5), textAlign: 'center', }} >
+            <SuperText style={{ fontSize: Convert(21.3), letterSpacing: Convert(-0.5), textAlign: 'center' }} >
                 {title}
             </SuperText>
         );

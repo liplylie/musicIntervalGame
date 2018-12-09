@@ -4,6 +4,8 @@ import {  persistor } from "./src/store.js";
 import store from "./src/store.js"
 import { Provider } from "react-redux";
 import Home from "./src/components/Home/Home";
+import AddAlarms from "./src/components/Home/AddAlarms";
+import Game from "./src/components/Game";
 import { PersistGate } from "redux-persist/integration/react";
 import { ActionConst, Actions, Router, Scene } from "react-native-router-flux";
 
@@ -36,10 +38,22 @@ export default class App extends Component {
         <Router>
           <Scene key={"ROOT_SCENE"} panHandlers={null} passProps>
             <Scene
-              key={"home"}
+              key={"Home"}
               component={Home}
               hideNavBar
               type={ActionConst.RESET}
+            />
+            <Scene
+              key={"Game"}
+              component={Game}
+              hideNavBar
+              type={ActionConst.PUSH}
+            />
+            <Scene
+              key={"AddAlarms"}
+              component={AddAlarms}
+              hideNavBar
+              type={ActionConst.PUSH}
             />
           </Scene>
         </Router>

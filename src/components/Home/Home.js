@@ -25,10 +25,24 @@ const { height, width } = Dimensions.get("window");
 
 
 class Home extends Component {
+    constructor(){
+        super()
+        this.handleMusicSymbolPress = this.handleMusicSymbolPress.bind(this);
+        this.handleAddAlarm = this.handleAddAlarm.bind(this);
+    }
 
     componentWillMount() {
         const { dispatch } = this.props
 
+    }
+
+    handleMusicSymbolPress(){
+        Actions.Game()
+    }
+
+
+    handleAddAlarm(){
+        Actions.AddAlarms()
     }
 
     render() {
@@ -38,6 +52,8 @@ class Home extends Component {
                     title="Alarms"
                     leftButtonIcon="music"
                     rightButtonIcon="plus"
+                    onLeftButtonPress={this.handleMusicSymbolPress}
+                    onRightButtonPress={this.handleAddAlarm}
                 />
                 <AlarmList/>
             </View>
