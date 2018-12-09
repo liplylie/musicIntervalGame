@@ -8,4 +8,5 @@ echo "\nRemoving iOS Build folder... DONE"
 ./android/gradlew clean -p ./android/
 npm install
 echo "\n npm install... DONE"
+react-native link
 npm start

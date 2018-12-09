@@ -3,7 +3,7 @@ import { Platform, StyleSheet, Text, View, PushNotificationIOS, AppState } from 
 import {  persistor } from "./src/store.js";
 import store from "./src/store.js"
 import { Provider } from "react-redux";
-import Home from "./src/components/Home";
+import Home from "./src/components/Home/Home";
 import { PersistGate } from "redux-persist/integration/react";
 import { ActionConst, Actions, Router, Scene } from "react-native-router-flux";
 

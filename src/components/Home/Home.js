@@ -15,18 +15,18 @@ import {
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
-import { Convert, Styles } from "../styles";
-import propTypes from "prop-types"
+import { Convert, Styles } from "../../styles";
+import propTypes from "prop-types";
+
+import AlarmList from "./AlarmList";
+import  NavBar  from "../Common/NavBar";
 
 const { height, width } = Dimensions.get("window");
 
-class UnconnectedHome extends Component {
-    static propTypes = {
-        country: propTypes.object,
-    };
 
+class Home extends Component {
 
-    async componentWillMount() {
+    componentWillMount() {
         const { dispatch } = this.props
 
     }
@@ -34,15 +34,20 @@ class UnconnectedHome extends Component {
     render() {
         return (
             <View>
-                <Text>Home</Text>
+                <NavBar 
+                    title="Alarms"
+                    leftButtonIcon="music"
+                    rightButtonIcon="plus"
+                />
+                <AlarmList/>
             </View>
         )
     }
 }
 
 
-const Home = connect(state => ({
-    state
-}))(UnconnectedHome);
-
+// const Home = connect(state => ({
+//     state
+// }))(UnconnectedHome);
+export { Home };
 export default Home;
