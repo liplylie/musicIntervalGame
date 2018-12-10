@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -44,6 +45,20 @@
 		47E9D95FFBC14679947872AA /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F3F6C3538C4EE08DF99DC7 /* libRNVectorIcons.a */; };
 		48C420FE4C134B4486780089 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DBC1C561AF674613A4C60EE1 /* MaterialIcons.ttf */; };
 		65EDCFC9416D411383DEA17D /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4265DA2CE6F84ACC839F6374 /* Ionicons.ttf */; };
+		6F3FDC1F21BE29A800E7DB2D /* A4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDBE721BE29A700E7DB2D /* A4.mp3 */; };
+		6F3FDC2021BE29A800E7DB2D /* F#4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1421BE29A700E7DB2D /* F#4.mp3 */; };
+		6F3FDC2121BE29A800E7DB2D /* F4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1521BE29A700E7DB2D /* F4.mp3 */; };
+		6F3FDC2221BE29A800E7DB2D /* D#4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1621BE29A700E7DB2D /* D#4.mp3 */; };
+		6F3FDC2321BE29A800E7DB2D /* A#4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1721BE29A700E7DB2D /* A#4.mp3 */; };
+		6F3FDC2421BE29A800E7DB2D /* C#4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1821BE29A700E7DB2D /* C#4.mp3 */; };
+		6F3FDC2521BE29A800E7DB2D /* B4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1921BE29A700E7DB2D /* B4.mp3 */; };
+		6F3FDC2621BE29A800E7DB2D /* D4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1A21BE29A700E7DB2D /* D4.mp3 */; };
+		6F3FDC2721BE29A800E7DB2D /* E4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1B21BE29A700E7DB2D /* E4.mp3 */; };
+		6F3FDC2821BE29A800E7DB2D /* C5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1C21BE29A700E7DB2D /* C5.mp3 */; };
+		6F3FDC2921BE29A800E7DB2D /* G4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1D21BE29A700E7DB2D /* G4.mp3 */; };
+		6F3FDC2A21BE29A800E7DB2D /* C4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1E21BE29A800E7DB2D /* C4.mp3 */; };
+		6F3FDC9A21BE50F800E7DB2D /* D#3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC9921BE50F800E7DB2D /* D#3.mp3 */; };
+		6F3FDC9C21BE50FB00E7DB2D /* E3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC9B21BE50FB00E7DB2D /* E3.mp3 */; };
 		6F7F92B821B9127B00A3419B /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F7F929C21B9125E00A3419B /* libRCTPushNotification.a */; };
 		79E03B3A4EC04C618975CA72 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EA5653D5A86429195F21684 /* MaterialCommunityIcons.ttf */; };
 		7B3F6EC0354D4D69B3B3711D /* libRNVectorIcons-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C96EC56E2C941CAA14F4D8C /* libRNVectorIcons-tvOS.a */; };
@@ -417,6 +432,20 @@
 		472CE79704FD49F593DBAD25 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6C96EC56E2C941CAA14F4D8C /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; };
+		6F3FDBE721BE29A700E7DB2D /* A4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = A4.mp3; path = ../../../Downloads/A4.mp3; sourceTree = "<group>"; };
+		6F3FDC1421BE29A700E7DB2D /* F#4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "F#4.mp3"; path = "../../../Downloads/F#4.mp3"; sourceTree = "<group>"; };
+		6F3FDC1521BE29A700E7DB2D /* F4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = F4.mp3; path = ../../../Downloads/F4.mp3; sourceTree = "<group>"; };
+		6F3FDC1621BE29A700E7DB2D /* D#4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "D#4.mp3"; path = "../../../Downloads/D#4.mp3"; sourceTree = "<group>"; };
+		6F3FDC1721BE29A700E7DB2D /* A#4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "A#4.mp3"; path = "../../../Downloads/A#4.mp3"; sourceTree = "<group>"; };
+		6F3FDC1821BE29A700E7DB2D /* C#4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "C#4.mp3"; path = "../../../Downloads/C#4.mp3"; sourceTree = "<group>"; };
+		6F3FDC1921BE29A700E7DB2D /* B4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = B4.mp3; path = ../../../Downloads/B4.mp3; sourceTree = "<group>"; };
+		6F3FDC1A21BE29A700E7DB2D /* D4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = D4.mp3; path = ../../../Downloads/D4.mp3; sourceTree = "<group>"; };
+		6F3FDC1B21BE29A700E7DB2D /* E4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = E4.mp3; path = ../../../Downloads/E4.mp3; sourceTree = "<group>"; };
+		6F3FDC1C21BE29A700E7DB2D /* C5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = C5.mp3; path = ../../../Downloads/C5.mp3; sourceTree = "<group>"; };
+		6F3FDC1D21BE29A700E7DB2D /* G4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = G4.mp3; path = ../../../Downloads/G4.mp3; sourceTree = "<group>"; };
+		6F3FDC1E21BE29A800E7DB2D /* C4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = C4.mp3; path = ../../../Downloads/C4.mp3; sourceTree = "<group>"; };
+		6F3FDC9921BE50F800E7DB2D /* D#3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "D#3.mp3"; path = "../../../Downloads/D#3.mp3"; sourceTree = "<group>"; };
+		6F3FDC9B21BE50FB00E7DB2D /* E3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = E3.mp3; path = ../../../Downloads/E3.mp3; sourceTree = "<group>"; };
 		6F7F928A21B9125E00A3419B /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7F4679E7E63744DCAED13D7C /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
@@ -740,6 +769,20 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				6F3FDC1721BE29A700E7DB2D /* A#4.mp3 */,
+				6F3FDBE721BE29A700E7DB2D /* A4.mp3 */,
+				6F3FDC1921BE29A700E7DB2D /* B4.mp3 */,
+				6F3FDC1821BE29A700E7DB2D /* C#4.mp3 */,
+				6F3FDC1E21BE29A800E7DB2D /* C4.mp3 */,
+				6F3FDC1C21BE29A700E7DB2D /* C5.mp3 */,
+				6F3FDC1621BE29A700E7DB2D /* D#4.mp3 */,
+				6F3FDC1A21BE29A700E7DB2D /* D4.mp3 */,
+				6F3FDC9921BE50F800E7DB2D /* D#3.mp3 */,
+				6F3FDC1B21BE29A700E7DB2D /* E4.mp3 */,
+				6F3FDC9B21BE50FB00E7DB2D /* E3.mp3 */,
+				6F3FDC1421BE29A700E7DB2D /* F#4.mp3 */,
+				6F3FDC1521BE29A700E7DB2D /* F4.mp3 */,
+				6F3FDC1D21BE29A700E7DB2D /* G4.mp3 */,
 				13B07FAE1A68108700A75B9A /* musicAlarm */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* musicAlarmTests */,
@@ -1293,20 +1336,34 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				A56F097E338F4A3282CDD2F9 /* AntDesign.ttf in Resources */,
+				6F3FDC9A21BE50F800E7DB2D /* D#3.mp3 in Resources */,
 				DECE6AA3C9E1494DB080548D /* Entypo.ttf in Resources */,
 				352DA9D14469496FA83849ED /* EvilIcons.ttf in Resources */,
+				6F3FDC2621BE29A800E7DB2D /* D4.mp3 in Resources */,
+				6F3FDC2421BE29A800E7DB2D /* C#4.mp3 in Resources */,
 				308132D871664F28B2C378CA /* Feather.ttf in Resources */,
+				6F3FDC9C21BE50FB00E7DB2D /* E3.mp3 in Resources */,
 				44A51A5B1E1A4A5EB70F75EF /* FontAwesome.ttf in Resources */,
+				6F3FDC2821BE29A800E7DB2D /* C5.mp3 in Resources */,
 				323F82CF038B4C24B2524F8D /* FontAwesome5_Brands.ttf in Resources */,
 				1D8CEBFD4AD74F838430A49C /* FontAwesome5_Regular.ttf in Resources */,
 				8665EB181ABE4B3F95CB7E30 /* FontAwesome5_Solid.ttf in Resources */,
+				6F3FDC2121BE29A800E7DB2D /* F4.mp3 in Resources */,
+				6F3FDC2721BE29A800E7DB2D /* E4.mp3 in Resources */,
 				F122D202B7F34BBF8D86D21E /* Foundation.ttf in Resources */,
+				6F3FDC2221BE29A800E7DB2D /* D#4.mp3 in Resources */,
+				6F3FDC2A21BE29A800E7DB2D /* C4.mp3 in Resources */,
+				6F3FDC1F21BE29A800E7DB2D /* A4.mp3 in Resources */,
+				6F3FDC2021BE29A800E7DB2D /* F#4.mp3 in Resources */,
 				65EDCFC9416D411383DEA17D /* Ionicons.ttf in Resources */,
 				79E03B3A4EC04C618975CA72 /* MaterialCommunityIcons.ttf in Resources */,
+				6F3FDC2521BE29A800E7DB2D /* B4.mp3 in Resources */,
+				6F3FDC2321BE29A800E7DB2D /* A#4.mp3 in Resources */,
 				48C420FE4C134B4486780089 /* MaterialIcons.ttf in Resources */,
 				FDB29BFE2EF64F50B7BD5193 /* Octicons.ttf in Resources */,
 				8A08C0273ABF4C6AA7BEC778 /* SimpleLineIcons.ttf in Resources */,
 				27D04662CE784D2B90BFBB95 /* Zocial.ttf in Resources */,
+				6F3FDC2921BE29A800E7DB2D /* G4.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

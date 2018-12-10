@@ -22,6 +22,11 @@ import { Convert, Styles } from "../../styles";
 import propTypes from "prop-types";
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from "react-native-animatable";
+import Sound from "react-native-sound";
+
+import A4 from "../../samples/A4.mp3";
+import E4 from "../../samples/E4.mp3";
+import E3 from "../../samples/E3.mp3";
 
 import NavBar from "../Common/NavBar";
 
@@ -45,48 +50,101 @@ class Game extends Component {
         this.ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
+        this.soundOne = new Sound(A4, error => {
+            if (error) {
+                console.log("sound failed");
+                console.log(error);
+            } else {
+                console.log("sound loaded");
+            }
+        });
+        this.soundTwo = new Sound(E3, error => {
+            if (error) {
+                console.log("sound failed");
+                console.log(error);
+            } else {
+                console.log("sound loaded");
+            }
+        });
     }
 
     componentWillMount() {
-        const { dispatch } = this.props
-
     }
 
-    stopAnimation(){
+    componentDidMount(){
+        setTimeout(() => this.springAnimation("One"), 300)
+    }
+
+    componentWillUnmount(){
         this.setState({
             stopAnimation: true
         })
     }
 
+    goBack(){
+        this.setState({
+            stopAnimation: true
+        }, () => Actions.pop())
+    }
+
+    stopAnimation(){
+        this.playSoundOne()
+        this.setState({
+            stopAnimation: true
+        })
+    }
+
+    playSoundOne(){
+        this.soundOne.play(success => {
+                console.log(success, "success play");
+                if (!success) {
+                    Alert.alert("There was an error playing this audio");
+                }
+            });
+    }
+
+    playSoundTwo() {
+        this.soundTwo.play(success => {
+            console.log(success, "success play");
+            if (!success) {
+                Alert.alert("There was an error playing this audio");
+            }
+        });
+    }
+
     springAnimation(type){
         let {springSpeed, stopAnimation, noteSpringOne, noteSpringTwo} = this.state
         console.log(stopAnimation, "stop")
-        if (type === "One") {
-          Animated.spring(noteSpringOne, {
-              toValue: 1.7,
-              friction: springSpeed,
-              tension: springSpeed
-            }).start( stopAnimation ? () => {} : () => this.springAnimation("OneShrink"));
-        } else if (type === "Two") {
-          Animated.spring(noteSpringTwo, {
-            toValue: 1.7,
-            friction: springSpeed,
-            tension: springSpeed
-          }).start(() => this.springAnimation("TwoShrink"));
-        } else if (type === "OneShrink") {
-          Animated.spring(noteSpringOne, {
-            toValue: 1,
-            friction: springSpeed,
-            tension: springSpeed
-          }).start(() => this.springAnimation("Two"));
-        } else if (type === "TwoShrink") {
-          Animated.spring(noteSpringTwo, {
-            toValue: 1,
-            friction: springSpeed,
-            tension: springSpeed
-          }).start(() => this.springAnimation("One"));
+        if (!stopAnimation){
+            if (type === "One") {
+                this.playSoundOne()
+                Animated.spring(noteSpringOne, {
+                    toValue: 1.7,
+                    friction: springSpeed,
+                    tension: springSpeed
+                }).start(() => this.springAnimation("OneShrink"));
+
+            } else if (type === "Two") {
+                this.playSoundTwo()
+                Animated.spring(noteSpringTwo, {
+                    toValue: 1.7,
+                    friction: springSpeed,
+                    tension: springSpeed
+                }).start(() => this.springAnimation("TwoShrink"));
+            } else if (type === "OneShrink") {
+                Animated.spring(noteSpringOne, {
+                    toValue: 1,
+                    friction: springSpeed,
+                    tension: springSpeed
+                }).start(() => this.springAnimation("Two"));
+            } else if (type === "TwoShrink") {
+                Animated.spring(noteSpringTwo, {
+                    toValue: 1,
+                    friction: springSpeed,
+                    tension: springSpeed
+                }).start(() => this.springAnimation("One"));
+            }
         }
-       
     }
 
     renderMusicIcon(type){
@@ -117,12 +175,10 @@ class Game extends Component {
                 
             );
         }
-        this.springAnimation("One");
         return icon
     }
 
     renderButton(item){
-        console.log(item, "shit face")
         return (
             <Animatable.View ref="view">
             <LinearGradient 
@@ -147,7 +203,7 @@ class Game extends Component {
                 <NavBar
                     title="Game"
                     leftButtonIcon="left"
-                    onLeftButtonPress={()=>Actions.pop()}
+                    onLeftButtonPress={()=>this.goBack()}
                 />
                 <View style={{display: "flex", flexDirection: "column"}}>
                     <View style={{backgroundColor:"white", height: height * 1/3, display: "flex", justifyContent:"center", alignItems: "center" }}>
