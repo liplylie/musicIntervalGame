@@ -1,31 +1,32 @@
 import React, { Component } from "react";
 import {
-    View,
-    Text,
-    TouchableOpacity,
-    FlatList,
-    Image,
-    ScrollView,
-    Platform,
-    PermissionsAndroid,
-    Dimensions,
-    ActivityIndicator,
-    Alert,
-    KeyboardAvoidingView,
-    StyleSheet,
-    Animated,
-    ListView
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  Image,
+  ScrollView,
+  Platform,
+  PermissionsAndroid,
+  Dimensions,
+  ActivityIndicator,
+  Alert,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Animated,
+  ListView
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
 import { Convert, Styles } from "../../styles";
 import propTypes from "prop-types";
-import LinearGradient from 'react-native-linear-gradient';
+import LinearGradient from "react-native-linear-gradient";
 import * as Animatable from "react-native-animatable";
 import Sound from "react-native-sound";
 
 import notes from "../../helper/noteArray";
-import { firstNum, secondNum} from "../../helper/randomNum";
+import intervals from "../../helper/intervals";
+import { firstNum, secondNum } from "../../helper/randomNum";
 
 import G3 from "../../samples/G3.mp3";
 import Ab3 from "../../samples/Ab3.mp3";
@@ -39,8 +40,8 @@ import Eb4 from "../../samples/Eb4.mp3";
 import E4 from "../../samples/E4.mp3";
 import F4 from "../../samples/F4.mp3";
 import Gb4 from "../../samples/Gb4.mp3";
-import G4 from "../../samples/G4.mp3"; 
-import Ab4 from "../../samples/Ab4.mp3"; 
+import G4 from "../../samples/G4.mp3";
+import Ab4 from "../../samples/Ab4.mp3";
 import A4 from "../../samples/A4.mp3";
 import Bb4 from "../../samples/Bb4.mp3";
 import B4 from "../../samples/B4.mp3";
@@ -53,17 +54,14 @@ import F5 from "../../samples/F5.mp3";
 import Gb5 from "../../samples/Gb5.mp3";
 import G5 from "../../samples/G5.mp3";
 
-
-
-
 import E3 from "../../samples/E3.mp3";
 
 import NavBar from "../Common/NavBar";
+import shuffle from "../../helper/shuffle";
 
 const { height, width } = Dimensions.get("window");
 
 const AnimatableListView = Animatable.createAnimatableComponent(ListView);
-
 
 class Game extends Component {
   constructor() {
@@ -74,7 +72,8 @@ class Game extends Component {
       springSpeed: 500,
       stopAnimation: false,
       noteOne: "",
-      noteTwo: ""
+      noteTwo: "",
+      buttonData: []
     };
     this.springAnimation = this.springAnimation.bind(this);
     this.stopAnimation = this.stopAnimation.bind(this);
@@ -289,10 +288,14 @@ class Game extends Component {
     let randomTwo = secondNum(12, randomOne);
     let noteOne = notes[randomOne];
     let noteTwo = notes[randomTwo];
-    this.setState({
-      noteOne,
-      noteTwo
-    });
+    console.log(notes.length, "length of notes array");
+    this.setState(
+      {
+        noteOne,
+        noteTwo
+      },
+      () => this.renderButtonData(randomTwo - randomOne)
+    );
   }
 
   componentDidMount() {
@@ -306,11 +309,11 @@ class Game extends Component {
   }
 
   goBack() {
-      this.stopSoundOne()
-      this.stopSoundTwo()
+    this.stopSoundOne();
+    this.stopSoundTwo();
     this.setState(
       {
-        stopAnimation: true,
+        stopAnimation: true
       },
       () => Actions.pop()
     );
@@ -328,7 +331,7 @@ class Game extends Component {
     console.log(noteOne, "note one play");
     this[noteOne].play(success => {
       console.log(success, "success play");
-      
+
       if (!success) {
         //Alert.alert("There was an error playing this audio");
       }
@@ -338,12 +341,11 @@ class Game extends Component {
   stopSoundOne() {
     let { noteOne } = this.state;
     console.log(noteOne, "note one play");
-    if (noteOne){
-        this[noteOne].stop(() =>
-          this.setState({ noteOne: "", stopAnimation: true })
-        );
+    if (noteOne) {
+      this[noteOne].stop(() =>
+        this.setState({ noteOne: "", stopAnimation: true })
+      );
     }
-   
   }
 
   playSoundTwo() {
@@ -360,11 +362,11 @@ class Game extends Component {
   stopSoundTwo() {
     let { noteTwo } = this.state;
     console.log(noteTwo, "note one play");
-    if (noteTwo){
-         this[noteTwo].stop(() => this.setState({ noteTwo: "", stopAnimation: true }));
+    if (noteTwo) {
+      this[noteTwo].stop(() =>
+        this.setState({ noteTwo: "", stopAnimation: true })
+      );
     }
-     
-     
   }
 
   springAnimation(type) {
@@ -375,7 +377,7 @@ class Game extends Component {
       noteSpringTwo
     } = this.state;
     console.log(stopAnimation, "stop");
-      console.log(type, "type");
+    console.log(type, "type");
     if (!stopAnimation) {
       if (type === "One") {
         this.playSoundOne();
@@ -383,37 +385,42 @@ class Game extends Component {
           toValue: 1.7,
           friction: springSpeed,
           tension: springSpeed
-        }).start(stopAnimation ? () => {} :() => this.springAnimation("OneShrink"));
+        }).start(
+          stopAnimation ? () => {} : () => this.springAnimation("OneShrink")
+        );
       } else if (type === "Two") {
         this.playSoundTwo();
         Animated.spring(noteSpringTwo, {
           toValue: 1.7,
           friction: springSpeed,
           tension: springSpeed
-        }).start(stopAnimation ? () => { } : () => this.springAnimation("TwoShrink"));
+        }).start(
+          stopAnimation ? () => {} : () => this.springAnimation("TwoShrink")
+        );
       } else if (type === "OneShrink") {
         Animated.spring(noteSpringOne, {
           toValue: 1,
           friction: springSpeed,
           tension: springSpeed
-        }).start(stopAnimation ? () => { } :() => this.springAnimation("Two"));
+        }).start(stopAnimation ? () => {} : () => this.springAnimation("Two"));
       } else if (type === "TwoShrink") {
         Animated.spring(noteSpringTwo, {
           toValue: 1,
           friction: springSpeed,
           tension: springSpeed
-        }).start(stopAnimation ? () => { } :() => this.springAnimation("One"));
+        }).start(stopAnimation ? () => {} : () => this.springAnimation("One"));
       }
     } else {
-        // this.stopSoundOne()
-        // this.stopSoundTwo()
-        return
+      // this.stopSoundOne()
+      // this.stopSoundTwo()
+      return;
     }
   }
 
   renderMusicIcon(type) {
     let icon;
     if (type === "separate") {
+      // for two seperate interals
       icon = (
         <View style={{ display: "flex", flexDirection: "row" }}>
           <Animated.Image
@@ -442,29 +449,58 @@ class Game extends Component {
     return icon;
   }
 
+  checkAnswer(guess){
+      console.log(guess, "guess")
+      let { correctAnswer } = this.state;
+      if (guess === correctAnswer.long) {
+          alert("correct")
+      } else {
+          alert("wrong")
+      }
+  }
+
   renderButton(item) {
     return (
       <Animatable.View ref="view">
-        <LinearGradient
-          style={styles.item}
-          start={{ x: 0.0, y: 0.25 }}
-          end={{ x: 0.5, y: 1.0 }}
-          colors={["#4c669f", "#3b5998", "#192f6a"]}
-        >
-          <Text style={styles.fontStyle}>{item}</Text>
-        </LinearGradient>
+        <TouchableOpacity onPress={() => this.checkAnswer(item)}>
+          <LinearGradient
+            style={styles.item}
+            start={{ x: 0.0, y: 0.25 }}
+            end={{ x: 0.5, y: 1.0 }}
+            colors={["#4c669f", "#3b5998", "#192f6a"]}
+          >
+            <Text style={styles.fontStyle}>{item}</Text>
+          </LinearGradient>
+        </TouchableOpacity>
       </Animatable.View>
     );
   }
 
+  renderButtonData(num) {
+    let { noteOne, noteTwo } = this.state;
+    let buttonData = [];
+    console.log(num, "num");
+    let interval = intervals[num];
+    buttonData.push(interval);
+    console.log(interval, "interval in render data");
+    while (buttonData.length < 4) {
+      // first num is used to generate a random number
+      let random = firstNum(12);
+      console.log(random, "rand");
+      if (random !== num) {
+        buttonData.push(intervals[random]);
+      }
+    }
+    buttonData = shuffle(buttonData);
+    this.setState({
+      buttonData,
+      correctAnswer: interval
+    });
+  }
+
   render() {
-    const data = [
-      { key: "Major 2" },
-      { key: "Minor three" },
-      { key: "Major 5" },
-      { key: "Diminished Fifth" }
-    ];
-    const dataSource = this.ds.cloneWithRows(data);
+    let { buttonData } = this.state;
+    const dataSource = this.ds.cloneWithRows(buttonData);
     return (
       <View style={{ display: "flex" }}>
         <NavBar
@@ -492,7 +528,7 @@ class Game extends Component {
           <View style={{ backgroundColor: "white", height: (height * 2) / 3 }}>
             <AnimatableListView
               dataSource={dataSource}
-              renderRow={({ key }) => this.renderButton(key)}
+              renderRow={({ long }) => this.renderButton(long)}
               animation="bounceInUp"
               duration={800}
               delay={0}
@@ -507,33 +543,34 @@ class Game extends Component {
 
 const styles = StyleSheet.create({
   container: {
-   flex: 1,
-   paddingTop: 22
+    flex: 1,
+    paddingTop: 22
   },
   item: {
     fontSize: 18,
     borderWidth: 0,
-    height: height/9,
+    height: height / 9,
     borderRadius: 40,
     backgroundColor: "#C8C8C8",
     margin: Convert(8),
-      shadowColor: '#000000',
-      shadowOffset: {
-          width: 0,
-          height: 3
-      },
-      shadowRadius: 3,
-      shadowOpacity: 1.0,
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center"
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 3,
+    shadowOpacity: 1.0,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   },
   fontStyle: {
-      textAlign: "center",
-      color: "white"
+    textAlign: "center",
+    color: "white",
+    fontSize: 20,
+    fontFamily: "Helvetica"
   }
-})
-
+});
 
 // const Game = connect(state => ({
 //     state

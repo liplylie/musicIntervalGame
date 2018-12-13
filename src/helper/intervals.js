@@ -48,8 +48,18 @@ const intervals = {
         long: "Major Seventh"
     },
     12: {
-        short: "M",
-        long: "Minor Seventh"
+        short: "P8",
+        long: "Perfect Eigth"
     },
+    13: {
+        short: "m9",
+        long: "Minor Ninth"
+    },
+    14: {
+        short: "M9",
+        long: "Major Ninth"
+    }
 
 };
+
+export default intervals;

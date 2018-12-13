@@ -34,7 +34,6 @@ class AlarmList extends Component {
     }
 
     confirmDeletePress = data => {
-        console.log(data, "fuck you")
         Alert.alert("Are you sure?", "Your chat will be deleted", [
             {
                 text: "Cancel",
