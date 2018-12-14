@@ -284,6 +284,14 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
+    this.Ab5 = new Sound("Ab5", error => {
+      if (error) {
+        console.log("sound failed");
+        console.log(error);
+      } else {
+        console.log("sound loaded");
+      }
+    });
   }
 
   componentWillMount() {}
@@ -331,10 +339,11 @@ class Game extends Component {
       // first num is used to generate a random number
       let random = firstNum(12);
       console.log(random, "rand");
-      if (random !== num) {
+      if (!buttonData.includes(intervals[random])) {
         buttonData.push(intervals[random]);
       }
     }
+    console.log(buttonData, "button data")
     buttonData = shuffle(buttonData);
     this.setState(
       {

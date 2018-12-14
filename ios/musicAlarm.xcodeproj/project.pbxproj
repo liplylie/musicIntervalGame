@@ -45,6 +45,8 @@
 		47E9D95FFBC14679947872AA /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F3F6C3538C4EE08DF99DC7 /* libRNVectorIcons.a */; };
 		48C420FE4C134B4486780089 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DBC1C561AF674613A4C60EE1 /* MaterialIcons.ttf */; };
 		65EDCFC9416D411383DEA17D /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4265DA2CE6F84ACC839F6374 /* Ionicons.ttf */; };
+		6F32290721C395E600677CE4 /* D5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F32290621C395E600677CE4 /* D5.mp3 */; };
+		6F32290921C395EA00677CE4 /* D5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F32290821C395EA00677CE4 /* D5.mp3 */; };
 		6F3FDC1F21BE29A800E7DB2D /* A4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDBE721BE29A700E7DB2D /* A4.mp3 */; };
 		6F3FDC2021BE29A800E7DB2D /* Gb4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1421BE29A700E7DB2D /* Gb4.mp3 */; };
 		6F3FDC2121BE29A800E7DB2D /* F4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1521BE29A700E7DB2D /* F4.mp3 */; };
@@ -68,7 +70,6 @@
 		6F3FDCEA21BF9B2100E7DB2D /* A5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCE921BF9B2100E7DB2D /* A5.mp3 */; };
 		6F3FDCEC21BF9B2600E7DB2D /* Ab4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCEB21BF9B2600E7DB2D /* Ab4.mp3 */; };
 		6F3FDCEE21BF9B7B00E7DB2D /* Db5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCED21BF9B7B00E7DB2D /* Db5.mp3 */; };
-		6F3FDCF021BF9BB700E7DB2D /* D5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCEF21BF9BB700E7DB2D /* D5.mp3 */; };
 		6F3FDCF221BF9C3000E7DB2D /* Eb5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCF121BF9C2F00E7DB2D /* Eb5.mp3 */; };
 		6F3FDCF421BF9C3400E7DB2D /* E5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCF321BF9C3300E7DB2D /* E5.mp3 */; };
 		6F3FDCF621BF9CBC00E7DB2D /* G5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCF521BF9CBC00E7DB2D /* G5.mp3 */; };
@@ -448,6 +449,8 @@
 		472CE79704FD49F593DBAD25 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6C96EC56E2C941CAA14F4D8C /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; };
+		6F32290621C395E600677CE4 /* D5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = D5.mp3; path = ../../../Downloads/D5.mp3; sourceTree = "<group>"; };
+		6F32290821C395EA00677CE4 /* D5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = D5.mp3; path = ../../../Downloads/D5.mp3; sourceTree = "<group>"; };
 		6F3FDBE721BE29A700E7DB2D /* A4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = A4.mp3; path = ../../../Downloads/A4.mp3; sourceTree = "<group>"; };
 		6F3FDC1421BE29A700E7DB2D /* Gb4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Gb4.mp3; path = ../../../Downloads/Gb4.mp3; sourceTree = "<group>"; };
 		6F3FDC1521BE29A700E7DB2D /* F4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = F4.mp3; path = ../../../Downloads/F4.mp3; sourceTree = "<group>"; };
@@ -471,7 +474,6 @@
 		6F3FDCE921BF9B2100E7DB2D /* A5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = A5.mp3; path = ../../../Downloads/A5.mp3; sourceTree = "<group>"; };
 		6F3FDCEB21BF9B2600E7DB2D /* Ab4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Ab4.mp3; path = ../../../Downloads/Ab4.mp3; sourceTree = "<group>"; };
 		6F3FDCED21BF9B7B00E7DB2D /* Db5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Db5.mp3; path = ../../../Downloads/Db5.mp3; sourceTree = "<group>"; };
-		6F3FDCEF21BF9BB700E7DB2D /* D5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = D5.mp3; path = ../../../Downloads/D5.mp3; sourceTree = "<group>"; };
 		6F3FDCF121BF9C2F00E7DB2D /* Eb5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Eb5.mp3; path = ../../../Downloads/Eb5.mp3; sourceTree = "<group>"; };
 		6F3FDCF321BF9C3300E7DB2D /* E5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = E5.mp3; path = ../../../Downloads/E5.mp3; sourceTree = "<group>"; };
 		6F3FDCF521BF9CBC00E7DB2D /* G5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = G5.mp3; path = ../../../Downloads/G5.mp3; sourceTree = "<group>"; };
@@ -496,7 +498,6 @@
 		6FE1F59B21C0E42E00487431 /* A4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = A4.mp3; sourceTree = "<group>"; };
 		6FE1F59C21C0E42E00487431 /* Eb3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Eb3.mp3; sourceTree = "<group>"; };
 		6FE1F59D21C0E42F00487431 /* Gb5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Gb5.mp3; sourceTree = "<group>"; };
-		6FE1F59E21C0E42F00487431 /* D5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = D5.mp3; sourceTree = "<group>"; };
 		6FE1F59F21C0E42F00487431 /* Db5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Db5.mp3; sourceTree = "<group>"; };
 		6FE1F5A021C0E42F00487431 /* B4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = B4.mp3; sourceTree = "<group>"; };
 		6FE1F5A121C0E42F00487431 /* Ab3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Ab3.mp3; sourceTree = "<group>"; };
@@ -781,6 +782,7 @@
 				6FE1F59B21C0E42E00487431 /* A4.mp3 */,
 				6FE1F5A321C0E42F00487431 /* E5.mp3 */,
 				6FE1F58E21C0E42D00487431 /* Eb5.mp3 */,
+				6F32290821C395EA00677CE4 /* D5.mp3 */,
 				6FE1F59021C0E42E00487431 /* Db4.mp3 */,
 				6FE1F59521C0E42E00487431 /* Ab5.mp3 */,
 				6FE1F5A121C0E42F00487431 /* Ab3.mp3 */,
@@ -792,7 +794,6 @@
 				6FE1F5A221C0E42F00487431 /* C5.mp3 */,
 				6FE1F59221C0E42E00487431 /* A3.mp3 */,
 				6FE1F59621C0E42E00487431 /* Eb4.mp3 */,
-				6FE1F59E21C0E42F00487431 /* D5.mp3 */,
 				6FE1F5A521C0E42F00487431 /* D4.mp3 */,
 				6FE1F59F21C0E42F00487431 /* Db5.mp3 */,
 				6FE1F59321C0E42E00487431 /* B3.mp3 */,
@@ -873,7 +874,6 @@
 				6F3FDC1C21BE29A700E7DB2D /* C5.mp3 */,
 				6F3FDCDF21BF7DA000E7DB2D /* A3.mp3 */,
 				6F3FDC1621BE29A700E7DB2D /* Eb4.mp3 */,
-				6F3FDCEF21BF9BB700E7DB2D /* D5.mp3 */,
 				6F3FDC1A21BE29A700E7DB2D /* D4.mp3 */,
 				6F3FDCED21BF9B7B00E7DB2D /* Db5.mp3 */,
 				6F3FDCDB21BF7D3600E7DB2D /* B3.mp3 */,
@@ -881,6 +881,7 @@
 				6F3FDC9921BE50F800E7DB2D /* Eb3.mp3 */,
 				6F3FDCE321BF7E4D00E7DB2D /* G3.mp3 */,
 				6F3FDCF921BF9CC500E7DB2D /* Gb5.mp3 */,
+				6F32290621C395E600677CE4 /* D5.mp3 */,
 				6F3FDC1B21BE29A700E7DB2D /* E4.mp3 */,
 				6F3FDCF721BF9CC000E7DB2D /* F5.mp3 */,
 				6F3FDCEB21BF9B2600E7DB2D /* Ab4.mp3 */,
@@ -1454,8 +1455,8 @@
 				6F3FDC2621BE29A800E7DB2D /* D4.mp3 in Resources */,
 				6F3FDC2421BE29A800E7DB2D /* Db4.mp3 in Resources */,
 				308132D871664F28B2C378CA /* Feather.ttf in Resources */,
+				6F32290921C395EA00677CE4 /* D5.mp3 in Resources */,
 				6F3FDC9C21BE50FB00E7DB2D /* E3.mp3 in Resources */,
-				6F3FDCF021BF9BB700E7DB2D /* D5.mp3 in Resources */,
 				6F3FDCEA21BF9B2100E7DB2D /* A5.mp3 in Resources */,
 				44A51A5B1E1A4A5EB70F75EF /* FontAwesome.ttf in Resources */,
 				6F3FDC2821BE29A800E7DB2D /* C5.mp3 in Resources */,
@@ -1477,6 +1478,7 @@
 				65EDCFC9416D411383DEA17D /* Ionicons.ttf in Resources */,
 				6F3FDCF821BF9CC000E7DB2D /* F5.mp3 in Resources */,
 				79E03B3A4EC04C618975CA72 /* MaterialCommunityIcons.ttf in Resources */,
+				6F32290721C395E600677CE4 /* D5.mp3 in Resources */,
 				6F3FDCDC21BF7D3600E7DB2D /* B3.mp3 in Resources */,
 				6F3FDC2321BE29A800E7DB2D /* Bb4.mp3 in Resources */,
 				48C420FE4C134B4486780089 /* MaterialIcons.ttf in Resources */,
