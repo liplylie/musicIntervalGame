@@ -69,11 +69,14 @@ class Game extends Component {
     this.state = {
       noteSpringOne: new Animated.Value(0.7),
       noteSpringTwo: new Animated.Value(0.7),
+      renderAnswer: new Animated.Value(0),
       springSpeed: 500,
       stopAnimation: false,
       noteOne: "",
       noteTwo: "",
-      buttonData: []
+      buttonData: ["", "", "", ""],
+      correct: false,
+      attempt: false
     };
     this.springAnimation = this.springAnimation.bind(this);
     this.stopAnimation = this.stopAnimation.bind(this);
@@ -283,29 +286,66 @@ class Game extends Component {
     });
   }
 
-  componentWillMount() {
-    let randomOne = firstNum(12);
-    let randomTwo = secondNum(12, randomOne);
-    let noteOne = notes[randomOne];
-    let noteTwo = notes[randomTwo];
-    console.log(notes.length, "length of notes array");
-    this.setState(
-      {
-        noteOne,
-        noteTwo
-      },
-      () => this.renderButtonData(randomTwo - randomOne)
-    );
-  }
+  componentWillMount() {}
 
   componentDidMount() {
-    setTimeout(() => this.springAnimation("One"), 400);
+    // starts the game
+    setTimeout(() => this.startNewGame(), 500);
   }
 
   componentWillUnmount() {
     this.setState({
       stopAnimation: true
     });
+  }
+
+  startNewGame(difficulty) {
+    let { noteOne, noteTwo } = this.state;
+    if (noteOne || noteTwo) {
+      this[noteOne].stop();
+      this[noteTwo].stop();
+    }
+    let randomOne = firstNum(12);
+    let randomTwo = secondNum(12, randomOne);
+    let firstNote = notes[randomOne];
+    let secondNote = notes[randomTwo];
+    console.log(notes.length, "length of notes array");
+    this.setState(
+      {
+        noteOne: firstNote,
+        noteTwo: secondNote,
+        stopAnimation: true
+      },
+      () => this.renderButtonData(randomTwo - randomOne)
+    );
+  }
+
+  renderButtonData(num) {
+    let { noteOne, noteTwo } = this.state;
+    let buttonData = [];
+    console.log(num, "num");
+    let interval = intervals[num];
+    buttonData.push(interval);
+    console.log(interval, "interval in render data");
+    while (buttonData.length < 4) {
+      // first num is used to generate a random number
+      let random = firstNum(12);
+      console.log(random, "rand");
+      if (random !== num) {
+        buttonData.push(intervals[random]);
+      }
+    }
+    buttonData = shuffle(buttonData);
+    this.setState(
+      {
+        buttonData,
+        correctAnswer: interval,
+        stopAnimation: false,
+        correct: false,
+        attempt: false
+      },
+      () => this.springAnimation("One")
+    );
   }
 
   goBack() {
@@ -411,8 +451,16 @@ class Game extends Component {
         }).start(stopAnimation ? () => {} : () => this.springAnimation("One"));
       }
     } else {
-      // this.stopSoundOne()
-      // this.stopSoundTwo()
+      Animated.spring(noteSpringOne, {
+        toValue: 1,
+        friction: springSpeed,
+        tension: springSpeed
+      }).start();
+      Animated.spring(noteSpringTwo, {
+        toValue: 1,
+        friction: springSpeed,
+        tension: springSpeed
+      }).start();
       return;
     }
   }
@@ -449,14 +497,95 @@ class Game extends Component {
     return icon;
   }
 
-  checkAnswer(guess){
-      console.log(guess, "guess")
-      let { correctAnswer } = this.state;
-      if (guess === correctAnswer.long) {
-          alert("correct")
-      } else {
-          alert("wrong")
+
+  answerAnimation(){
+    let { renderAnswer, springSpeed } = this.state
+    // Animated.spring(renderAnswer, {
+    //   toValue: 1.7,
+    //   friction: springSpeed,
+    //   tension: springSpeed
+    // }).start();
+    // Animated.spring(renderAnswer, {
+    //   toValue: 1,
+    //   friction: springSpeed,
+    //   tension: springSpeed
+    // }).start();
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(renderAnswer, {
+          toValue: 1,
+          duration: 0,
+        }),
+        Animated.timing(renderAnswer, {
+          toValue: 0,
+          duration: 500
+        })
+      ]),
+      {
+        iterations: 1
       }
+    ).start()
+  }
+
+  renderAnswer(val) {
+    this.answerAnimation();
+    if (val) {
+      
+      return (
+        <View>
+          <Animated.Image
+            source={require("../../../assets/images/greenCheck.png")}
+            style={{
+              height: Convert(40),
+              width: Convert(50),
+              //top: Convert(1)/2,
+              resizeMode: "contain",
+              transform: [{ scale: this.state.renderAnswer }]
+            }}
+          />
+        </View>
+      )
+    } else {
+      return (
+        <View>
+          <Animated.Image
+            source={require("../../../assets/images/redX.png")}
+            style={{
+              height: Convert(40),
+              width: Convert(50),
+              //top: Convert(1)/2,
+              resizeMode: "contain",
+              transform: [{ scale: this.state.renderAnswer }]
+            }}
+          />
+        </View>
+      )
+    }
+  }
+
+  checkAnswer(guess) {
+    console.log(guess, "guess");
+    let { correctAnswer } = this.state;
+    if (guess === correctAnswer.long) {
+      // alert("correct")
+      this.setState(
+        {
+          stopAnimation: true,
+          correct: true,
+          attempt: true
+        },
+        () => setTimeout(() => this.startNewGame("easy"), 500)
+      );
+    } else {
+      this.setState(
+        {
+          stopAnimation: true,
+          correct: false,
+          attempt: true
+        },
+        () => setTimeout(() => this.startNewGame("easy"), 500)
+      );
+    }
   }
 
   renderButton(item) {
@@ -476,30 +605,8 @@ class Game extends Component {
     );
   }
 
-  renderButtonData(num) {
-    let { noteOne, noteTwo } = this.state;
-    let buttonData = [];
-    console.log(num, "num");
-    let interval = intervals[num];
-    buttonData.push(interval);
-    console.log(interval, "interval in render data");
-    while (buttonData.length < 4) {
-      // first num is used to generate a random number
-      let random = firstNum(12);
-      console.log(random, "rand");
-      if (random !== num) {
-        buttonData.push(intervals[random]);
-      }
-    }
-    buttonData = shuffle(buttonData);
-    this.setState({
-      buttonData,
-      correctAnswer: interval
-    });
-  }
-
   render() {
-    let { buttonData } = this.state;
+    let { buttonData, correct, attempt } = this.state;
     const dataSource = this.ds.cloneWithRows(buttonData);
     return (
       <View style={{ display: "flex" }}>
@@ -518,10 +625,15 @@ class Game extends Component {
               alignItems: "center"
             }}
           >
-            <View>
-              <TouchableOpacity onPress={() => this.stopAnimation()}>
-                <Text>Stop</Text>
-              </TouchableOpacity>
+            <View style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }} >
+              {attempt ? this.renderAnswer(correct): null}
+              {/* <TouchableOpacity onPress={() => this.stopAnimation()}>
+                <Text style={[styles.fontStyle, {color: "black"}]}>Stop</Text>
+              </TouchableOpacity> */}
               {this.renderMusicIcon("separate")}
             </View>
           </View>
