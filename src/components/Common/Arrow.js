@@ -1,24 +1,10 @@
 "use strict";
 
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { View } from "react-native";
 import { Convert } from "../../styles";
 
 class Arrow extends Component {
-    static propTypes = {
-        height: PropTypes.number,
-        direction: PropTypes.string,
-        color: PropTypes.string,
-        style: PropTypes.object
-    };
-
-    static defaultProps = {
-        height: Convert(16.7),
-        direction: "left",
-        color: "black",
-        style: {}
-    };
 
     constructor(props) {
         super(props);

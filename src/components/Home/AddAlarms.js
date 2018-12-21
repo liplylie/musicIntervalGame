@@ -16,7 +16,6 @@ import {
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
 import { Convert, Styles } from "../../styles";
-import propTypes from "prop-types";
 
 import NavBar from "../Common/NavBar";
 

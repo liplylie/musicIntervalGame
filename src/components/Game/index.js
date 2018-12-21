@@ -19,7 +19,6 @@ import {
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
 import { Convert, Styles } from "../../styles";
-import propTypes from "prop-types";
 import LinearGradient from "react-native-linear-gradient";
 import * as Animatable from "react-native-animatable";
 import Sound from "react-native-sound";

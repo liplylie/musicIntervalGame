@@ -11,12 +11,12 @@ import {
     Dimensions,
     ActivityIndicator,
     Alert,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    PushNotificationIOS
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
 import { Convert, Styles } from "../../styles";
-import propTypes from "prop-types";
 
 import AlarmList from "./AlarmList";
 import  NavBar  from "../Common/NavBar";
@@ -29,10 +29,13 @@ class Home extends Component {
         super()
         this.handleMusicSymbolPress = this.handleMusicSymbolPress.bind(this);
         this.handleAddAlarm = this.handleAddAlarm.bind(this);
+       
     }
 
     componentWillMount() {
         const { dispatch } = this.props
+        
+       
 
     }
 

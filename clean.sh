@@ -1,4 +1,8 @@
 rm -rf node_modules
+npm cache clean --force
+npm dedupe
+yarn cache clean
+echo "\nclean cache... DONE"
 rm -rf $TMPDIR/react-*
 echo "\nRemoving node_modules... DONE"
 rm -rf ~/Library/Developer/Xcode/DerivedData

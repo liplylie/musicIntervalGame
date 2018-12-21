@@ -1,31 +1,12 @@
 "use strict";
 
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { Text, StyleSheet } from "react-native";
 
 import _ from "lodash";
 import { Styles, Convert, Colors } from "../../styles";
 
 class SuperText extends Component {
-    static propTypes = {
-        style: PropTypes.any, // things inside `style` overrides any of the prop settings listed below:
-        type: PropTypes.string, // regular | bold | light
-        color: PropTypes.string,
-        fontSize: PropTypes.number,
-        autoHeight: PropTypes.bool,
-        numberOfLines: PropTypes.number
-    };
-
-    static defaultProps = {
-        style: {},
-        type: "regular",
-        color: "black",
-        fontSize: 12,
-        autoHeight: true,
-        numberOfLines: 0,
-        textAlign: "left"
-    };
 
     render() {
         const {

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import {
     Platform,
     View,
@@ -16,46 +15,12 @@ import Button from "./Button";
 import SuperText from "./SuperText";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
+import propTypes from "prop-types";
 const Height = Dimensions.get('window').height;
 const Width = Dimensions.get('window').width;
 
 export default class NavBar extends Component {
-    static propTypes = {
-        title: PropTypes.string.isRequired,
-        leftButtonTitle: PropTypes.string,
-        rightButtonTitle: PropTypes.string,
-        leftButtonIcon: PropTypes.string, // left | right | menu | board | edit | invite | none
-        rightButtonIcon: PropTypes.string, // left | right | menu | board | edit | invite | none | close | search | list
-        rightIconColor: PropTypes.string,
-        leftButtonStyle: PropTypes.any,
-        leftButtonTextStyle: PropTypes.any,
-        leftArrowColor: PropTypes.string,
-        rightButtonTextStyle: PropTypes.any,
-        onLeftButtonPress: PropTypes.func,
-        onRightButtonPress: PropTypes.func,
-        showDivider: PropTypes.bool,
-        backgroundColor: PropTypes.string,
-        top: PropTypes.number,
-        setToTop: PropTypes.bool
-    };
-
-    static defaultProps = {
-        title: "",
-        leftButtonTitle: "",
-        rightButtonTitle: "",
-        leftButtonIcon: "none",
-        rightButtonIcon: "none",
-        rightIconColor: "black",
-        onLeftButtonPress: () => { },
-        onRightButtonPress: () => { },
-        leftButtonTextStyle: {},
-        rightButtonTextStyle: {},
-        showDivider: true,
-        backgroundColor: "white",
-        top: 0,
-        setToTop: false
-    };
+   
 
     constructor(props) {
         super(props);

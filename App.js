@@ -1,62 +1,113 @@
-import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, PushNotificationIOS, AppState } from 'react-native';
-import {  persistor } from "./src/store.js";
-import store from "./src/store.js"
+import React, { Component } from "react";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  PushNotificationIOS,
+  AppState
+} from "react-native";
+import { persistor } from "./src/store.js";
+import store from "./src/store.js";
 import { Provider } from "react-redux";
 import Home from "./src/components/Home/Home";
 import AddAlarms from "./src/components/Home/AddAlarms";
 import Game from "./src/components/Game";
 import { PersistGate } from "redux-persist/integration/react";
 import { ActionConst, Actions, Router, Scene } from "react-native-router-flux";
+import PushNotification from "react-native-push-notification";
 
 
 
 export default class App extends Component {
+  componentWillMount() {
+    PushNotification.configure({
+      // (required) Called when a remote or local notification is opened or received
+      onNotification: function (notification) {
+        console.log("ROOT NOTIFICATION:", notification);
+        const clicked = notification.userInteraction;
+        if (clicked) {
+          Actions.Game()
+        }
+        PushNotification.cancelAllLocalNotifications();
+        // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
+        notification.finish(PushNotificationIOS.FetchResult.NoData);
+      },
+      onRegister(token) {
+        console.log(token, "token itch")
+      },
+      permissions: {
+        alert: true,
+        badge: true,
+        sound: true
+      },
+
+      popInitialNotification: true,
+      requestPermissions: true
+    });
+        // PushNotificationIOS.addEventListener('notification', function (notification) {
+        //     console.log(notification, "fuck")
+        // })
+   
+  }
   componentDidMount() {
-    PushNotificationIOS.requestPermissions()
-      .then(perms => console.log(`PERMS`, perms))
-      .catch(err => console.log(`ERROR REQUESTING PERMISSIONS`, err));
+    // PushNotificationIOS.requestPermissions()
+    //   .then(perms => console.log(`PERMS`, perms))
+    //   .catch(err => console.log(`ERROR REQUESTING PERMISSIONS`, err));
+   
     AppState.addEventListener("change", this._handleAppStateChange);
   }
 
-  _handleAppStateChange(appState) {
-    console.log(appState, "app state")
+   _handleAppStateChange(appState) {
+    console.log(appState, "app state");
+    
     if (appState === "background" || appState === "inactive") {
       let details = { alertBody: "test" };
-      console.log(details, "details");
-      console.log(PushNotificationIOS, "ios");
       // PushNotificationIOS.scheduleLocalNotification(details)
-      PushNotificationIOS.presentLocalNotification(details);
+      // PushNotification.presentLocalNotification(details);
+     // PushNotification.cancelAllLocalNotifications()
+      PushNotification.localNotificationSchedule({
+        message: "poop",
+        date: new Date(Date.now() + 10),
+        soundName: "Eb4.mp3",
+        repeatType: "minute"
+        //repeatTime: new Date(Date.now() + 100)
+      });
+    } else {
+      // PushNotification.popInitialNotification(notification => {
+      //   console.log(notification, "notification")
+      // })
+      
+     
     }
-
-
   }
+
   render() {
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-        <Router>
-          <Scene key={"ROOT_SCENE"} panHandlers={null} passProps>
-            <Scene
-              key={"Home"}
-              component={Home}
-              hideNavBar
-              type={ActionConst.RESET}
-            />
-            <Scene
-              key={"Game"}
-              component={Game}
-              hideNavBar
-              type={ActionConst.PUSH}
-            />
-            <Scene
-              key={"AddAlarms"}
-              component={AddAlarms}
-              hideNavBar
-              type={ActionConst.PUSH}
-            />
-          </Scene>
-        </Router>
+          <Router>
+            <Scene key={"ROOT_SCENE"} panHandlers={null} passProps>
+              <Scene
+                key={"Home"}
+                component={Home}
+                hideNavBar
+                type={ActionConst.RESET}
+              />
+              <Scene
+                key={"Game"}
+                component={Game}
+                hideNavBar
+                type={ActionConst.PUSH}
+              />
+              <Scene
+                key={"AddAlarms"}
+                component={AddAlarms}
+                hideNavBar
+                type={ActionConst.PUSH}
+              />
+            </Scene>
+          </Router>
         </PersistGate>
       </Provider>
     );
@@ -66,18 +117,18 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF"
   },
   welcome: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    textAlign: "center",
+    margin: 10
   },
   instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    textAlign: "center",
+    color: "#333333",
+    marginBottom: 5
+  }
 });
