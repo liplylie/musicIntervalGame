@@ -49,7 +49,7 @@ const intervals = {
     },
     12: {
         short: "P8",
-        long: "Perfect Eigth"
+        long: "Perfect Eighth"
     },
     13: {
         short: "m9",

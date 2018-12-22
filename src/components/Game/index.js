@@ -283,7 +283,15 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Ab5 = new Sound("Ab5", error => {
+    this.Ab5 = new Sound("Ab5.mp3", error => {
+      if (error) {
+        console.log("sound failed");
+        console.log(error);
+      } else {
+        console.log("sound loaded");
+      }
+    });
+    this.A5 = new Sound("A5.mp3", error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -312,8 +320,8 @@ class Game extends Component {
       this[noteOne].stop();
       this[noteTwo].stop();
     }
-    let randomOne = firstNum(12);
-    let randomTwo = secondNum(12, randomOne);
+    let randomOne = firstNum(13);
+    let randomTwo = secondNum(13, randomOne);
     let firstNote = notes[randomOne];
     let secondNote = notes[randomTwo];
     console.log(notes.length, "length of notes array");
@@ -336,7 +344,7 @@ class Game extends Component {
     console.log(interval, "interval in render data");
     while (buttonData.length < 4) {
       // first num is used to generate a random number
-      let random = firstNum(12);
+      let random = firstNum(13);
       console.log(random, "rand");
       if (!buttonData.includes(intervals[random])) {
         buttonData.push(intervals[random]);

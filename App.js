@@ -45,9 +45,6 @@ export default class App extends Component {
       popInitialNotification: true,
       requestPermissions: true
     });
-        // PushNotificationIOS.addEventListener('notification', function (notification) {
-        //     console.log(notification, "fuck")
-        // })
    
   }
   componentDidMount() {
@@ -67,7 +64,7 @@ export default class App extends Component {
       // PushNotification.presentLocalNotification(details);
      // PushNotification.cancelAllLocalNotifications()
       PushNotification.localNotificationSchedule({
-        message: "poop",
+        message: "test",
         date: new Date(Date.now() + 10),
         soundName: "Eb4.mp3",
         repeatType: "minute"
