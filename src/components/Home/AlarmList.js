@@ -35,7 +35,7 @@ class AlarmList extends Component {
         this.renderAlarms = this.renderAlarms.bind(this);
     }
 
-    confirmDeletePress = data => {
+    confirmDeletePress = (data, rowRef) => {
         Alert.alert("Are you sure?", "Your alarm will be deleted", [
             {
                 text: "Cancel",
@@ -43,7 +43,7 @@ class AlarmList extends Component {
             },
             {
                 text: "Yes",
-                onPress: () => this.handleDeletePress(data)
+                onPress: () => this.handleDeletePress(data, rowRef)
             }
         ]);
     };
@@ -51,13 +51,11 @@ class AlarmList extends Component {
     handleAlarmActivation(value, alarm){
         console.log(alarm, "alarm", value, "value")
         let { dispatch } = this.props;
-        if (value){
-           dispatch({type: "editAlarm", payload: { id: alarm.id}})
-        }
+           dispatch({type: "editAlarm", payload: { id: alarm.id, active: value}})
     }
 
     renderAlarms(data){
-        console.log(data, "bitch")
+        console.log(data, "alarm data")
         var radio_props = [
             { label: 'On', value: 1 },
             { label: 'Off', value: 0 }
@@ -68,14 +66,14 @@ class AlarmList extends Component {
         return (
             <View style={{height: Convert(100), display: "flex", flexDirection: "column", justifyContent: "space-around", borderStyle: "solid", borderColor: "black", borderWidth: 1, backgroundColor: "white"}}>
                 <View style={{display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "center"}}>
-                    <Text style={{fontSize: 40}}>{data.time}{data.meridiem}</Text>
+                    <Text style={{fontSize: 40}}>{data.time}</Text>
                     <RadioForm
                         radio_props={radio_props}
                         labelColor={'gray'}
                         onPress={value => this.handleAlarmActivation(value, data)}
                         formHorizontal={true}
                         animation={true}
-                        initial={data.active ? 1: 0}
+                        initial={data.active ? 0 : 1 }
                         radioStyle={{ paddingRight: Convert(13) }}
                         style={{marginLeft: Convert(100)}}
                     />
@@ -88,8 +86,11 @@ class AlarmList extends Component {
         )
     }
 
-    handleDeletePress(data) {
+    handleDeletePress(data, rowRef) {
         // delete data
+        let { dispatch } = this.props;
+        dispatch({type: "deleteAlarm", payload: data})
+        rowRef.manuallySwipeRow(0);
     }
 
     render(){
@@ -116,11 +117,11 @@ class AlarmList extends Component {
                     >
                         <TouchableOpacity
                             onPress={() =>
-                                this.confirmDeletePress(data)
+                                this.confirmDeletePress(data, rowMap[`${secId}${rowId}`])
                             }
                         >
                             <Image
-                                style={{ height: Convert(40), width: Convert(40) }}
+                                style={{ height: Convert(50), width: Convert(50) }}
                                 source={require("../../../assets/images/trash.png")}
                             />
                         </TouchableOpacity>

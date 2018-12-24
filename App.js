@@ -33,9 +33,6 @@ export default class App extends Component {
         // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
         notification.finish(PushNotificationIOS.FetchResult.NoData);
       },
-      onRegister(token) {
-        console.log(token, "token itch")
-      },
       permissions: {
         alert: true,
         badge: true,
@@ -67,7 +64,8 @@ export default class App extends Component {
         message: "test",
         date: new Date(Date.now() + 10),
         soundName: "Eb4.mp3",
-        repeatType: "minute"
+        repeatType: "minute",
+        id: 0
         //repeatTime: new Date(Date.now() + 100)
       });
     } else {

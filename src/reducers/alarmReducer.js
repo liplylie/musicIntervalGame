@@ -11,10 +11,20 @@ const alarm = (state = initialState, action) => {
           return {
               ...state, alarms: state.alarms.map(alarm => {
                   if (alarm.id === action.payload.id) {
-                      alarm.activate = !alarm.activate;
+                      console.log(action.payload, "titty")
+                      alarm.active = action.payload.active;
                   }
                   return alarm;
               }) };
+      }
+      case "deleteAlarm": {
+          return {
+              ...state, alarms: state.alarms.filter(alarm => {
+                  if (alarm.id !== action.payload.id) {
+                      return alarm;
+                  }
+              })
+          };
       }
     default: {
       return state;

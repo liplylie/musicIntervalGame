@@ -18,17 +18,26 @@ import { connect } from "react-redux";
 import { Convert, Styles } from "../../styles";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
+import uuid from "../../helper/uuid";
+import Alarm from "../../helper/Alarm"
 
 import NavBar from "../Common/NavBar";
 
 const { height, width } = Dimensions.get("window");
 
 class AddAlarm extends Component {
-  state = {
-    isDateTimePickerVisible: false,
-    time: "0:00",
-    date: ""
-  };
+    constructor(){
+        super()
+        this.state = {
+            isDateTimePickerVisible: false,
+            time: "",
+            date: ""
+        };
+        this._handleDatePicked = this._handleDatePicked.bind(this);
+        this._addAlarm = this._addAlarm.bind(this);
+    }
+
+ 
   componentWillMount() {
     const { dispatch } = this.props;
     // dispatch({ type: "addAlarm", payload: alarm })
@@ -47,6 +56,19 @@ class AddAlarm extends Component {
       date
     });
   };
+
+  _addAlarm(){
+      let { dispatch } = this.props;
+      let { time, date } = this.state;
+      if (!time ){
+          alert("Please enter a time for the alarm")
+      } else {
+          let id = uuid();
+          dispatch({ type: "addAlarm", payload: new Alarm(id, 1, time, date) })
+          Actions.pop()
+      }
+
+  }
 
   render() {
     let { time, meridian } = this.state;
@@ -75,7 +97,7 @@ class AddAlarm extends Component {
             }}
           >
             <View>
-              <Text style={{ fontSize: Convert(40) }}>{time}</Text>
+              <Text style={{ fontSize: Convert(40) }}>{time || "0:00"}</Text>
             </View>
             <View>
               <TouchableOpacity onPress={this._showDateTimePicker}>
@@ -105,7 +127,9 @@ class AddAlarm extends Component {
             <Text>data</Text>
           </View>
           <View style={{ flexGrow: 1 }}>
-            <Text>Save</Text>
+            <TouchableOpacity onPress={this._addAlarm}>
+                <Text>Save</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -113,8 +137,5 @@ class AddAlarm extends Component {
   }
 }
 
-// const AddAlarm = connect(state => ({
-//     state
-// }))(UnconnectedAddAlarm);
-export { AddAlarm };
-export default AddAlarm;
+const mapStateToProps = state => ({alarm: state.alarm})
+export default connect(mapStateToProps)(AddAlarm);
