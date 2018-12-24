@@ -3,6 +3,6 @@ export default class Alarm {
         this.id = id;
         this.active = active;
         this.time = time;
-        this.data = date;
+        this.date = date;
     }
 }

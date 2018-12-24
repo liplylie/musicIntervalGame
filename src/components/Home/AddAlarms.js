@@ -19,7 +19,8 @@ import { Convert, Styles } from "../../styles";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
 import uuid from "../../helper/uuid";
-import Alarm from "../../helper/Alarm"
+import Alarm from "../../helper/Alarm";
+import PushNotification from "react-native-push-notification"
 
 import NavBar from "../Common/NavBar";
 
@@ -30,8 +31,9 @@ class AddAlarm extends Component {
         super()
         this.state = {
             isDateTimePickerVisible: false,
-            time: "",
-            date: ""
+            time: moment().format("hh:mm A"),
+            date: moment().format(), 
+            message: ""
         };
         this._handleDatePicked = this._handleDatePicked.bind(this);
         this._addAlarm = this._addAlarm.bind(this);
@@ -59,13 +61,34 @@ class AddAlarm extends Component {
 
   _addAlarm(){
       let { dispatch } = this.props;
-      let { time, date } = this.state;
+      let { time, date, message } = this.state;
       if (!time ){
           alert("Please enter a time for the alarm")
       } else {
           let id = uuid();
-          dispatch({ type: "addAlarm", payload: new Alarm(id, 1, time, date) })
+          let alarm = new Alarm(id, 1, time, date)
+          dispatch({ type: "addAlarm", payload: alarm })
+          if (Platform.OS === "android") {
+              PushNotification.localNotificationSchedule({
+                  message: message || "test alarm",
+                  date: new Date(date),
+                  soundName: "Eb4.mp3",
+                  repeatType: "minute",
+                  userInfo: { id: id }
+                  //repeatTime: new Date(Date.now() + 100)
+              });
+          } else {
+              PushNotification.localNotificationSchedule({
+                  message: message || "test alarm",
+                  date: new Date(date),
+                  soundName: "Eb4.mp3",
+                  repeatType: "minute",
+                  id: id
+                  //repeatTime: new Date(Date.now() + 100)
+              });
+          }
           Actions.pop()
+         
       }
 
   }
@@ -97,11 +120,11 @@ class AddAlarm extends Component {
             }}
           >
             <View>
-              <Text style={{ fontSize: Convert(40) }}>{time || "0:00"}</Text>
+              <Text style={{ fontSize: Convert(40) }}>{time }</Text>
             </View>
             <View>
               <TouchableOpacity onPress={this._showDateTimePicker}>
-                <Text>edit</Text>
+                <Text>Edit</Text>
               </TouchableOpacity>
               <DateTimePicker
                 isVisible={this.state.isDateTimePickerVisible}

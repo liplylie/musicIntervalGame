@@ -3,15 +3,9 @@ import {
   View,
   Text,
   TouchableOpacity,
-  FlatList,
-  Image,
-  ScrollView,
+  PushNotificationIOS,
   Platform,
-  PermissionsAndroid,
   Dimensions,
-  ActivityIndicator,
-  Alert,
-  KeyboardAvoidingView,
   StyleSheet,
   Animated,
   ListView
@@ -373,6 +367,19 @@ class Game extends Component {
       },
       () => Actions.pop()
     );
+  }
+
+  endGame(){
+    if (Platform.OS === "ios"){
+      PushNotificationIOS.getScheduledLocalNotifications(notification => {
+        console.log(notification, "local notification schedule")
+        notification.forEach(({ userInfo }) => {
+          PushNotification.cancelLocalNotifications(userInfo.id)
+        })
+      });
+    }
+   
+
   }
 
   stopAnimation() {

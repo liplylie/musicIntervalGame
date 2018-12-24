@@ -68,5 +68,4 @@ class Home extends Component {
 // const Home = connect(state => ({
 //     state
 // }))(UnconnectedHome);
-export { Home };
 export default Home;

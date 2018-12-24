@@ -16,19 +16,28 @@ import Game from "./src/components/Game";
 import { PersistGate } from "redux-persist/integration/react";
 import { ActionConst, Actions, Router, Scene } from "react-native-router-flux";
 import PushNotification from "react-native-push-notification";
+import moment from "moment"
 
 
 
 export default class App extends Component {
   componentWillMount() {
+  
+
+   
     PushNotification.configure({
       // (required) Called when a remote or local notification is opened or received
       onNotification: function (notification) {
         console.log("ROOT NOTIFICATION:", notification);
-        const clicked = notification.userInteraction;
-        if (clicked) {
+        let { userInteraction, foreground, message} = notification;
+        const clicked = userInteraction;
+        if (clicked){
+          Actions.Game()
+        } else if (foreground && !clicked){
           Actions.Game()
         }
+       // Actions.Game()
+         
         PushNotification.cancelAllLocalNotifications();
         // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
         notification.finish(PushNotificationIOS.FetchResult.NoData);
@@ -48,7 +57,6 @@ export default class App extends Component {
     // PushNotificationIOS.requestPermissions()
     //   .then(perms => console.log(`PERMS`, perms))
     //   .catch(err => console.log(`ERROR REQUESTING PERMISSIONS`, err));
-   
     AppState.addEventListener("change", this._handleAppStateChange);
   }
 
@@ -56,18 +64,71 @@ export default class App extends Component {
     console.log(appState, "app state");
     
     if (appState === "background" || appState === "inactive") {
-      let details = { alertBody: "test" };
+      let state = store.getState()
+      let { alarms } = state.alarm;
+      console.log(alarms, "fuck you")
+      PushNotification.cancelAllLocalNotifications()
+      alarms.map(a => {
+       
+        if (moment(a.date).isAfter(moment.now())) {
+          // if the alarms are after the current time, schedule them
+          if (a.active) {
+            if (Platform.OS === "android") {
+              PushNotification.localNotificationSchedule({
+                message: a.message || "test alarm",
+                date: new Date(a.date),
+                soundName: "Eb4.mp3",
+                repeatType: "minute",
+                id: a.id
+                //repeatType: "time"
+                //repeatTime: new Date(Date.now() + 100)
+              });
+            } else {
+              PushNotification.localNotificationSchedule({
+                message: a.message || "test alarm",
+                date: new Date(a.date),
+                soundName: "Eb4.mp3",
+                userInfo: { id: a.id }
+                // repeatType: "minute",
+                //repeatTime: new Date(Date.now() + 100)
+              });
+            }
+          }
+        } else {
+          // set the alarms to the next day
+          let diff = moment().diff(moment(a.date), "days")
+          console.log(diff, "shit")
+          a.date = moment(a.date).add(diff + 1, "days").format();
+          if (a.active) {
+            if (Platform.OS === "android") {
+              PushNotification.localNotificationSchedule({
+                message: a.message || "test alarm",
+                date: new Date(a.date),
+                soundName: "Eb4.mp3",
+                repeatType: "minute",
+                id: a.id
+                //repeatType: "time"
+                //repeatTime: new Date(Date.now() + 100)
+              });
+            } else {
+              PushNotification.localNotificationSchedule({
+                message: a.message || "test alarm",
+                date: new Date(a.date),
+                soundName: "Eb4.mp3",
+                userInfo: { id: a.id }
+                // repeatType: "minute",
+                //repeatTime: new Date(Date.now() + 100)
+              });
+            }
+          }
+
+        }
+        
+      })
       // PushNotificationIOS.scheduleLocalNotification(details)
       // PushNotification.presentLocalNotification(details);
-     // PushNotification.cancelAllLocalNotifications()
-      PushNotification.localNotificationSchedule({
-        message: "test",
-        date: new Date(Date.now() + 10),
-        soundName: "Eb4.mp3",
-        repeatType: "minute",
-        id: 0
-        //repeatTime: new Date(Date.now() + 100)
-      });
+     
+     
     } else {
       // PushNotification.popInitialNotification(notification => {
       //   console.log(notification, "notification")
