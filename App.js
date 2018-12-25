@@ -22,6 +22,8 @@ import moment from "moment"
 
 export default class App extends Component {
   componentWillMount() {
+    
+   
   
 
    
@@ -29,16 +31,21 @@ export default class App extends Component {
       // (required) Called when a remote or local notification is opened or received
       onNotification: function (notification) {
         console.log("ROOT NOTIFICATION:", notification);
-        let { userInteraction, foreground, message} = notification;
+        let currentScene = Actions.currentScene;
+        console.log(currentScene, "current Scene")
+        let { userInteraction, foreground, message, data} = notification;
         const clicked = userInteraction;
-        if (clicked){
-          Actions.Game()
-        } else if (foreground && !clicked){
-          Actions.Game()
+        if (currentScene === "Home") {
+          if (clicked) {
+            Actions.Game(data.id)
+          } else if (foreground && !clicked) {
+            Actions.Game(data.id)
+          }
         }
+        
        // Actions.Game()
          
-        PushNotification.cancelAllLocalNotifications();
+        // PushNotification.cancelAllLocalNotifications();
         // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
         notification.finish(PushNotificationIOS.FetchResult.NoData);
       },
@@ -48,15 +55,17 @@ export default class App extends Component {
         sound: true
       },
 
-      popInitialNotification: true,
+      popInitialNotification: false,
       requestPermissions: true
     });
    
   }
   componentDidMount() {
+    
     // PushNotificationIOS.requestPermissions()
     //   .then(perms => console.log(`PERMS`, perms))
     //   .catch(err => console.log(`ERROR REQUESTING PERMISSIONS`, err));
+    console.log(this.props, "app props")
     AppState.addEventListener("change", this._handleAppStateChange);
   }
 
@@ -78,17 +87,19 @@ export default class App extends Component {
                 message: a.message || "test alarm",
                 date: new Date(a.date),
                 soundName: "Eb4.mp3",
+                // repeatType: "minute",
+                id: a.id,
                 repeatType: "minute",
-                id: a.id
-                //repeatType: "time"
-                //repeatTime: new Date(Date.now() + 100)
+                repeatTime: new Date(Date.now() + (1000 * 60 * 10))
               });
             } else {
               PushNotification.localNotificationSchedule({
                 message: a.message || "test alarm",
                 date: new Date(a.date),
                 soundName: "Eb4.mp3",
-                userInfo: { id: a.id }
+                userInfo: { id: a.id },
+                repeatType: "minute",
+                repeatTime: new Date(Date.now() + (1000 * 60 * 10))
                 // repeatType: "minute",
                 //repeatTime: new Date(Date.now() + 100)
               });
@@ -97,8 +108,10 @@ export default class App extends Component {
         } else {
           // set the alarms to the next day
           let diff = moment().diff(moment(a.date), "days")
-          console.log(diff, "shit")
+          console.log(a.date, "before");
+          console.log(diff, "diff")
           a.date = moment(a.date).add(diff + 1, "days").format();
+          console.log(a.date, "after")
           if (a.active) {
             if (Platform.OS === "android") {
               PushNotification.localNotificationSchedule({
@@ -106,7 +119,7 @@ export default class App extends Component {
                 date: new Date(a.date),
                 soundName: "Eb4.mp3",
                 repeatType: "minute",
-                id: a.id
+                id: a.id,
                 //repeatType: "time"
                 //repeatTime: new Date(Date.now() + 100)
               });
@@ -115,8 +128,8 @@ export default class App extends Component {
                 message: a.message || "test alarm",
                 date: new Date(a.date),
                 soundName: "Eb4.mp3",
-                userInfo: { id: a.id }
-                // repeatType: "minute",
+                userInfo: { id: a.id },
+                repeatType: "minute",
                 //repeatTime: new Date(Date.now() + 100)
               });
             }

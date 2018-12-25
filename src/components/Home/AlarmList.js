@@ -4,22 +4,19 @@ import {
     TouchableWithoutFeedback,
     Alert,
     Text,
-    Keyboard,
-    Animated,
     Dimensions,
-    Easing,
     Image,
-    StatusBar,
     View,
-    StyleSheet,
     TouchableOpacity,
     ListView,
-    ScrollView,
-    ActivityIndicator
+    Platform,
+    PushNotificationIOS
 } from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { Actions, ActionConst } from "react-native-router-flux";
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+import PushNotification from "react-native-push-notification";
+import moment from "moment"
 
 import { connect } from "react-redux";
 import { Colors, Convert, Styles } from "../../styles";
@@ -51,7 +48,47 @@ class AlarmList extends Component {
     handleAlarmActivation(value, alarm){
         console.log(alarm, "alarm", value, "value")
         let { dispatch } = this.props;
-           dispatch({type: "editAlarm", payload: { id: alarm.id, active: value}})
+        dispatch({type: "editAlarm", payload: { id: alarm.id, active: value}})
+        if (value === 0 ) {
+            if (Platform.OS === "ios") {
+                PushNotificationIOS.getScheduledLocalNotifications(notification => {
+                    console.log(notification, "local notification schedule in end game")
+                    notification.forEach(({ userInfo }) => {
+                        console.log(userInfo, "userInfo")
+                        if (userInfo.id === alarm.id) {
+                            PushNotification.cancelLocalNotifications({ id: alarm.id })
+                        }
+                    })
+                });
+            }
+        } else if (value === 1) {
+            if (!moment(alarm.date).isAfter(moment.now())){
+                let diff = moment().diff(moment(alarm.date), "days")
+                alarm.date = moment(alarm.date).add(diff + 1, "days").format();
+            }
+            if (Platform.OS === "android") {
+                PushNotification.localNotificationSchedule({
+                    message: alarm.message || "test alarm",
+                    date: new Date(alarm.date),
+                    soundName: "Eb4.mp3",
+                    // repeatType: "minute",
+                    id: alarm.id,
+                    repeatType: "minute",
+                    // repeatTime: new Date(Date.now() + (1000 * 60 * 10))
+                });
+            } else {
+                PushNotification.localNotificationSchedule({
+                    message: alarm.message || "test alarm",
+                    date: new Date(alarm.date),
+                    soundName: "Eb4.mp3",
+                    userInfo: { id: alarm.id },
+                    repeatType: "minute",
+                    // repeatTime: new Date(Date.now() + (1000 * 60 * 10))
+                    // repeatType: "minute",
+                    //repeatTime: new Date(Date.now() + 100)
+                });
+            }
+        }
     }
 
     renderAlarms(data){
@@ -90,6 +127,17 @@ class AlarmList extends Component {
         // delete data
         let { dispatch } = this.props;
         dispatch({type: "deleteAlarm", payload: data})
+        if (Platform.OS === "ios") {
+            PushNotificationIOS.getScheduledLocalNotifications(notification => {
+                console.log(notification, "local notification schedule in alarm list")
+                notification.forEach(({ userInfo }) => {
+                    console.log(userInfo, "userInfo")
+                    if (userInfo.id === data.id) {
+                        PushNotification.cancelLocalNotifications({ id: userInfo.id })
+                    }
+                })
+            });
+        }
         rowRef.manuallySwipeRow(0);
     }
 

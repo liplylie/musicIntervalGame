@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
+import PushNotification from "react-native-push-notification";
 import { Convert, Styles } from "../../styles";
 import LinearGradient from "react-native-linear-gradient";
 import * as Animatable from "react-native-animatable";
@@ -69,7 +70,8 @@ class Game extends Component {
       noteTwo: "",
       buttonData: ["", "", "", ""],
       correct: false,
-      attempt: false
+      attempt: false,
+      count: 3
     };
     this.springAnimation = this.springAnimation.bind(this);
     this.stopAnimation = this.stopAnimation.bind(this);
@@ -253,6 +255,14 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
+    this.Eb5 = new Sound("Eb5.mp3", error => {
+      if (error) {
+        console.log("sound failed");
+        console.log(error);
+      } else {
+        console.log("sound loaded");
+      }
+    });
     this.F5 = new Sound(F5, error => {
       if (error) {
         console.log("sound failed");
@@ -295,7 +305,7 @@ class Game extends Component {
     });
   }
 
-  componentWillMount() {}
+  componentWillMount() { console.log(this.props, "game props")}
 
   componentDidMount() {
     // starts the game
@@ -370,16 +380,30 @@ class Game extends Component {
   }
 
   endGame(){
-    if (Platform.OS === "ios"){
-      PushNotificationIOS.getScheduledLocalNotifications(notification => {
-        console.log(notification, "local notification schedule")
-        notification.forEach(({ userInfo }) => {
-          PushNotification.cancelLocalNotifications(userInfo.id)
-        })
-      });
+    let { data, dispatch } = this.props;
+    this.stopSoundOne();
+    this.stopSoundTwo();
+    this.setState(
+      {
+        stopAnimation: true
+      }
+    )
+    if (data){
+      dispatch({ type: "editAlarm", payload: { id: data, active: 0 } })
+      if (Platform.OS === "ios") {
+        PushNotificationIOS.getScheduledLocalNotifications(notification => {
+          console.log(notification, "local notification schedule in end game")
+          notification.forEach(({ userInfo }) => {
+            console.log(userInfo, "userInfo")
+            if (userInfo.id === data){
+              PushNotification.cancelLocalNotifications({ id: userInfo.id })
+            }
+          })
+        });
+      }
     }
+    Actions.Home()
    
-
   }
 
   stopAnimation() {
@@ -391,9 +415,9 @@ class Game extends Component {
 
   playSoundOne() {
     let { noteOne } = this.state;
-    console.log(noteOne, "note one play");
+    // console.log(noteOne, "note one play");
     this[noteOne].play(success => {
-      console.log(success, "success play");
+      // console.log(success, "success play");
 
       if (!success) {
         //Alert.alert("There was an error playing this audio");
@@ -403,7 +427,7 @@ class Game extends Component {
 
   stopSoundOne() {
     let { noteOne } = this.state;
-    console.log(noteOne, "note one play");
+   // console.log(noteOne, "note one play");
     if (noteOne) {
       this[noteOne].stop(() =>
         this.setState({ noteOne: "", stopAnimation: true })
@@ -413,9 +437,9 @@ class Game extends Component {
 
   playSoundTwo() {
     let { noteTwo } = this.state;
-    console.log(noteTwo, "note two");
+    // console.log(noteTwo, "note two");
     this[noteTwo].play(success => {
-      console.log(success, "success play");
+      // console.log(success, "success play");
       if (!success) {
         //Alert.alert("There was an error playing this audio");
       }
@@ -430,6 +454,13 @@ class Game extends Component {
         this.setState({ noteTwo: "", stopAnimation: true })
       );
     }
+  }
+
+  renderCount(){
+    let { count } = this.state;
+    return (
+      <View><Text style={{fontSize: Convert(20)}}>{count}</Text></View>
+    )
   }
 
   springAnimation(type) {
@@ -588,18 +619,19 @@ class Game extends Component {
 
   checkAnswer(guess) {
     console.log(guess, "guess");
-    let { correctAnswer } = this.state;
-    if (guess === correctAnswer.long) {
+    let { correctAnswer, count } = this.state;
+    if (guess === correctAnswer.long && count > 1) {
       // alert("correct")
       this.setState(
         {
           stopAnimation: true,
           correct: true,
-          attempt: true
+          attempt: true,
+          count: count - 1
         },
         () => setTimeout(() => this.startNewGame("easy"), 500)
       );
-    } else {
+    } else if ( guess !== correctAnswer.long) {
       this.setState(
         {
           stopAnimation: true,
@@ -607,6 +639,18 @@ class Game extends Component {
           attempt: true
         },
         () => setTimeout(() => this.startNewGame("easy"), 500)
+      );
+    }
+
+    if (guess === correctAnswer.long && count === 1) {
+      this.setState(
+        {
+          stopAnimation: true,
+          correct: true,
+          attempt: true,
+          count: count - 1
+        },
+        () => this.endGame()
       );
     }
   }
@@ -653,6 +697,7 @@ class Game extends Component {
               justifyContent: "center",
               alignItems: "center"
             }} >
+              {this.renderCount()}
               {attempt ? this.renderAnswer(correct): null}
               {/* <TouchableOpacity onPress={() => this.stopAnimation()}>
                 <Text style={[styles.fontStyle, {color: "black"}]}>Stop</Text>
@@ -710,5 +755,4 @@ const styles = StyleSheet.create({
 // const Game = connect(state => ({
 //     state
 // }))(UnconnectedHome);
-export { Game };
-export default Game;
+export default connect(null)(Game);

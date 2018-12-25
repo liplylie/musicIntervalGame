@@ -11,7 +11,7 @@ const alarm = (state = initialState, action) => {
           return {
               ...state, alarms: state.alarms.map(alarm => {
                   if (alarm.id === action.payload.id) {
-                      console.log(action.payload, "titty")
+                      console.log(action.payload, "payload")
                       alarm.active = action.payload.active;
                   }
                   return alarm;

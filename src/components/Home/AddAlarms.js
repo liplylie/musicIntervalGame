@@ -11,7 +11,8 @@ import {
   Dimensions,
   ActivityIndicator,
   Alert,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  PushNotificationIOS
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
@@ -70,12 +71,14 @@ class AddAlarm extends Component {
           dispatch({ type: "addAlarm", payload: alarm })
           if (Platform.OS === "android") {
               PushNotification.localNotificationSchedule({
-                  message: message || "test alarm",
-                  date: new Date(date),
-                  soundName: "Eb4.mp3",
-                  repeatType: "minute",
-                  userInfo: { id: id }
-                  //repeatTime: new Date(Date.now() + 100)
+                message: message || "test alarm",
+                date: new Date(date),
+                soundName: "Eb4.mp3",
+                repeatType: "minute",
+                id: id,
+                repeatType: "time",
+                repeatTime: new Date(Date.now() + (1000 * 60 * 10 ))
+                //repeatTime: new Date(Date.now() + 100)
               });
           } else {
               PushNotification.localNotificationSchedule({
@@ -83,7 +86,9 @@ class AddAlarm extends Component {
                   date: new Date(date),
                   soundName: "Eb4.mp3",
                   repeatType: "minute",
-                  id: id
+                  userInfo: { id: id },
+                  repeatType: "time",
+                  repeatTime: new Date(Date.now() + (1000 * 60 * 10))
                   //repeatTime: new Date(Date.now() + 100)
               });
           }

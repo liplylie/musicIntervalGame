@@ -33,8 +33,10 @@ class Home extends Component {
     }
 
     componentWillMount() {
-        const { dispatch } = this.props
-        
+        console.log(this.props, "home props")
+        PushNotificationIOS.getScheduledLocalNotifications(notification => {
+            console.log(notification, "local notification schedule in home")
+        })
        
 
     }
@@ -58,7 +60,10 @@ class Home extends Component {
                     onLeftButtonPress={this.handleMusicSymbolPress}
                     onRightButtonPress={this.handleAddAlarm}
                 />
-                <AlarmList/>
+                <ScrollView>
+                    <AlarmList />
+                </ScrollView>
+                
             </View>
         )
     }
