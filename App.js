@@ -16,35 +16,28 @@ import Game from "./src/components/Game";
 import { PersistGate } from "redux-persist/integration/react";
 import { ActionConst, Actions, Router, Scene } from "react-native-router-flux";
 import PushNotification from "react-native-push-notification";
-import moment from "moment"
-
-
+import moment from "moment";
 
 export default class App extends Component {
   componentWillMount() {
-    
-   
-  
-
-   
     PushNotification.configure({
       // (required) Called when a remote or local notification is opened or received
-      onNotification: function (notification) {
+      onNotification: function(notification) {
         console.log("ROOT NOTIFICATION:", notification);
         let currentScene = Actions.currentScene;
-        console.log(currentScene, "current Scene")
-        let { userInteraction, foreground, message, data} = notification;
+        console.log(currentScene, "current Scene");
+        let { userInteraction, foreground, message, data } = notification;
         const clicked = userInteraction;
         if (currentScene === "Home") {
           if (clicked) {
-            Actions.Game(data.id)
+            Actions.Game(data.id);
           } else if (foreground && !clicked) {
-            Actions.Game(data.id)
+            Actions.Game(data.id);
           }
         }
-        
-       // Actions.Game()
-         
+
+        // Actions.Game()
+
         // PushNotification.cancelAllLocalNotifications();
         // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
         notification.finish(PushNotificationIOS.FetchResult.NoData);
@@ -58,27 +51,35 @@ export default class App extends Component {
       popInitialNotification: false,
       requestPermissions: true
     });
-   
   }
   componentDidMount() {
-    
     // PushNotificationIOS.requestPermissions()
     //   .then(perms => console.log(`PERMS`, perms))
     //   .catch(err => console.log(`ERROR REQUESTING PERMISSIONS`, err));
-    console.log(this.props, "app props")
+    console.log(this.props, "app props");
     AppState.addEventListener("change", this._handleAppStateChange);
+    PushNotificationIOS.addEventListener("localNotification", notification => {
+      console.log(notification, "received")
+    });
+
   }
 
-   _handleAppStateChange(appState) {
+ 
+
+  async _handleAppStateChange(appState) {
     console.log(appState, "app state");
-    
+
+    if (appState === "active"){
+      // let local = await PushNotificationIOS.getInitialNotification();
+      // console.log(local, "local bitch")
+    }
+
     if (appState === "background" || appState === "inactive") {
-      let state = store.getState()
+      let state = store.getState();
       let { alarms } = state.alarm;
-      console.log(alarms, "fuck you")
-      PushNotification.cancelAllLocalNotifications()
+      console.log(alarms, "alarms");
+      // PushNotification.cancelAllLocalNotifications()
       alarms.map(a => {
-       
         if (moment(a.date).isAfter(moment.now())) {
           // if the alarms are after the current time, schedule them
           if (a.active) {
@@ -90,28 +91,39 @@ export default class App extends Component {
                 // repeatType: "minute",
                 id: a.id,
                 repeatType: "minute",
-                repeatTime: new Date(Date.now() + (1000 * 60 * 10))
+                //repeatTime: new Date(Date.now() + 1000 * 60 * 10)
               });
             } else {
-              PushNotification.localNotificationSchedule({
-                message: a.message || "test alarm",
-                date: new Date(a.date),
-                soundName: "Eb4.mp3",
-                userInfo: { id: a.id },
-                repeatType: "minute",
-                repeatTime: new Date(Date.now() + (1000 * 60 * 10))
-                // repeatType: "minute",
-                //repeatTime: new Date(Date.now() + 100)
-              });
+              PushNotificationIOS.getScheduledLocalNotifications(
+                notification => {
+                  console.log(notification, "notification in ff else ");
+                  if (notification.indexOf({ userInfo: { id: a.id } }) > -1) {
+                    // a double check to make sure alarms are scheduled
+                    console.log("Made it bitch");
+                    PushNotification.localNotificationSchedule({
+                      message: a.message || "test alarm",
+                      date: new Date(a.date),
+                      soundName: "Eb4.mp3",
+                      userInfo: { id: a.id },
+                      repeatType: "minute",
+                      //repeatTime: new Date(Date.now() + 1000 * 60 * 10)
+                      // repeatType: "minute",
+                      //repeatTime: new Date(Date.now() + 100)
+                    });
+                  }
+                }
+              );
             }
           }
         } else {
           // set the alarms to the next day
-          let diff = moment().diff(moment(a.date), "days")
+          let diff = moment().diff(moment(a.date), "days");
           console.log(a.date, "before");
-          console.log(diff, "diff")
-          a.date = moment(a.date).add(diff + 1, "days").format();
-          console.log(a.date, "after")
+          console.log(diff, "diff");
+          a.date = moment(a.date)
+            .add(diff + 1, "days")
+            .format();
+          console.log(a.date, "after");
           if (a.active) {
             if (Platform.OS === "android") {
               PushNotification.localNotificationSchedule({
@@ -119,35 +131,38 @@ export default class App extends Component {
                 date: new Date(a.date),
                 soundName: "Eb4.mp3",
                 repeatType: "minute",
-                id: a.id,
+                id: a.id
                 //repeatType: "time"
                 //repeatTime: new Date(Date.now() + 100)
               });
             } else {
-              PushNotification.localNotificationSchedule({
-                message: a.message || "test alarm",
-                date: new Date(a.date),
-                soundName: "Eb4.mp3",
-                userInfo: { id: a.id },
-                repeatType: "minute",
-                //repeatTime: new Date(Date.now() + 100)
-              });
+              PushNotificationIOS.getScheduledLocalNotifications(notification => {
+                // a double check to make sure alarms are scheduled
+                  console.log(notification, "notification in else app");
+                  if (notification.indexOf({ userInfo: { id: a.id } }) > -1) {
+                    console.log("Made it mofo");
+
+                    PushNotification.localNotificationSchedule({
+                      message: a.message || "test alarm",
+                      date: new Date(a.date),
+                      soundName: "Eb4.mp3",
+                      userInfo: { id: a.id },
+                      repeatType: "minute"
+                      //repeatTime: new Date(Date.now() + 100)
+                    });
+                  }
+                }
+              );
             }
           }
-
         }
-        
-      })
+      });
       // PushNotificationIOS.scheduleLocalNotification(details)
       // PushNotification.presentLocalNotification(details);
-     
-     
     } else {
       // PushNotification.popInitialNotification(notification => {
       //   console.log(notification, "notification")
       // })
-      
-     
     }
   }
 
@@ -167,7 +182,7 @@ export default class App extends Component {
                 key={"Game"}
                 component={Game}
                 hideNavBar
-                type={ActionConst.PUSH}
+                type={ActionConst.RESET}
               />
               <Scene
                 key={"AddAlarms"}

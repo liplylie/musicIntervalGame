@@ -375,7 +375,7 @@ class Game extends Component {
       {
         stopAnimation: true
       },
-      () => Actions.pop()
+      () => Actions.Home()
     );
   }
 
@@ -415,9 +415,9 @@ class Game extends Component {
 
   playSoundOne() {
     let { noteOne } = this.state;
-    // console.log(noteOne, "note one play");
+     console.log(noteOne, "note one play");
     this[noteOne].play(success => {
-      // console.log(success, "success play");
+       console.log(success, "success play");
 
       if (!success) {
         //Alert.alert("There was an error playing this audio");

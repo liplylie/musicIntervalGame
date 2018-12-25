@@ -74,7 +74,7 @@ class AlarmList extends Component {
                     // repeatType: "minute",
                     id: alarm.id,
                     repeatType: "minute",
-                    // repeatTime: new Date(Date.now() + (1000 * 60 * 10))
+                    // repeatTime: 1000* 10
                 });
             } else {
                 PushNotification.localNotificationSchedule({
@@ -83,6 +83,7 @@ class AlarmList extends Component {
                     soundName: "Eb4.mp3",
                     userInfo: { id: alarm.id },
                     repeatType: "minute",
+                    // repeatTime: 1000*10
                     // repeatTime: new Date(Date.now() + (1000 * 60 * 10))
                     // repeatType: "minute",
                     //repeatTime: new Date(Date.now() + 100)

@@ -76,8 +76,8 @@ class AddAlarm extends Component {
                 soundName: "Eb4.mp3",
                 repeatType: "minute",
                 id: id,
-                repeatType: "time",
-                repeatTime: new Date(Date.now() + (1000 * 60 * 10 ))
+                repeatType: "minute",
+                // repeatTime: new Date(Date.now() + (1000 * 60 * 10 ))
                 //repeatTime: new Date(Date.now() + 100)
               });
           } else {
@@ -87,8 +87,8 @@ class AddAlarm extends Component {
                   soundName: "Eb4.mp3",
                   repeatType: "minute",
                   userInfo: { id: id },
-                  repeatType: "time",
-                  repeatTime: new Date(Date.now() + (1000 * 60 * 10))
+                  repeatType: "minute",
+                  // repeatTime: new Date(Date.now() + (1000 * 60 * 10))
                   //repeatTime: new Date(Date.now() + 100)
               });
           }
