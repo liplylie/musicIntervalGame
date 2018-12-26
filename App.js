@@ -19,6 +19,13 @@ import PushNotification from "react-native-push-notification";
 import moment from "moment";
 
 export default class App extends Component {
+  constructor(){
+    super()
+    this.state = {
+      activeGame: false
+    }
+    this._handleAppStateChange = this._handleAppStateChange.bind(this)
+  }
   componentWillMount() {
     PushNotification.configure({
       // (required) Called when a remote or local notification is opened or received
@@ -30,9 +37,9 @@ export default class App extends Component {
         const clicked = userInteraction;
         if (currentScene === "Home") {
           if (clicked) {
-            Actions.Game(data.id);
+            Actions.Game({id: data.id});
           } else if (foreground && !clicked) {
-            Actions.Game(data.id);
+            Actions.Game({id:data.id});
           }
         }
 
@@ -57,6 +64,13 @@ export default class App extends Component {
     //   .then(perms => console.log(`PERMS`, perms))
     //   .catch(err => console.log(`ERROR REQUESTING PERMISSIONS`, err));
     console.log(this.props, "app props");
+    PushNotification.checkPermissions(permissions => {
+      console.log(permissions, "rucker")
+      if (!permissions.alert){
+        alert("Please ")
+      }
+    })
+      
     AppState.addEventListener("change", this._handleAppStateChange);
     PushNotificationIOS.addEventListener("localNotification", notification => {
       console.log(notification, "received")
@@ -71,7 +85,37 @@ export default class App extends Component {
 
     if (appState === "active"){
       // let local = await PushNotificationIOS.getInitialNotification();
-      // console.log(local, "local bitch")
+        let { activeGame } = this.state;
+      let state = store.getState();
+      let { alarms } = state.alarm;
+        if (Platform.OS === "ios") {
+          PushNotificationIOS.getScheduledLocalNotifications(
+            notification => {
+              console.log(notification, "notification navigate to Game in app");
+              if (notification.length && !activeGame) {
+                notification.forEach(({ userInfo }) => {
+                  console.log(userInfo, "userInfo")
+                  console.log(alarms, "alarms")
+                  alarms.forEach(a => {
+                    console.log(a, "a")
+                    console.log(userInfo, "u")
+                    if (a.id === userInfo.id && a.active) {
+                      let activeAlarm = moment(a.date).startOf('minute').isBefore(moment.now())
+                      let currentScene = Actions.currentScene;
+                      if (activeAlarm && !activeGame && currentScene === "Home") {
+                        console.log("here")
+                        this.setState({
+                          activeGame: true
+                        }, () => Actions.Game({ id: a.id }))
+
+                      }
+                      // Actions.Game(a.id)
+                    }
+                  })
+                })
+              }
+            })
+          }
     }
 
     if (appState === "background" || appState === "inactive") {
@@ -87,11 +131,11 @@ export default class App extends Component {
               PushNotification.localNotificationSchedule({
                 message: a.message || "test alarm",
                 date: new Date(a.date),
-                soundName: "Eb4.mp3",
+                soundName: "PerfectFifth.mp3",
                 // repeatType: "minute",
                 id: a.id,
-                repeatType: "minute",
-                //repeatTime: new Date(Date.now() + 1000 * 60 * 10)
+                repeatType: "time",
+                repeatTime: 100
               });
             } else {
               PushNotificationIOS.getScheduledLocalNotifications(
@@ -99,16 +143,16 @@ export default class App extends Component {
                   console.log(notification, "notification in ff else ");
                   if (notification.indexOf({ userInfo: { id: a.id } }) > -1) {
                     // a double check to make sure alarms are scheduled
-                    console.log("Made it bitch");
+                    console.log("Made it");
                     PushNotification.localNotificationSchedule({
                       message: a.message || "test alarm",
                       date: new Date(a.date),
-                      soundName: "Eb4.mp3",
+                      soundName: "PerfectFifth.mp3",
                       userInfo: { id: a.id },
-                      repeatType: "minute",
+                      repeatType: "time",
                       //repeatTime: new Date(Date.now() + 1000 * 60 * 10)
                       // repeatType: "minute",
-                      //repeatTime: new Date(Date.now() + 100)
+                      repeatTime: 100
                     });
                   }
                 }
@@ -129,11 +173,11 @@ export default class App extends Component {
               PushNotification.localNotificationSchedule({
                 message: a.message || "test alarm",
                 date: new Date(a.date),
-                soundName: "Eb4.mp3",
-                repeatType: "minute",
-                id: a.id
-                //repeatType: "time"
-                //repeatTime: new Date(Date.now() + 100)
+                soundName: "PerfectFifth.mp3",
+                // repeatType: "minute",
+                id: a.id,
+                repeatType: "time",
+                repeatTime: 100
               });
             } else {
               PushNotificationIOS.getScheduledLocalNotifications(notification => {
@@ -145,10 +189,11 @@ export default class App extends Component {
                     PushNotification.localNotificationSchedule({
                       message: a.message || "test alarm",
                       date: new Date(a.date),
-                      soundName: "Eb4.mp3",
+                      soundName: "PerfectFifth.mp3",
                       userInfo: { id: a.id },
-                      repeatType: "minute"
-                      //repeatTime: new Date(Date.now() + 100)
+                      // repeatType: "minute"
+                      repeatTime: "time",
+                      repeatTime: 100
                     });
                   }
                 }

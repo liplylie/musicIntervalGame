@@ -38,7 +38,7 @@ class Home extends Component {
 
     componentWillMount() {
         console.log(this.props, "home props")
-        this._navigateToGame()
+        // this._navigateToGame()
 
     }
 
@@ -69,7 +69,7 @@ class Home extends Component {
                                         console.log("here")
                                         this.setState({
                                             activeGame: true
-                                        }, () => Actions.Game(a.id))
+                                        }, () => Actions.Game({id:a.id}))
                                        
                                     }
                                    // Actions.Game(a.id)

@@ -379,23 +379,23 @@ class Game extends Component {
     );
   }
 
-  endGame(){
-    let { data, dispatch } = this.props;
+  async endGame(){
+    let { id, dispatch } = this.props;
     this.stopSoundOne();
     this.stopSoundTwo();
-    this.setState(
-      {
-        stopAnimation: true
-      }
-    )
-    if (data){
-      dispatch({ type: "editAlarm", payload: { id: data, active: 0 } })
+    // this.setState(
+    //   {
+    //     stopAnimation: true
+    //   }
+    // )
+    if (id){
+      await dispatch({ type: "editAlarm", payload: { id: id, active: 0 } })
       if (Platform.OS === "ios") {
         PushNotificationIOS.getScheduledLocalNotifications(notification => {
           console.log(notification, "local notification schedule in end game")
           notification.forEach(({ userInfo }) => {
             console.log(userInfo, "userInfo")
-            if (userInfo.id === data){
+            if (userInfo.id === id){
               PushNotification.cancelLocalNotifications({ id: userInfo.id })
             }
           })
@@ -674,12 +674,13 @@ class Game extends Component {
 
   render() {
     let { buttonData, correct, attempt } = this.state;
+    let { id } = this.props;
     const dataSource = this.ds.cloneWithRows(buttonData);
     return (
       <View style={{ display: "flex" }}>
         <NavBar
           title="Game"
-          leftButtonIcon="left"
+          leftButtonIcon={id ? null : "left"}
           onLeftButtonPress={() => this.goBack()}
         />
         <View style={{ display: "flex", flexDirection: "column" }}>

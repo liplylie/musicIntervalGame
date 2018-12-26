@@ -32,8 +32,8 @@ class AddAlarm extends Component {
         super()
         this.state = {
             isDateTimePickerVisible: false,
-            time: moment().format("hh:mm A"),
-            date: moment().format(), 
+            time: moment().startOf('minute').format("hh:mm A"),
+            date: moment().startOf('minute').format(), 
             message: ""
         };
         this._handleDatePicked = this._handleDatePicked.bind(this);
@@ -43,6 +43,7 @@ class AddAlarm extends Component {
  
   componentWillMount() {
     const { dispatch } = this.props;
+    console.log(moment().startOf('minute').format(), "time")
     // dispatch({ type: "addAlarm", payload: alarm })
   }
 
@@ -53,7 +54,7 @@ class AddAlarm extends Component {
   _handleDatePicked = date => {
     console.log("A date has been picked: ", date);
     this._hideDateTimePicker();
-    let time = moment(date).format("hh:mm A");
+    let time = moment(date).startOf("minute").format("hh:mm A");
     this.setState({
       time,
       date
@@ -73,22 +74,22 @@ class AddAlarm extends Component {
               PushNotification.localNotificationSchedule({
                 message: message || "test alarm",
                 date: new Date(date),
-                soundName: "Eb4.mp3",
+                soundName: "PerfectFifth.mp3",
                 repeatType: "minute",
                 id: id,
-                repeatType: "minute",
+                // repeatType: "minute",
                 // repeatTime: new Date(Date.now() + (1000 * 60 * 10 ))
-                //repeatTime: new Date(Date.now() + 100)
+                repeatTime: 100
               });
           } else {
               PushNotification.localNotificationSchedule({
                   message: message || "test alarm",
                   date: new Date(date),
-                  soundName: "Eb4.mp3",
+                soundName: "PerfectFifth.mp3",
                   repeatType: "minute",
                   userInfo: { id: id },
-                  repeatType: "minute",
-                  // repeatTime: new Date(Date.now() + (1000 * 60 * 10))
+                  // repeatType: "minute",
+                  repeatTime: 100
                   //repeatTime: new Date(Date.now() + 100)
               });
           }

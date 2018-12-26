@@ -70,22 +70,22 @@ class AlarmList extends Component {
                 PushNotification.localNotificationSchedule({
                     message: alarm.message || "test alarm",
                     date: new Date(alarm.date),
-                    soundName: "Eb4.mp3",
-                    // repeatType: "minute",
-                    id: alarm.id,
+                    soundName: "PerfectFifth.mp3",
                     repeatType: "minute",
-                    // repeatTime: 1000* 10
+                    id: alarm.id,
+                    // repeatType: "time",
+                    // repeatTime: 1000
                 });
             } else {
                 PushNotification.localNotificationSchedule({
                     message: alarm.message || "test alarm",
                     date: new Date(alarm.date),
-                    soundName: "Eb4.mp3",
+                    soundName: "PerfectFifth.mp3",
                     userInfo: { id: alarm.id },
-                    repeatType: "minute",
-                    // repeatTime: 1000*10
+                    // repeatType: "time",
+                    // repeatTime: 1000
                     // repeatTime: new Date(Date.now() + (1000 * 60 * 10))
-                    // repeatType: "minute",
+                    repeatType: "minute",
                     //repeatTime: new Date(Date.now() + 100)
                 });
             }
