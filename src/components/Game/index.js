@@ -70,7 +70,8 @@ class Game extends Component {
       buttonData: ["", "", "", ""],
       correct: false,
       attempt: false,
-      count: 3
+      count: 3,
+      checking: false
     };
     this.springAnimation = this.springAnimation.bind(this);
     this.stopAnimation = this.stopAnimation.bind(this);
@@ -184,7 +185,7 @@ class Game extends Component {
     });
     this.G4 = new Sound("G4.mp3", Sound.MAIN_BUNDLE, error => {
       if (error) {
-        console.log("sound failed");
+        console.log("sound failed G4");
         console.log(error);
       } else {
         console.log("sound loaded");
@@ -248,58 +249,60 @@ class Game extends Component {
     });
     this.E5 = new Sound(E5, error => {
       if (error) {
-        console.log("sound failed");
+        console.log("sound failed E5 ");
         console.log(error);
       } else {
-        console.log("sound loaded");
+        console.log("sound loaded E5");
       }
     });
-    this.Eb5 = new Sound("Eb5.mp3", error => {
+    this.Eb5 = new Sound("Eb5.mp3", Sound.MAIN_BUNDLE, error => {
       if (error) {
-        console.log("sound failed");
+        console.log("sound failed Eb5");
         console.log(error);
       } else {
-        console.log("sound loaded");
+        console.log("sound loaded Eb5");
       }
     });
     this.F5 = new Sound(F5, error => {
       if (error) {
-        console.log("sound failed");
+        console.log("sound failed F5");
         console.log(error);
       } else {
-        console.log("sound loaded");
+        console.log("sound loaded F5");
       }
     });
-    this.Gb5 = new Sound("Gb5.mp3", error => {
+    this.Gb5 = new Sound("Gb5.mp3", Sound.MAIN_BUNDLE, error => {
       if (error) {
-        console.log("sound failed");
+        console.log("sound failed Gbb5");
         console.log(error);
       } else {
-        console.log("sound loaded");
+        console.log("sound loaded Gb5");
       }
     });
-    this.G5 = new Sound("G5.mp3", error => {
+    this.G5 = new Sound("G5.mp3", Sound.MAIN_BUNDLE, error => {
       if (error) {
-        console.log("sound failed");
+        console.log("sound failed G5");
         console.log(error);
       } else {
-        console.log("sound loaded");
+        console.log("sound loaded G5");
       }
     });
-    this.Ab5 = new Sound("Ab5.mp3", error => {
+    this.Ab5 = new Sound("Ab5.mp3", Sound.MAIN_BUNDLE, error => {
       if (error) {
-        console.log("sound failed");
+        console.log("sound failed Ab5");
         console.log(error);
       } else {
-        console.log("sound loaded");
+        console.log("sound loaded Ab5");
       }
     });
-    this.A5 = new Sound("A5.mp3", error => {
+    this.A5 = new Sound("A5.mp3", Sound.MAIN_BUNDLE, error => {
+    
       if (error) {
-        console.log("sound failed");
+        console.log("sound failed A5");
         console.log(error);
       } else {
-        console.log("sound loaded");
+       
+        console.log("sound loaded A5");
       }
     });
   }
@@ -312,9 +315,9 @@ class Game extends Component {
   }
 
   componentWillUnmount() {
-    this.setState({
-      stopAnimation: true
-    });
+    // this.setState({
+    //   stopAnimation: true
+    // });
   }
 
   startNewGame(difficulty) {
@@ -361,7 +364,8 @@ class Game extends Component {
         correctAnswer: interval,
         stopAnimation: false,
         correct: false,
-        attempt: false
+        attempt: false,
+        checking: false
       },
       () => this.springAnimation("One")
     );
@@ -457,9 +461,15 @@ class Game extends Component {
 
   renderCount(){
     let { count } = this.state;
-    return (
-      <View><Text style={{fontSize: Convert(20)}}>{count}</Text></View>
-    )
+    let { id } = this.props;
+    if (id){
+      return (
+        <View><Text style={{ fontSize: Convert(20) }}>{count}</Text></View>
+      )
+    } else {
+      return null
+    }
+   
   }
 
   springAnimation(type) {
@@ -619,45 +629,77 @@ class Game extends Component {
   checkAnswer(guess) {
     console.log(guess, "guess");
     let { correctAnswer, count } = this.state;
-    if (guess === correctAnswer.long && count > 1) {
-      // alert("correct")
-      this.setState(
-        {
-          stopAnimation: true,
-          correct: true,
-          attempt: true,
-          count: count - 1
-        },
-        () => setTimeout(() => this.startNewGame("easy"), 500)
-      );
-    } else if ( guess !== correctAnswer.long) {
-      this.setState(
-        {
-          stopAnimation: true,
-          correct: false,
-          attempt: true
-        },
-        () => setTimeout(() => this.startNewGame("easy"), 500)
-      );
-    }
+    let { id } = this.props;
+    if (id){
+      if (guess === correctAnswer.long && count > 1) {
+        // alert("correct")
+        this.setState(
+          {
+            stopAnimation: true,
+            correct: true,
+            attempt: true,
+            count: count - 1,
+           
+          },
+          () => setTimeout(() => this.startNewGame("easy"), 500)
+        );
+      } else if (guess !== correctAnswer.long) {
+        this.setState(
+          {
+            stopAnimation: true,
+            correct: false,
+            attempt: true,
+           
+          },
+          () => setTimeout(() => this.startNewGame("easy"), 500)
+        );
+      }
 
-    if (guess === correctAnswer.long && count === 1) {
-      this.setState(
-        {
-          stopAnimation: true,
-          correct: true,
-          attempt: true,
-          count: count - 1
-        },
-        () => this.endGame()
-      );
+      if (guess === correctAnswer.long && count === 1) {
+        this.setState(
+          {
+            stopAnimation: true,
+            correct: true,
+            attempt: true,
+            count: count - 1,
+           
+          },
+          () => this.endGame()
+        );
+      }
+    } else {
+      if (guess === correctAnswer.long) {
+        // alert("correct")
+        this.setState(
+          {
+            stopAnimation: true,
+            correct: true,
+            attempt: true,
+           
+          },
+          () => setTimeout(() => this.startNewGame("easy"), 500)
+        );
+      } else if (guess !== correctAnswer.long) {
+        this.setState(
+          {
+            stopAnimation: true,
+            correct: false,
+            attempt: true,
+          },
+          () => setTimeout(() => this.startNewGame("easy"), 500)
+        );
+      }
     }
+   
   }
 
   renderButton(item) {
+    let { checking } = this.state
     return (
       <Animatable.View ref="view">
-        <TouchableOpacity onPress={() => this.checkAnswer(item)}>
+        <TouchableOpacity disabled={checking} onPress={() => this.setState({
+          checking: true
+        }, () => this.checkAnswer(item))}>
           <LinearGradient
             style={styles.item}
             start={{ x: 0.0, y: 0.25 }}
