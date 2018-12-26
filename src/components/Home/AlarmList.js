@@ -68,7 +68,7 @@ class AlarmList extends Component {
             }
             if (Platform.OS === "android") {
                 PushNotification.localNotificationSchedule({
-                    message: alarm.message || "test alarm",
+                    message: alarm.message || "Alarm",
                     date: new Date(alarm.date),
                     soundName: "PerfectFifth.mp3",
                     repeatType: "minute",
@@ -78,7 +78,7 @@ class AlarmList extends Component {
                 });
             } else {
                 PushNotification.localNotificationSchedule({
-                    message: alarm.message || "test alarm",
+                    message: alarm.message || "Alarm",
                     date: new Date(alarm.date),
                     soundName: "PerfectFifth.mp3",
                     userInfo: { id: alarm.id },
@@ -117,7 +117,7 @@ class AlarmList extends Component {
                     />
                 </View>
                 <View style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                    <Text>Alarm Description</Text>
+                    <Text>{data.message}</Text>
                 </View>
                 
             </View>
@@ -170,7 +170,7 @@ class AlarmList extends Component {
                             }
                         >
                             <Image
-                                style={{ height: Convert(50), width: Convert(50) }}
+                                style={{ height: Convert(60), width: Convert(60) }}
                                 source={require("../../../assets/images/trash.png")}
                             />
                         </TouchableOpacity>

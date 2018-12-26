@@ -102,6 +102,8 @@ export default class App extends Component {
                     if (a.id === userInfo.id && a.active) {
                       let activeAlarm = moment(a.date).startOf('minute').isBefore(moment.now())
                       let currentScene = Actions.currentScene;
+                      console.log(activeAlarm, "active alarm")
+                      console.log(currentScene, "currentScene")
                       if (activeAlarm && !activeGame && currentScene === "Home") {
                         console.log("here")
                         this.setState({
@@ -129,13 +131,13 @@ export default class App extends Component {
           if (a.active) {
             if (Platform.OS === "android") {
               PushNotification.localNotificationSchedule({
-                message: a.message || "test alarm",
+                message: a.message || "Alarm",
                 date: new Date(a.date),
                 soundName: "PerfectFifth.mp3",
-                // repeatType: "minute",
+                repeatType: "minute",
                 id: a.id,
-                repeatType: "time",
-                repeatTime: 100
+                // repeatType: "time",
+                // repeatTime: 100
               });
             } else {
               PushNotificationIOS.getScheduledLocalNotifications(
@@ -145,14 +147,14 @@ export default class App extends Component {
                     // a double check to make sure alarms are scheduled
                     console.log("Made it");
                     PushNotification.localNotificationSchedule({
-                      message: a.message || "test alarm",
+                      message: a.message || "Alarm",
                       date: new Date(a.date),
                       soundName: "PerfectFifth.mp3",
                       userInfo: { id: a.id },
-                      repeatType: "time",
+                      repeatType: "minute",
                       //repeatTime: new Date(Date.now() + 1000 * 60 * 10)
                       // repeatType: "minute",
-                      repeatTime: 100
+                      // repeatTime: 100
                     });
                   }
                 }
@@ -161,23 +163,26 @@ export default class App extends Component {
           }
         } else {
           // set the alarms to the next day
-          let diff = moment().diff(moment(a.date), "days");
-          console.log(a.date, "before");
-          console.log(diff, "diff");
-          a.date = moment(a.date)
-            .add(diff + 1, "days")
-            .format();
-          console.log(a.date, "after");
+          if (!active){
+            let diff = moment().diff(moment(a.date), "days");
+            console.log(a.date, "before");
+            console.log(diff, "diff");
+            a.date = moment(a.date)
+              .add(diff + 1, "days")
+              .format();
+            console.log(a.date, "after");
+          }
+         
           if (a.active) {
             if (Platform.OS === "android") {
               PushNotification.localNotificationSchedule({
-                message: a.message || "test alarm",
+                message: a.message || "Alarm",
                 date: new Date(a.date),
                 soundName: "PerfectFifth.mp3",
                 // repeatType: "minute",
                 id: a.id,
-                repeatType: "time",
-                repeatTime: 100
+                repeatType: "minute",
+                // repeatTime: 100
               });
             } else {
               PushNotificationIOS.getScheduledLocalNotifications(notification => {
@@ -187,13 +192,13 @@ export default class App extends Component {
                     console.log("Made it mofo");
 
                     PushNotification.localNotificationSchedule({
-                      message: a.message || "test alarm",
+                      message: a.message || "Alarm",
                       date: new Date(a.date),
                       soundName: "PerfectFifth.mp3",
                       userInfo: { id: a.id },
-                      // repeatType: "minute"
-                      repeatTime: "time",
-                      repeatTime: 100
+                      repeatType: "minute"
+                      // repeatTime: "time",
+                      // repeatTime: 100
                     });
                   }
                 }

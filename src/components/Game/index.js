@@ -46,7 +46,6 @@ import Eb5 from "../../samples/Eb5.mp3";
 import E5 from "../../samples/E5.mp3";
 import F5 from "../../samples/F5.mp3";
 import Gb5 from "../../samples/Gb5.mp3";
-import G5 from "../../samples/G5.mp3";
 
 import E3 from "../../samples/E3.mp3";
 
@@ -271,7 +270,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Gb5 = new Sound(Gb5, error => {
+    this.Gb5 = new Sound("Gb5.mp3", error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -279,7 +278,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.G5 = new Sound(G5, error => {
+    this.G5 = new Sound("G5.mp3", error => {
       if (error) {
         console.log("sound failed");
         console.log(error);

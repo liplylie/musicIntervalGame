@@ -3,16 +3,12 @@ import {
   View,
   Text,
   TouchableOpacity,
-  FlatList,
-  Image,
-  ScrollView,
+  TextInput,
   Platform,
   PermissionsAndroid,
   Dimensions,
-  ActivityIndicator,
-  Alert,
-  KeyboardAvoidingView,
-  PushNotificationIOS
+  Button,
+  TouchableHighlight
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
@@ -21,29 +17,37 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
 import uuid from "../../helper/uuid";
 import Alarm from "../../helper/Alarm";
-import PushNotification from "react-native-push-notification"
+import PushNotification from "react-native-push-notification";
 
 import NavBar from "../Common/NavBar";
 
 const { height, width } = Dimensions.get("window");
 
 class AddAlarm extends Component {
-    constructor(){
-        super()
-        this.state = {
-            isDateTimePickerVisible: false,
-            time: moment().startOf('minute').format("hh:mm A"),
-            date: moment().startOf('minute').format(), 
-            message: ""
-        };
-        this._handleDatePicked = this._handleDatePicked.bind(this);
-        this._addAlarm = this._addAlarm.bind(this);
-    }
+  constructor() {
+    super();
+    this.state = {
+      isDateTimePickerVisible: false,
+      time: moment()
+        .startOf("minute")
+        .format("hh:mm A"),
+      date: moment()
+        .startOf("minute")
+        .format(),
+      message: ""
+    };
+    this._handleDatePicked = this._handleDatePicked.bind(this);
+    this._addAlarm = this._addAlarm.bind(this);
+  }
 
- 
   componentWillMount() {
     const { dispatch } = this.props;
-    console.log(moment().startOf('minute').format(), "time")
+    console.log(
+      moment()
+        .startOf("minute")
+        .format(),
+      "time"
+    );
     // dispatch({ type: "addAlarm", payload: alarm })
   }
 
@@ -54,49 +58,77 @@ class AddAlarm extends Component {
   _handleDatePicked = date => {
     console.log("A date has been picked: ", date);
     this._hideDateTimePicker();
-    let time = moment(date).startOf("minute").format("hh:mm A");
+    let time = moment(date)
+      .startOf("minute")
+      .format("hh:mm A");
+    date = moment(date)
+      .startOf("minute")
+      .format();
     this.setState({
       time,
       date
     });
   };
 
-  _addAlarm(){
-      let { dispatch } = this.props;
-      let { time, date, message } = this.state;
-      if (!time ){
-          alert("Please enter a time for the alarm")
-      } else {
-          let id = uuid();
-          let alarm = new Alarm(id, 1, time, date)
-          dispatch({ type: "addAlarm", payload: alarm })
-          if (Platform.OS === "android") {
-              PushNotification.localNotificationSchedule({
-                message: message || "test alarm",
-                date: new Date(date),
-                soundName: "PerfectFifth.mp3",
-                repeatType: "minute",
-                id: id,
-                // repeatType: "minute",
-                // repeatTime: new Date(Date.now() + (1000 * 60 * 10 ))
-                repeatTime: 100
-              });
-          } else {
-              PushNotification.localNotificationSchedule({
-                  message: message || "test alarm",
-                  date: new Date(date),
-                soundName: "PerfectFifth.mp3",
-                  repeatType: "minute",
-                  userInfo: { id: id },
-                  // repeatType: "minute",
-                  repeatTime: 100
-                  //repeatTime: new Date(Date.now() + 100)
-              });
-          }
-          Actions.pop()
-         
+  _addAlarm() {
+    let { dispatch } = this.props;
+    let { time, date, message } = this.state;
+    if (!time) {
+      alert("Please enter a time for the alarm");
+    } else {
+      let id = uuid();
+      if (moment(date).isBefore(moment().startOf("minute"))){
+        date = moment(date).add(1, "days").startOf("minute").format()
       }
+      let alarm = new Alarm(id, 1, time, date, message || "Alarm");
+      dispatch({ type: "addAlarm", payload: alarm });
+      if (Platform.OS === "android") {
+        PushNotification.localNotificationSchedule({
+          message: message || "Alarm",
+          date: new Date(date),
+          soundName: "PerfectFifth.mp3",
+          repeatType: "minute",
+          id: id,
+          // repeatType: "minute"
+          // repeatTime: new Date(Date.now() + (1000 * 60 * 10 ))
+          // repeatTime: 100
+        });
+      } else {
+        for (let i = 0; i < 4; i++) {
+          let tempDate = moment(date).add(i * 8, "seconds");
+          PushNotification.localNotificationSchedule({
+            message: message || "Alarm",
+            date: new Date(tempDate),
+            soundName: "PerfectFifth.mp3",
+            repeatType: "minute",
+            userInfo: { id: id },
+            repeatType: "minute"
+            //repeatTime: new Date(Date.now() + 100)
+          });
+        }
+      }
+      Actions.pop();
+    }
+  }
 
+  renderSelections(){
+    return (
+      <View
+        style={{
+          flexGrow: 1,
+          flexDirection: "column",
+          alignItems: "flex-end",
+          alignSelf: "flex-start",
+          justifyContent: "space-around",
+          paddingLeft: Convert(10)
+        }}
+      >
+        <Text>data</Text>
+        <Text>data</Text>
+        <Text>data</Text>
+        <Text>data</Text>
+      </View>
+    )
   }
 
   render() {
@@ -114,7 +146,8 @@ class AddAlarm extends Component {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "space-around",
-            height: height
+            height: height,
+            backgroundColor: "white"
           }}
         >
           <View
@@ -126,12 +159,26 @@ class AddAlarm extends Component {
             }}
           >
             <View>
-              <Text style={{ fontSize: Convert(40) }}>{time }</Text>
+              <Text style={{ fontSize: Convert(40) }}>{time}</Text>
             </View>
             <View>
-              <TouchableOpacity onPress={this._showDateTimePicker}>
-                <Text>Edit</Text>
-              </TouchableOpacity>
+                <TouchableHighlight
+                  style={{
+                    height: Convert(40),
+                    width: Convert(160),
+                    borderRadius: Convert(10),
+                    backgroundColor: "dodgerblue",
+                    marginLeft: Convert(50),
+                    marginRight: Convert(50),
+                    marginTop: Convert(20),
+                    color: "white"
+                  }}>
+                  <Button onPress={this._showDateTimePicker}
+                    title="Edit"
+                    accessibilityLabel="Edit Alarm"
+                    color="white"
+                  />
+                </TouchableHighlight> 
               <DateTimePicker
                 isVisible={this.state.isDateTimePickerVisible}
                 onConfirm={this._handleDatePicked}
@@ -144,21 +191,44 @@ class AddAlarm extends Component {
             style={{
               flexGrow: 1,
               flexDirection: "column",
-              alignItems: "flex-end",
-              alignSelf: "flex-start",
-              justifyContent: "space-around",
-              paddingLeft: Convert(10)
+              justifyContent: "space-between",
+              alignSelf: "center",
             }}
           >
-            <Text>data</Text>
-            <Text>data</Text>
-            <Text>data</Text>
-            <Text>data</Text>
+            <TextInput
+              style={{ 
+                height: Convert(40),
+                width: Convert(300), 
+                borderColor: 'gray', 
+                borderWidth: 1, 
+                borderRadius: 20,
+                textAlign: "center" 
+              }}
+              onChangeText={(message) => this.setState({ message })}
+              value={this.state.message}
+              placeholder="Description"
+              maxLength={30}
+            />
+            
           </View>
           <View style={{ flexGrow: 1 }}>
-            <TouchableOpacity onPress={this._addAlarm}>
-                <Text>Save</Text>
-            </TouchableOpacity>
+            <TouchableHighlight
+              style={{
+                height: Convert(40),
+                width: Convert(160),
+                borderRadius: Convert(10),
+                backgroundColor: "dodgerblue",
+                marginLeft: Convert(50),
+                marginRight: Convert(50),
+                marginTop: Convert(20),
+                color: "white"
+              }}>
+              <Button onPress={this._addAlarm}
+                title="SAVE"
+                accessibilityLabel="Save Alarm"
+                color="white"
+              />
+            </TouchableHighlight> 
           </View>
         </View>
       </View>
@@ -166,5 +236,5 @@ class AddAlarm extends Component {
   }
 }
 
-const mapStateToProps = state => ({alarm: state.alarm})
+const mapStateToProps = state => ({ alarm: state.alarm });
 export default connect(mapStateToProps)(AddAlarm);

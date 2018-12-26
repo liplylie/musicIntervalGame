@@ -93,7 +93,7 @@ class Home extends Component {
 
     render() {
         return (
-            <View>
+            <View style={{display: "flex", flex: 1}}>
                 <NavBar 
                     title="Alarms"
                     leftButtonIcon="music"
@@ -101,7 +101,7 @@ class Home extends Component {
                     onLeftButtonPress={this.handleMusicSymbolPress}
                     onRightButtonPress={this.handleAddAlarm}
                 />
-                <ScrollView>
+                <ScrollView contentContainerStyle={{ display: "flex",flex: 1 }}>
                     <AlarmList />
                 </ScrollView>
                 
