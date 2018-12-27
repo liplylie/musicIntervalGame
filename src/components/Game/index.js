@@ -817,7 +817,7 @@ const styles = StyleSheet.create({
   item: {
     fontSize: 18,
     borderWidth: 0,
-    height: height / 9,
+    height: height / 10,
     borderRadius: 40,
     backgroundColor: "#C8C8C8",
     margin: Convert(8),

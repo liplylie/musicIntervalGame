@@ -22,16 +22,23 @@ class Rules extends Component {
         <Text
           style={{ textAlign: "center", margin: "auto", fontSize: Convert(18) }}
         >
-                This app is perfect for those who wish to train their musical ear!{"\n"}
-                {"\n"}
-          Simply set an alarm, and in order to turn the alarm off, you will need
-                to answer three music interval questions correctly.
+          This app is perfect for those who wish to train their musical ear!
           {"\n"}
-
-          
+          {"\n"}
+          Simply set an alarm, and in order to turn the alarm off, you will need
+          to answer three music interval questions correctly.
+          {"\n"}
+          Missing the alarm, or swiping out of the app while the alarm is going off will set a snooze for one minute.
+           {"\n"}
         </Text>
         <View>
-                <Text style={{ textAlign: "center", margin: "auto", fontSize: Convert(18) }}>
+          <Text
+            style={{
+              textAlign: "center",
+              margin: "auto",
+              fontSize: Convert(18)
+            }}
+          >
             If you do not know what a music interval is, please see here:
             {"\n"}
           </Text>
@@ -40,7 +47,16 @@ class Rules extends Component {
               Linking.openURL("https://en.wikipedia.org/wiki/Interval_(music)")
             }
           >
-                    <Text style={{ textAlign: "center", color: "blue", margin: "auto", fontSize: Convert(18) }}>Click here</Text>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "blue",
+                margin: "auto",
+                fontSize: Convert(18)
+              }}
+            >
+              Click here
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
