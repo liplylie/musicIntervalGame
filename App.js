@@ -17,6 +17,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { ActionConst, Actions, Router, Scene } from "react-native-router-flux";
 import PushNotification from "react-native-push-notification";
 import moment from "moment";
+import Rules from "./src/components/Game/Rules"
 
 export default class App extends Component {
   constructor(){
@@ -27,6 +28,8 @@ export default class App extends Component {
     this._handleAppStateChange = this._handleAppStateChange.bind(this)
   }
   componentWillMount() {
+
+
     PushNotification.configure({
       // (required) Called when a remote or local notification is opened or received
       onNotification: function(notification) {
@@ -238,7 +241,19 @@ export default class App extends Component {
                 key={"AddAlarms"}
                 component={AddAlarms}
                 hideNavBar
-                type={ActionConst.PUSH}
+                type={ActionConst.RESET}
+              />
+              <Scene
+                key={"EditAlarm"}
+                component={AddAlarms}
+                hideNavBar
+                type={ActionConst.RESET}
+              />
+              <Scene
+                key={"Rules"}
+                component={Rules}
+                hideNavBar
+                type={ActionConst.RESET}
               />
             </Scene>
           </Router>

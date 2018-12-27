@@ -8,7 +8,9 @@ import {
   Dimensions,
   StyleSheet,
   Animated,
-  ListView
+  ListView,
+  TouchableHighlight,
+  Button
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
@@ -76,6 +78,7 @@ class Game extends Component {
     this.springAnimation = this.springAnimation.bind(this);
     this.stopAnimation = this.stopAnimation.bind(this);
     this.renderButton = this.renderButton.bind(this);
+    this._navToDirections = this._navToDirections.bind(this);
     this.ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
@@ -296,18 +299,18 @@ class Game extends Component {
       }
     });
     this.A5 = new Sound("A5.mp3", Sound.MAIN_BUNDLE, error => {
-    
       if (error) {
         console.log("sound failed A5");
         console.log(error);
       } else {
-       
         console.log("sound loaded A5");
       }
     });
   }
 
-  componentWillMount() { console.log(this.props, "game props")}
+  componentWillMount() {
+    console.log(this.props, "game props");
+  }
 
   componentDidMount() {
     // starts the game
@@ -356,7 +359,7 @@ class Game extends Component {
         buttonData.push(intervals[random]);
       }
     }
-    console.log(buttonData, "button data")
+    console.log(buttonData, "button data");
     buttonData = shuffle(buttonData);
     this.setState(
       {
@@ -382,7 +385,7 @@ class Game extends Component {
     );
   }
 
-  async endGame(){
+  async endGame() {
     let { id, dispatch } = this.props;
     this.stopSoundOne();
     this.stopSoundTwo();
@@ -391,22 +394,21 @@ class Game extends Component {
     //     stopAnimation: true
     //   }
     // )
-    if (id){
-      await dispatch({ type: "editAlarm", payload: { id: id, active: 0 } })
+    if (id) {
+      await dispatch({ type: "activateAlarm", payload: { id: id, active: 0 } });
       if (Platform.OS === "ios") {
         PushNotificationIOS.getScheduledLocalNotifications(notification => {
-          console.log(notification, "local notification schedule in end game")
+          console.log(notification, "local notification schedule in end game");
           notification.forEach(({ userInfo }) => {
-            console.log(userInfo, "userInfo")
-            if (userInfo.id === id){
-              PushNotification.cancelLocalNotifications({ id: userInfo.id })
+            console.log(userInfo, "userInfo");
+            if (userInfo.id === id) {
+              PushNotification.cancelLocalNotifications({ id: userInfo.id });
             }
-          })
+          });
         });
       }
     }
-    Actions.Home()
-   
+    Actions.Home();
   }
 
   stopAnimation() {
@@ -418,9 +420,9 @@ class Game extends Component {
 
   playSoundOne() {
     let { noteOne } = this.state;
-     console.log(noteOne, "note one play");
+    console.log(noteOne, "note one play");
     this[noteOne].play(success => {
-       console.log(success, "success play");
+      console.log(success, "success play");
 
       if (!success) {
         //Alert.alert("There was an error playing this audio");
@@ -430,7 +432,7 @@ class Game extends Component {
 
   stopSoundOne() {
     let { noteOne } = this.state;
-   // console.log(noteOne, "note one play");
+    // console.log(noteOne, "note one play");
     if (noteOne) {
       this[noteOne].stop(() =>
         this.setState({ noteOne: "", stopAnimation: true })
@@ -459,17 +461,18 @@ class Game extends Component {
     }
   }
 
-  renderCount(){
+  renderCount() {
     let { count } = this.state;
     let { id } = this.props;
-    if (id){
+    if (id) {
       return (
-        <View><Text style={{ fontSize: Convert(20) }}>{count}</Text></View>
-      )
+        <View>
+          <Text style={{ fontSize: Convert(20) }}>{count}</Text>
+        </View>
+      );
     } else {
-      return null
+      return null;
     }
-   
   }
 
   springAnimation(type) {
@@ -560,9 +563,8 @@ class Game extends Component {
     return icon;
   }
 
-
-  answerAnimation(){
-    let { renderAnswer, springSpeed } = this.state
+  answerAnimation() {
+    let { renderAnswer, springSpeed } = this.state;
     // Animated.spring(renderAnswer, {
     //   toValue: 1.7,
     //   friction: springSpeed,
@@ -577,7 +579,7 @@ class Game extends Component {
       Animated.sequence([
         Animated.timing(renderAnswer, {
           toValue: 1,
-          duration: 0,
+          duration: 0
         }),
         Animated.timing(renderAnswer, {
           toValue: 0,
@@ -587,13 +589,12 @@ class Game extends Component {
       {
         iterations: 1
       }
-    ).start()
+    ).start();
   }
 
   renderAnswer(val) {
     this.answerAnimation();
     if (val) {
-      
       return (
         <View>
           <Animated.Image
@@ -607,7 +608,7 @@ class Game extends Component {
             }}
           />
         </View>
-      )
+      );
     } else {
       return (
         <View>
@@ -622,7 +623,7 @@ class Game extends Component {
             }}
           />
         </View>
-      )
+      );
     }
   }
 
@@ -630,7 +631,7 @@ class Game extends Component {
     console.log(guess, "guess");
     let { correctAnswer, count } = this.state;
     let { id } = this.props;
-    if (id){
+    if (id) {
       if (guess === correctAnswer.long && count > 1) {
         // alert("correct")
         this.setState(
@@ -638,8 +639,7 @@ class Game extends Component {
             stopAnimation: true,
             correct: true,
             attempt: true,
-            count: count - 1,
-           
+            count: count - 1
           },
           () => setTimeout(() => this.startNewGame("easy"), 500)
         );
@@ -648,8 +648,7 @@ class Game extends Component {
           {
             stopAnimation: true,
             correct: false,
-            attempt: true,
-           
+            attempt: true
           },
           () => setTimeout(() => this.startNewGame("easy"), 500)
         );
@@ -661,8 +660,7 @@ class Game extends Component {
             stopAnimation: true,
             correct: true,
             attempt: true,
-            count: count - 1,
-           
+            count: count - 1
           },
           () => this.endGame()
         );
@@ -674,8 +672,7 @@ class Game extends Component {
           {
             stopAnimation: true,
             correct: true,
-            attempt: true,
-           
+            attempt: true
           },
           () => setTimeout(() => this.startNewGame("easy"), 500)
         );
@@ -684,22 +681,29 @@ class Game extends Component {
           {
             stopAnimation: true,
             correct: false,
-            attempt: true,
+            attempt: true
           },
           () => setTimeout(() => this.startNewGame("easy"), 500)
         );
       }
     }
-   
   }
 
   renderButton(item) {
-    let { checking } = this.state
+    let { checking } = this.state;
     return (
       <Animatable.View ref="view">
-        <TouchableOpacity disabled={checking} onPress={() => this.setState({
-          checking: true
-        }, () => this.checkAnswer(item))}>
+        <TouchableOpacity
+          disabled={checking}
+          onPress={() =>
+            this.setState(
+              {
+                checking: true
+              },
+              () => this.checkAnswer(item)
+            )
+          }
+        >
           <LinearGradient
             style={styles.item}
             start={{ x: 0.0, y: 0.25 }}
@@ -713,6 +717,39 @@ class Game extends Component {
     );
   }
 
+  _navToDirections() {
+    this.stopSoundOne();
+    this.stopSoundTwo();
+    setTimeout(() =>Actions.Rules(), 100)
+  }
+
+  renderDirections() {
+    let { id } = this.props;
+    if (!id) {
+      return (
+        <View style={{ display: "flex", alignItems: "flex-end" }}>
+          <TouchableHighlight
+            style={{
+              height: Convert(40),
+              width: Convert(100),
+              borderRadius: Convert(10),
+              backgroundColor: "dodgerblue"
+            }}
+          >
+            <Button
+              onPress={() =>this._navToDirections()}
+              title="Rules"
+              accessibilityLabel="Rules for game"
+              color="white"
+            />
+          </TouchableHighlight>
+        </View>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     let { buttonData, correct, attempt } = this.state;
     let { id } = this.props;
@@ -724,7 +761,14 @@ class Game extends Component {
           leftButtonIcon={id ? null : "left"}
           onLeftButtonPress={() => this.goBack()}
         />
-        <View style={{ display: "flex", flexDirection: "column" }}>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            backgroundColor: "white"
+          }}
+        >
+          {this.renderDirections()}
           <View
             style={{
               backgroundColor: "white",
@@ -734,13 +778,15 @@ class Game extends Component {
               alignItems: "center"
             }}
           >
-            <View style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center"
-            }} >
+            <View
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
               {this.renderCount()}
-              {attempt ? this.renderAnswer(correct): null}
+              {attempt ? this.renderAnswer(correct) : null}
               {/* <TouchableOpacity onPress={() => this.stopAnimation()}>
                 <Text style={[styles.fontStyle, {color: "black"}]}>Stop</Text>
               </TouchableOpacity> */}

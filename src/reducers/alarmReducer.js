@@ -7,15 +7,24 @@ const alarm = (state = initialState, action) => {
     case "addAlarm": {
       return { ...state, alarms: [...state.alarms, action.payload] };
     }
-      case "editAlarm": {
+      case "activateAlarm": {
           return {
               ...state, alarms: state.alarms.map(alarm => {
                   if (alarm.id === action.payload.id) {
-                      console.log(action.payload, "payload")
                       alarm.active = action.payload.active;
                   }
                   return alarm;
               }) };
+      }
+      case "editAlarm": {
+          return {
+              ...state, alarms: state.alarms.map(alarm => {
+                  if (alarm.id === action.payload.id) {
+                      alarm = action.payload;
+                  }
+                  return alarm;
+              })
+          };
       }
       case "deleteAlarm": {
           return {

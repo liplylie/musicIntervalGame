@@ -8,7 +8,8 @@ import {
   PermissionsAndroid,
   Dimensions,
   Button,
-  TouchableHighlight
+  TouchableHighlight,
+  KeyboardAvoidingView
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
@@ -24,24 +25,26 @@ import NavBar from "../Common/NavBar";
 const { height, width } = Dimensions.get("window");
 
 class AddAlarm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       isDateTimePickerVisible: false,
-      time: moment()
+      time: this.props.edit ? this.props.edit.time: moment()
         .startOf("minute")
         .format("hh:mm A"),
-      date: moment()
+      date: this.props.edit ? this.props.edit.date : moment()
         .startOf("minute")
         .format(),
-      message: ""
+      message: this.props.edit ? this.props.edit.message : ""
     };
     this._handleDatePicked = this._handleDatePicked.bind(this);
     this._addAlarm = this._addAlarm.bind(this);
+    this._editAlarm = this._editAlarm.bind(this);
   }
 
   componentWillMount() {
     const { dispatch } = this.props;
+    console.log(this.props, "fucker")
     console.log(
       moment()
         .startOf("minute")
@@ -71,12 +74,12 @@ class AddAlarm extends Component {
   };
 
   _addAlarm() {
-    let { dispatch } = this.props;
+    let { dispatch, edit } = this.props;
     let { time, date, message } = this.state;
     if (!time) {
       alert("Please enter a time for the alarm");
     } else {
-      let id = uuid();
+      let id = edit ? edit.id : uuid();
       if (moment(date).isBefore(moment().startOf("minute"))){
         date = moment(date).add(1, "days").startOf("minute").format()
       }
@@ -107,7 +110,49 @@ class AddAlarm extends Component {
           });
         }
       }
-      Actions.pop();
+      Actions.Home();
+    }
+  }
+
+  _editAlarm() {
+    let { dispatch, edit } = this.props;
+    let { time, date, message } = this.state;
+    if (!time) {
+      alert("Please enter a time for the alarm");
+    } else {
+      let id = edit.id
+      if (moment(date).isBefore(moment().startOf("minute"))) {
+        date = moment(date).add(1, "days").startOf("minute").format()
+      }
+      let alarm = new Alarm(id, 1, time, date, message || "Alarm");
+      console.log(alarm, "alarm edit")
+      dispatch({ type: "editAlarm", payload: alarm });
+      if (Platform.OS === "android") {
+        PushNotification.localNotificationSchedule({
+          message: message || "Alarm",
+          date: new Date(date),
+          soundName: "PerfectFifth.mp3",
+          repeatType: "minute",
+          id: id,
+          // repeatType: "minute"
+          // repeatTime: new Date(Date.now() + (1000 * 60 * 10 ))
+          // repeatTime: 100
+        });
+      } else {
+        for (let i = 0; i < 4; i++) {
+          let tempDate = moment(date).add(i * 8, "seconds");
+          PushNotification.localNotificationSchedule({
+            message: message || "Alarm",
+            date: new Date(tempDate),
+            soundName: "PerfectFifth.mp3",
+            repeatType: "minute",
+            userInfo: { id: id },
+            repeatType: "minute"
+            //repeatTime: new Date(Date.now() + 100)
+          });
+        }
+      }
+      Actions.Home();
     }
   }
 
@@ -133,12 +178,13 @@ class AddAlarm extends Component {
 
   render() {
     let { time, meridian } = this.state;
+    let { edit } = this.props;
     return (
       <View>
         <NavBar
-          title="Add Alarm"
+          title={ edit ? "Edit Alarm" : "Add Alarm"}
           leftButtonIcon="left"
-          onLeftButtonPress={() => Actions.pop()}
+          onLeftButtonPress={() => Actions.Home()}
         />
         <View
           style={{
@@ -170,8 +216,7 @@ class AddAlarm extends Component {
                     backgroundColor: "dodgerblue",
                     marginLeft: Convert(50),
                     marginRight: Convert(50),
-                    marginTop: Convert(20),
-                    color: "white"
+                    marginTop: Convert(20)
                   }}>
                   <Button onPress={this._showDateTimePicker}
                     title="Edit"
@@ -220,10 +265,9 @@ class AddAlarm extends Component {
                 backgroundColor: "dodgerblue",
                 marginLeft: Convert(50),
                 marginRight: Convert(50),
-                marginTop: Convert(20),
-                color: "white"
+                marginTop: Convert(20)
               }}>
-              <Button onPress={this._addAlarm}
+              <Button onPress={edit ? this._editAlarm : this._addAlarm}
                 title="SAVE"
                 accessibilityLabel="Save Alarm"
                 color="white"

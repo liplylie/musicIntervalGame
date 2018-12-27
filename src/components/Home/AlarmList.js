@@ -48,7 +48,7 @@ class AlarmList extends Component {
     handleAlarmActivation(value, alarm){
         console.log(alarm, "alarm", value, "value")
         let { dispatch } = this.props;
-        dispatch({type: "editAlarm", payload: { id: alarm.id, active: value}})
+        dispatch({type: "activateAlarm", payload: { id: alarm.id, active: value}})
         if (value === 0 ) {
             if (Platform.OS === "ios") {
                 PushNotificationIOS.getScheduledLocalNotifications(notification => {
@@ -103,8 +103,8 @@ class AlarmList extends Component {
         }
         return (
             <View style={{height: Convert(100), display: "flex", flexDirection: "column", justifyContent: "space-around", borderStyle: "solid", borderColor: "black", borderWidth: 1, backgroundColor: "white"}}>
-                <View style={{display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "center"}}>
-                    <Text style={{fontSize: 40}}>{data.time}</Text>
+                <View style={{display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "center"}} >
+                    <TouchableOpacity onPress={() => Actions.EditAlarm({ edit: data })}><Text style={{fontSize: 40}}>{data.time}</Text></TouchableOpacity>
                     <RadioForm
                         radio_props={radio_props}
                         labelColor={'gray'}
