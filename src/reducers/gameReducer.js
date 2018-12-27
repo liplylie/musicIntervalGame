@@ -3,7 +3,7 @@ const initialState = {
 };
 
 const game = (state = initialState, action) => {
-    console.log(action, "game reducer")
+    // console.log(action, "game reducer")
     switch (action.type) {
         case "complete": {
             return { ...state, complete: true };

@@ -28,8 +28,14 @@ class Rules extends Component {
           Simply set an alarm, and in order to turn the alarm off, you will need
           to answer three music interval questions correctly.
           {"\n"}
-          Missing the alarm, or swiping out of the app while the alarm is going off will set a snooze for one minute.
-           {"\n"}
+          {"\n"}
+          Missing the alarm, or swiping out of the app while the alarm is going
+          off will set a snooze for one minute.
+          {"\n"}
+          {"\n"}
+          Go back to the previous screen if you wish to just practice hearing
+          intervals.
+          {"\n"}
         </Text>
         <View>
           <Text

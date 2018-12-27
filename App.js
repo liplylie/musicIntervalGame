@@ -17,19 +17,17 @@ import { PersistGate } from "redux-persist/integration/react";
 import { ActionConst, Actions, Router, Scene } from "react-native-router-flux";
 import PushNotification from "react-native-push-notification";
 import moment from "moment";
-import Rules from "./src/components/Game/Rules"
+import Rules from "./src/components/Game/Rules";
 
 export default class App extends Component {
-  constructor(){
-    super()
+  constructor() {
+    super();
     this.state = {
       activeGame: false
-    }
-    this._handleAppStateChange = this._handleAppStateChange.bind(this)
+    };
+    this._handleAppStateChange = this._handleAppStateChange.bind(this);
   }
   componentWillMount() {
-
-
     PushNotification.configure({
       // (required) Called when a remote or local notification is opened or received
       onNotification: function(notification) {
@@ -40,9 +38,9 @@ export default class App extends Component {
         const clicked = userInteraction;
         if (currentScene === "Home") {
           if (clicked) {
-            Actions.Game({id: data.id});
+            Actions.Game({ id: data.id });
           } else if (foreground && !clicked) {
-            Actions.Game({id:data.id});
+            Actions.Game({ id: data.id });
           }
         }
 
@@ -66,61 +64,54 @@ export default class App extends Component {
     // PushNotificationIOS.requestPermissions()
     //   .then(perms => console.log(`PERMS`, perms))
     //   .catch(err => console.log(`ERROR REQUESTING PERMISSIONS`, err));
-    console.log(this.props, "app props");
-    PushNotification.checkPermissions(permissions => {
-      console.log(permissions, "rucker")
-      if (!permissions.alert){
-        alert("Please ")
-      }
-    })
-      
+
     AppState.addEventListener("change", this._handleAppStateChange);
     PushNotificationIOS.addEventListener("localNotification", notification => {
-      console.log(notification, "received")
+      console.log(notification, "received");
     });
-
   }
-
- 
 
   async _handleAppStateChange(appState) {
     console.log(appState, "app state");
 
-    if (appState === "active"){
+    if (appState === "active") {
       // let local = await PushNotificationIOS.getInitialNotification();
-        let { activeGame } = this.state;
+      let { activeGame } = this.state;
       let state = store.getState();
       let { alarms } = state.alarm;
-        if (Platform.OS === "ios") {
-          PushNotificationIOS.getScheduledLocalNotifications(
-            notification => {
-              console.log(notification, "notification navigate to Game in app");
-              if (notification.length && !activeGame) {
-                notification.forEach(({ userInfo }) => {
-                  console.log(userInfo, "userInfo")
-                  console.log(alarms, "alarms")
-                  alarms.forEach(a => {
-                    console.log(a, "a")
-                    console.log(userInfo, "u")
-                    if (a.id === userInfo.id && a.active) {
-                      let activeAlarm = moment(a.date).startOf('minute').isBefore(moment.now())
-                      let currentScene = Actions.currentScene;
-                      console.log(activeAlarm, "active alarm")
-                      console.log(currentScene, "currentScene")
-                      if (activeAlarm && !activeGame && currentScene === "Home") {
-                        console.log("here")
-                        this.setState({
-                          activeGame: true
-                        }, () => Actions.Game({ id: a.id }))
-
-                      }
-                      // Actions.Game(a.id)
-                    }
-                  })
-                })
-              }
-            })
+      if (Platform.OS === "ios") {
+        PushNotificationIOS.getScheduledLocalNotifications(notification => {
+          console.log(notification, "notification navigate to Game in app");
+          if (notification.length && !activeGame) {
+            notification.forEach(({ userInfo }) => {
+              console.log(userInfo, "userInfo");
+              console.log(alarms, "alarms");
+              alarms.forEach(a => {
+                console.log(a, "a");
+                console.log(userInfo, "u");
+                if (a.id === userInfo.id && a.active) {
+                  let activeAlarm = moment(a.date)
+                    .startOf("minute")
+                    .isBefore(moment.now());
+                  let currentScene = Actions.currentScene;
+                  console.log(activeAlarm, "active alarm");
+                  console.log(currentScene, "currentScene");
+                  if (activeAlarm && !activeGame && currentScene === "Home") {
+                    console.log("here");
+                    this.setState(
+                      {
+                        activeGame: true
+                      },
+                      () => Actions.Game({ id: a.id })
+                    );
+                  }
+                  // Actions.Game(a.id)
+                }
+              });
+            });
           }
+        });
+      }
     }
 
     if (appState === "background" || appState === "inactive") {
@@ -138,7 +129,7 @@ export default class App extends Component {
                 date: new Date(a.date),
                 soundName: "PerfectFifth.mp3",
                 repeatType: "minute",
-                id: a.id,
+                id: a.id
                 // repeatType: "time",
                 // repeatTime: 100
               });
@@ -154,7 +145,7 @@ export default class App extends Component {
                       date: new Date(a.date),
                       soundName: "PerfectFifth.mp3",
                       userInfo: { id: a.id },
-                      repeatType: "minute",
+                      repeatType: "minute"
                       //repeatTime: new Date(Date.now() + 1000 * 60 * 10)
                       // repeatType: "minute",
                       // repeatTime: 100
@@ -166,16 +157,16 @@ export default class App extends Component {
           }
         } else {
           // set the alarms to the next day
-          if (!active){
+          if (!active) {
             let diff = moment().diff(moment(a.date), "days");
-            console.log(a.date, "before");
-            console.log(diff, "diff");
+            // console.log(a.date, "before");
+            // console.log(diff, "diff");
             a.date = moment(a.date)
               .add(diff + 1, "days")
               .format();
-            console.log(a.date, "after");
+            // console.log(a.date, "after");
           }
-         
+
           if (a.active) {
             if (Platform.OS === "android") {
               PushNotification.localNotificationSchedule({
@@ -184,12 +175,13 @@ export default class App extends Component {
                 soundName: "PerfectFifth.mp3",
                 // repeatType: "minute",
                 id: a.id,
-                repeatType: "minute",
+                repeatType: "minute"
                 // repeatTime: 100
               });
             } else {
-              PushNotificationIOS.getScheduledLocalNotifications(notification => {
-                // a double check to make sure alarms are scheduled
+              PushNotificationIOS.getScheduledLocalNotifications(
+                notification => {
+                  // a double check to make sure alarms are scheduled
                   console.log(notification, "notification in else app");
                   if (notification.indexOf({ userInfo: { id: a.id } }) > -1) {
                     console.log("Made it mofo");

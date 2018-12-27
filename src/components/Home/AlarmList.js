@@ -46,15 +46,15 @@ class AlarmList extends Component {
     };
 
     handleAlarmActivation(value, alarm){
-        console.log(alarm, "alarm", value, "value")
+        // console.log(alarm, "alarm", value, "value")
         let { dispatch } = this.props;
         dispatch({type: "activateAlarm", payload: { id: alarm.id, active: value}})
         if (value === 0 ) {
             if (Platform.OS === "ios") {
                 PushNotificationIOS.getScheduledLocalNotifications(notification => {
-                    console.log(notification, "local notification schedule in end game")
+                    // console.log(notification, "local notification schedule in end game")
                     notification.forEach(({ userInfo }) => {
-                        console.log(userInfo, "userInfo")
+                        // console.log(userInfo, "userInfo")
                         if (userInfo.id === alarm.id) {
                             PushNotification.cancelLocalNotifications({ id: alarm.id })
                         }
@@ -93,7 +93,7 @@ class AlarmList extends Component {
     }
 
     renderAlarms(data){
-        console.log(data, "alarm data")
+        // console.log(data, "alarm data")
         var radio_props = [
             { label: 'On', value: 1 },
             { label: 'Off', value: 0 }
@@ -104,7 +104,7 @@ class AlarmList extends Component {
         return (
             <View style={{height: Convert(100), display: "flex", flexDirection: "column", justifyContent: "space-around", borderStyle: "solid", borderColor: "black", borderWidth: 1, backgroundColor: "white"}}>
                 <View style={{display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "center"}} >
-                    <TouchableOpacity onPress={() => Actions.EditAlarm({ edit: data })}><Text style={{fontSize: 40}}>{data.time}</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => Actions.EditAlarm({ edit: data })}><Text style={{fontSize: Convert(40), paddingLeft: Convert(8)}}>{data.time}</Text></TouchableOpacity>
                     <RadioForm
                         radio_props={radio_props}
                         labelColor={'gray'}
@@ -132,7 +132,7 @@ class AlarmList extends Component {
             PushNotificationIOS.getScheduledLocalNotifications(notification => {
                 console.log(notification, "local notification schedule in alarm list")
                 notification.forEach(({ userInfo }) => {
-                    console.log(userInfo, "userInfo")
+                    // console.log(userInfo, "userInfo")
                     if (userInfo.id === data.id) {
                         PushNotification.cancelLocalNotifications({ id: userInfo.id })
                     }
@@ -160,7 +160,6 @@ class AlarmList extends Component {
                             alignSelf: "flex-end",
                             marginRight: Convert(10),
                             marginTop: Convert(5),
-                            backgroundColor: "red",
                             padding: Convert(11)
                         }}
                     >

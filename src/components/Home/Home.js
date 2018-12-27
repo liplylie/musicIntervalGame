@@ -37,7 +37,7 @@ class Home extends Component {
     }
 
     componentWillMount() {
-        console.log(this.props, "home props")
+        // console.log(this.props, "home props")
         // this._navigateToGame()
 
     }
@@ -52,21 +52,21 @@ class Home extends Component {
         if (Platform.OS === "ios") {
             PushNotificationIOS.getScheduledLocalNotifications(
                 notification => {
-                    console.log(notification, "notification navigate to Game in home");
+                    // console.log(notification, "notification navigate to Game in home");
                     if (notification.length && !activeGame) {
                         notification.forEach(({ userInfo }) => {
-                            console.log(userInfo, "userInfo")
-                            console.log(alarms, "alarms")
+                            // console.log(userInfo, "userInfo")
+                            // console.log(alarms, "alarms")
                             alarms.forEach(a => {
-                                console.log(a, "a")
-                                console.log(userInfo, "u")
+                                // console.log(a, "a")
+                                // console.log(userInfo, "u")
                                 if (a.id === userInfo.id && a.active) {
-                                    console.log("alarm", a)
+                                    // console.log("alarm", a)
                                     let activeAlarm = moment(a.date).isBefore(moment.now())
-                                    console.log(activeAlarm, "active alarm")
-                                    console.log(activeGame, "active game")
+                                    // console.log(activeAlarm, "active alarm")
+                                    // console.log(activeGame, "active game")
                                     if (activeAlarm && !activeGame) {
-                                        console.log("here")
+                                        // console.log("here")
                                         this.setState({
                                             activeGame: true
                                         }, () => Actions.Game({id:a.id}))

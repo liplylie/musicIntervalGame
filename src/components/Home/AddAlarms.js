@@ -44,14 +44,15 @@ class AddAlarm extends Component {
 
   componentWillMount() {
     const { dispatch } = this.props;
-    console.log(this.props, "fucker")
-    console.log(
-      moment()
-        .startOf("minute")
-        .format(),
-      "time"
-    );
     // dispatch({ type: "addAlarm", payload: alarm })
+  }
+
+  componentDidMount(){
+    PushNotification.checkPermissions(permissions => {
+      if (!permissions.alert) {
+        alert("Please enable push notifications for the alarm to work");
+      }
+    });
   }
 
   _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
@@ -59,7 +60,7 @@ class AddAlarm extends Component {
   _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
   _handleDatePicked = date => {
-    console.log("A date has been picked: ", date);
+    // console.log("A date has been picked: ", date);
     this._hideDateTimePicker();
     let time = moment(date)
       .startOf("minute")
@@ -125,7 +126,7 @@ class AddAlarm extends Component {
         date = moment(date).add(1, "days").startOf("minute").format()
       }
       let alarm = new Alarm(id, 1, time, date, message || "Alarm");
-      console.log(alarm, "alarm edit")
+      // console.log(alarm, "alarm edit")
       dispatch({ type: "editAlarm", payload: alarm });
       if (Platform.OS === "android") {
         PushNotification.localNotificationSchedule({
