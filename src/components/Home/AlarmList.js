@@ -160,7 +160,8 @@ class AlarmList extends Component {
                             alignSelf: "flex-end",
                             marginRight: Convert(10),
                             marginTop: Convert(5),
-                            padding: Convert(11)
+                            padding: Convert(11),
+                            backgroundColor: "red"
                         }}
                     >
                         <TouchableOpacity

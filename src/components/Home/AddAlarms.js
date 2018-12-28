@@ -5,11 +5,12 @@ import {
   TouchableOpacity,
   TextInput,
   Platform,
-  PermissionsAndroid,
   Dimensions,
   Button,
   TouchableHighlight,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  PushNotificationIOS,
+  Animated
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
@@ -35,7 +36,10 @@ class AddAlarm extends Component {
       date: this.props.edit ? this.props.edit.date : moment()
         .startOf("minute")
         .format(),
-      message: this.props.edit ? this.props.edit.message : ""
+      message: this.props.edit ? this.props.edit.message : "",
+      iconOne: new Animated.Value(0.7),
+      iconTwo: new Animated.Value(0.7),
+      springSpeed: 500
     };
     this._handleDatePicked = this._handleDatePicked.bind(this);
     this._addAlarm = this._addAlarm.bind(this);
@@ -48,11 +52,35 @@ class AddAlarm extends Component {
   }
 
   componentDidMount(){
+    let { iconOne, springSpeed } = this.state
     PushNotification.checkPermissions(permissions => {
       if (!permissions.alert) {
         alert("Please enable push notifications for the alarm to work");
       }
     });
+   this.runAnimation()
+  }
+  runAnimation() {
+    this.state.iconOne.setValue(1.5);
+    Animated.timing(this.state.iconOne, {
+      toValue:  1,
+      duration: 1000,
+    }).start(()=> {
+      Animated.timing(this.state.iconOne, {
+        toValue: 1.5,
+        duration: 1000,
+      }).start();
+    });
+    Animated.timing(this.state.iconTwo, {
+      toValue: 1,
+      duration: 1000,
+    }).start(() => {
+      Animated.timing(this.state.iconTwo, {
+        toValue: 1.5,
+        duration: 1000,
+      }).start(() => this.runAnimation());
+    });
+   
   }
 
   _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
@@ -127,6 +155,15 @@ class AddAlarm extends Component {
       }
       let alarm = new Alarm(id, 1, time, date, message || "Alarm");
       // console.log(alarm, "alarm edit")
+      PushNotificationIOS.getScheduledLocalNotifications(notification => {
+        console.log(notification, "local notification schedule in alarm list")
+        notification.forEach(({ userInfo }) => {
+          // console.log(userInfo, "userInfo")
+          if (userInfo.id === edit.id) {
+            PushNotification.cancelLocalNotifications({ id: userInfo.id })
+          }
+        })
+      });
       dispatch({ type: "editAlarm", payload: alarm });
       if (Platform.OS === "android") {
         PushNotification.localNotificationSchedule({
@@ -181,7 +218,7 @@ class AddAlarm extends Component {
     let { time, meridian } = this.state;
     let { edit } = this.props;
     return (
-      <View>
+      <View style={{display: "flex", flex: 1}}>
         <NavBar
           title={ edit ? "Edit Alarm" : "Add Alarm"}
           leftButtonIcon="left"
@@ -193,7 +230,7 @@ class AddAlarm extends Component {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "space-around",
-            height: height,
+            flexGrow: 1,
             backgroundColor: "white"
           }}
         >
@@ -206,7 +243,7 @@ class AddAlarm extends Component {
             }}
           >
             <View>
-              <Text style={{ fontSize: Convert(40) }}>{time}</Text>
+              <Text style={{ fontSize: Convert(80) }}>{time}</Text>
             </View>
             <View>
                 <TouchableHighlight
@@ -237,7 +274,7 @@ class AddAlarm extends Component {
             style={{
               flexGrow: 1,
               flexDirection: "column",
-              justifyContent: "space-between",
+              justifyContent: "space-around",
               alignSelf: "center",
             }}
           >
@@ -247,7 +284,8 @@ class AddAlarm extends Component {
                 width: Convert(300), 
                 borderColor: 'gray', 
                 borderWidth: 1, 
-                borderRadius: 20,
+                borderRadius: Convert(10),
+                backgroundColor: "white",
                 textAlign: "center" 
               }}
               onChangeText={(message) => this.setState({ message })}
@@ -255,18 +293,36 @@ class AddAlarm extends Component {
               placeholder="Description"
               maxLength={30}
             />
-            
+            <View style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+              <Animated.Image 
+                source={require("../../../assets/images/appIcon1024.png")} 
+                style={{ 
+                  height: Convert(40),
+                  width: Convert(40),
+                  resizeMode: "contain",
+                  transform: [{ scale: this.state.iconOne }] 
+                }}
+                
+               />
+              <Animated.Image 
+                source={require("../../../assets/images/appIcon1024.png")}
+                style={{ height: Convert(40), width: Convert(40) }}
+                style={{
+                  height: Convert(40),
+                  width: Convert(40),
+                  resizeMode: "contain",
+                  transform: [{ scale: this.state.iconTwo }]
+                }}
+              />
+            </View>
           </View>
-          <View style={{ flexGrow: 1 }}>
+          <View style={{ flexGrow: 1, justifyContent: "flex-end" }}>
             <TouchableHighlight
               style={{
-                height: Convert(40),
-                width: Convert(160),
-                borderRadius: Convert(10),
+                height: Convert(45),
+                width: width,
                 backgroundColor: "dodgerblue",
-                marginLeft: Convert(50),
-                marginRight: Convert(50),
-                marginTop: Convert(20)
+                margin: 0
               }}>
               <Button onPress={edit ? this._editAlarm : this._addAlarm}
                 title="SAVE"

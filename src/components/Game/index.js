@@ -727,13 +727,14 @@ class Game extends Component {
     let { id } = this.props;
     if (!id) {
       return (
-        <View style={{ display: "flex", alignItems: "flex-end" }}>
+        <View style={{ display: "flex", alignItems: "center" }}>
           <TouchableHighlight
             style={{
               height: Convert(40),
               width: Convert(100),
               borderRadius: Convert(10),
-              backgroundColor: "dodgerblue"
+              backgroundColor: "dodgerblue",
+              marginTop: Convert(10)
             }}
           >
             <Button
