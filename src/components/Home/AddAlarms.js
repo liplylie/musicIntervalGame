@@ -52,7 +52,6 @@ class AddAlarm extends Component {
   }
 
   componentDidMount(){
-    let { iconOne, springSpeed } = this.state
     PushNotification.checkPermissions(permissions => {
       if (!permissions.alert) {
         alert("Please enable push notifications for the alarm to work");

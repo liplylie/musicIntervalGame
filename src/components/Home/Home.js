@@ -17,6 +17,7 @@ import {
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
 import { Convert, Styles } from "../../styles";
+import Banner from "../Ads/Banner"
 
 import AlarmList from "./AlarmList";
 import  NavBar  from "../Common/NavBar";
@@ -104,7 +105,7 @@ class Home extends Component {
                 <ScrollView contentContainerStyle={{ display: "flex",flex: 1 }}>
                     <AlarmList />
                 </ScrollView>
-                
+                <Banner/>
             </View>
         )
     }
