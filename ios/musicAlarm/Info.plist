@@ -42,7 +42,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>MusicIntAlarm would like to access your microphone in order to play the intervals.</string>
+	<string>MusicIntervalAlarm would like to access your microphone in order to play the intervals.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

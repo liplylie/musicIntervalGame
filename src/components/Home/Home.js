@@ -105,7 +105,10 @@ class Home extends Component {
                 <ScrollView contentContainerStyle={{ display: "flex",flex: 1 }}>
                     <AlarmList />
                 </ScrollView>
-                <Banner/>
+                <View style={{marginBottom: Convert(30)}}>
+                    <Banner />
+                </View>
+               
             </View>
         )
     }

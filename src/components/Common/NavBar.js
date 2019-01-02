@@ -38,8 +38,8 @@ export default class NavBar extends Component {
         if (leftButtonIcon === "left") {
             icon = (
                 <Arrow
-                    width={Convert(8.8)}
-                    height={Convert(16.7)}
+                    width={Convert(10)}
+                    height={Convert(20)}
                     direction="left"
                     color={this.props.leftArrowColor}
                 />
@@ -60,10 +60,10 @@ export default class NavBar extends Component {
         else if (leftButtonIcon === "music") {
             icon = (
                 <FontAwesome
-                    size={Convert(20)}
+                    size={Convert(25)}
                     name="music"
-                    color={Colors.actionGreen}
-                    style={{ marginLeft: Convert(10) }}
+                    color={"dodgerblue"}
+                    style={{ marginLeft: Convert(10), marginTop: Convert(10) }}
                 />
             );
         }
@@ -156,10 +156,10 @@ export default class NavBar extends Component {
         else if (rightButtonIcon === "plus") {
             icon = (
                 <FontAwesome
-                    size={Convert(20)}
+                    size={Convert(30)}
                     name="plus"
-                    color={Colors.actionGreen}
-                    style={{ marginLeft: Convert(10) }}
+                    color={"dodgerblue"}
+                    style={{ marginLeft: Convert(10), marginTop: Convert(10) }}
                 />
             );
         }

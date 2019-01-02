@@ -1,0 +1,34 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'musicAlarm' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for musicAlarm
+pod 'FBAudienceNetwork','4.99.0' 
+pod 'FacebookSDK'
+  pod 'Bolts'
+  pod 'FBSDKCoreKit' 
+  pod 'FBSDKShareKit'
+
+
+
+  target 'musicAlarm-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'musicAlarmTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'musicAlarm-tvOS' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for musicAlarm-tvOS
+end

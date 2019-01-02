@@ -24,7 +24,7 @@ import PushNotification from "react-native-push-notification";
 import NavBar from "../Common/NavBar";
 
 const { height, width } = Dimensions.get("window");
-
+const iphoneX = height > 800;
 class AddAlarm extends Component {
   constructor(props) {
     super(props);
@@ -318,7 +318,7 @@ class AddAlarm extends Component {
           <View style={{ flexGrow: 1, justifyContent: "flex-end" }}>
             <TouchableHighlight
               style={{
-                height: Convert(45),
+                height: iphoneX ? Convert(80) : Convert(50),
                 width: width,
                 backgroundColor: "dodgerblue",
                 margin: 0
