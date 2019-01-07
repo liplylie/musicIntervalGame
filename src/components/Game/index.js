@@ -306,6 +306,7 @@ class Game extends Component {
         console.log("sound loaded A5");
       }
     });
+    Sound.setCategory("Playback")
   }
 
   componentWillMount() {
@@ -482,8 +483,8 @@ class Game extends Component {
       noteSpringOne,
       noteSpringTwo
     } = this.state;
-    console.log(stopAnimation, "stop");
-    console.log(type, "type");
+    // console.log(stopAnimation, "stop");
+    // console.log(type, "type");
     if (!stopAnimation) {
       if (type === "One") {
         this.playSoundOne();
@@ -628,7 +629,7 @@ class Game extends Component {
   }
 
   checkAnswer(guess) {
-    console.log(guess, "guess");
+    // console.log(guess, "guess");
     let { correctAnswer, count } = this.state;
     let { id } = this.props;
     if (id) {
@@ -641,7 +642,7 @@ class Game extends Component {
             attempt: true,
             count: count - 1
           },
-          () => setTimeout(() => this.startNewGame("easy"), 500)
+          () => setTimeout(() => this.startNewGame("easy"), 600)
         );
       } else if (guess !== correctAnswer.long) {
         this.setState(
@@ -650,7 +651,7 @@ class Game extends Component {
             correct: false,
             attempt: true
           },
-          () => setTimeout(() => this.startNewGame("easy"), 500)
+          () => setTimeout(() => this.startNewGame("easy"), 700)
         );
       }
 
@@ -674,7 +675,7 @@ class Game extends Component {
             correct: true,
             attempt: true
           },
-          () => setTimeout(() => this.startNewGame("easy"), 500)
+          () => setTimeout(() => this.startNewGame("easy"), 700)
         );
       } else if (guess !== correctAnswer.long) {
         this.setState(
@@ -683,14 +684,22 @@ class Game extends Component {
             correct: false,
             attempt: true
           },
-          () => setTimeout(() => this.startNewGame("easy"), 500)
+          () => setTimeout(() => this.startNewGame("easy"), 700)
         );
       }
     }
   }
 
   renderButton(item) {
-    let { checking } = this.state;
+    let { checking, attempt, correctAnswer } = this.state;
+    let correct;
+    if (correctAnswer){
+      correct = item === correctAnswer.long;
+
+    }
+    let buttonColor = ["#4c669f", "#3b5998", "#192f6a"]
+    let wrongColor = ["#ff4d4d", "#e60000"];
+    let correctColor = ["#0BAB64","#3BB78F"];
     return (
       <Animatable.View ref="view">
         <TouchableOpacity
@@ -708,7 +717,7 @@ class Game extends Component {
             style={styles.item}
             start={{ x: 0.0, y: 0.25 }}
             end={{ x: 0.5, y: 1.0 }}
-            colors={["#4c669f", "#3b5998", "#192f6a"]}
+            colors={attempt ? correct ? correctColor : wrongColor : buttonColor}
           >
             <Text style={styles.fontStyle}>{item}</Text>
           </LinearGradient>

@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -46,7 +47,6 @@
 		47E9D95FFBC14679947872AA /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F3F6C3538C4EE08DF99DC7 /* libRNVectorIcons.a */; };
 		48C420FE4C134B4486780089 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DBC1C561AF674613A4C60EE1 /* MaterialIcons.ttf */; };
 		65EDCFC9416D411383DEA17D /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4265DA2CE6F84ACC839F6374 /* Ionicons.ttf */; };
-		6F0E029021DA0631006B90FF /* libReactNativeAdsFacebook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F0E025221DA0364006B90FF /* libReactNativeAdsFacebook.a */; };
 		6F32290721C395E600677CE4 /* D5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F32290621C395E600677CE4 /* D5.mp3 */; };
 		6F32290921C395EA00677CE4 /* D5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F32290821C395EA00677CE4 /* D5.mp3 */; };
 		6F3FDC1F21BE29A800E7DB2D /* A4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDBE721BE29A700E7DB2D /* A4.mp3 */; };
@@ -78,6 +78,7 @@
 		6F3FDCF821BF9CC000E7DB2D /* F5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCF721BF9CC000E7DB2D /* F5.mp3 */; };
 		6F3FDCFA21BF9CC500E7DB2D /* Gb5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCF921BF9CC500E7DB2D /* Gb5.mp3 */; };
 		6F3FDCFC21BF9EA300E7DB2D /* B4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCFB21BF9EA300E7DB2D /* B4.mp3 */; };
+		6F4C2AC721DCAF68006307AB /* libReactNativeAdsFacebook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F0E025221DA0364006B90FF /* libReactNativeAdsFacebook.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		6F7F92B821B9127B00A3419B /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F7F929C21B9125E00A3419B /* libRCTPushNotification.a */; };
 		6FF76A1121D2E93D00790B28 /* PerfectFifth.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6FF76A1021D2E93D00790B28 /* PerfectFifth.mp3 */; };
 		6FF76A1421D2EFB800790B28 /* Demo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6FF76A1321D2EFB800790B28 /* Demo.mp3 */; };
@@ -514,6 +515,7 @@
 		6F3FDCF721BF9CC000E7DB2D /* F5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = F5.mp3; path = ../../../Downloads/F5.mp3; sourceTree = "<group>"; };
 		6F3FDCF921BF9CC500E7DB2D /* Gb5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Gb5.mp3; path = ../../../Downloads/Gb5.mp3; sourceTree = "<group>"; };
 		6F3FDCFB21BF9EA300E7DB2D /* B4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = B4.mp3; path = ../../../Downloads/B4.mp3; sourceTree = "<group>"; };
+		6F4C2AC621DCA9CE006307AB /* musicAlarm.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = musicAlarm.entitlements; path = musicAlarm/musicAlarm.entitlements; sourceTree = "<group>"; };
 		6F57C7CD21D320DF005F90E2 /* P5.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = P5.m4a; sourceTree = "<group>"; };
 		6F7F928A21B9125E00A3419B /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		6FE1F58D21C0E42D00487431 /* E4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = E4.mp3; sourceTree = "<group>"; };
@@ -588,6 +590,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F4C2AC721DCAF68006307AB /* libReactNativeAdsFacebook.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
 				6F7F92B821B9127B00A3419B /* libRCTPushNotification.a in Frameworks */,
@@ -605,7 +608,6 @@
 				47E9D95FFBC14679947872AA /* libRNVectorIcons.a in Frameworks */,
 				E6D5AE07358A41F199F06521 /* libBVLinearGradient.a in Frameworks */,
 				37229706D13EB61BC58CBCA9 /* libPods-musicAlarm.a in Frameworks */,
-				6F0E029021DA0631006B90FF /* libReactNativeAdsFacebook.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,6 +722,7 @@
 		13B07FAE1A68108700A75B9A /* musicAlarm */ = {
 			isa = PBXGroup;
 			children = (
+				6F4C2AC621DCA9CE006307AB /* musicAlarm.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -1116,6 +1119,9 @@
 						DevelopmentTeam = PE5Y8F95T2;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -1888,6 +1894,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = musicAlarm/musicAlarm.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = PE5Y8F95T2;
@@ -1921,6 +1928,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = musicAlarm/musicAlarm.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PE5Y8F95T2;
 				FRAMEWORK_SEARCH_PATHS = (
