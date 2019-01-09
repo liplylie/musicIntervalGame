@@ -48,6 +48,10 @@ import Eb5 from "../../samples/Eb5.mp3";
 import E5 from "../../samples/E5.mp3";
 import F5 from "../../samples/F5.mp3";
 import Gb5 from "../../samples/Gb5.mp3";
+import G5 from "../../samples/G5.mp3";
+import Ab5 from "../../samples/Ab5.mp3";
+import A5 from "../../samples/A5.mp3";
+
 
 import E3 from "../../samples/E3.mp3";
 
@@ -122,7 +126,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.B3 = new Sound("B3.mp3", Sound.MAIN_BUNDLE, error => {
+    this.B3 = new Sound(B3, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -130,7 +134,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.C4 = new Sound("C4.mp3", Sound.MAIN_BUNDLE, error => {
+    this.C4 = new Sound(C4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -138,7 +142,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Db4 = new Sound("Db4.mp3", Sound.MAIN_BUNDLE, error => {
+    this.Db4 = new Sound(Db4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -146,7 +150,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.D4 = new Sound("D4.mp3", Sound.MAIN_BUNDLE, error => {
+    this.D4 = new Sound(D4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -154,7 +158,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Eb4 = new Sound("Eb4.mp3", Sound.MAIN_BUNDLE, error => {
+    this.Eb4 = new Sound(Eb4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -162,7 +166,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.E4 = new Sound("E4.mp3", Sound.MAIN_BUNDLE, error => {
+    this.E4 = new Sound(E4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -170,7 +174,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.F4 = new Sound("F4.mp3", Sound.MAIN_BUNDLE, error => {
+    this.F4 = new Sound(F4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -178,7 +182,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Gb4 = new Sound("Gb4.mp3", Sound.MAIN_BUNDLE, error => {
+    this.Gb4 = new Sound(Gb4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -186,7 +190,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.G4 = new Sound("G4.mp3", Sound.MAIN_BUNDLE, error => {
+    this.G4 = new Sound(G4, error => {
       if (error) {
         console.log("sound failed G4");
         console.log(error);
@@ -194,7 +198,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Ab4 = new Sound("Ab4.mp3", Sound.MAIN_BUNDLE, error => {
+    this.Ab4 = new Sound(Ab4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -250,20 +254,20 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
+    this.Eb5 = new Sound(Eb5, error => {
+      if (error) {
+        console.log("sound failed Eb5");
+        console.log(error);
+      } else {
+        console.log("sound loaded Eb5");
+      }
+    });
     this.E5 = new Sound(E5, error => {
       if (error) {
         console.log("sound failed E5 ");
         console.log(error);
       } else {
         console.log("sound loaded E5");
-      }
-    });
-    this.Eb5 = new Sound("Eb5.mp3", Sound.MAIN_BUNDLE, error => {
-      if (error) {
-        console.log("sound failed Eb5");
-        console.log(error);
-      } else {
-        console.log("sound loaded Eb5");
       }
     });
     this.F5 = new Sound(F5, error => {
@@ -274,7 +278,7 @@ class Game extends Component {
         console.log("sound loaded F5");
       }
     });
-    this.Gb5 = new Sound("Gb5.mp3", Sound.MAIN_BUNDLE, error => {
+    this.Gb5 = new Sound(Gb5, error => {
       if (error) {
         console.log("sound failed Gbb5");
         console.log(error);
@@ -282,7 +286,7 @@ class Game extends Component {
         console.log("sound loaded Gb5");
       }
     });
-    this.G5 = new Sound("G5.mp3", Sound.MAIN_BUNDLE, error => {
+    this.G5 = new Sound(G5, error => {
       if (error) {
         console.log("sound failed G5");
         console.log(error);
@@ -290,7 +294,7 @@ class Game extends Component {
         console.log("sound loaded G5");
       }
     });
-    this.Ab5 = new Sound("Ab5.mp3", Sound.MAIN_BUNDLE, error => {
+    this.Ab5 = new Sound(Ab5, error => {
       if (error) {
         console.log("sound failed Ab5");
         console.log(error);
@@ -298,7 +302,7 @@ class Game extends Component {
         console.log("sound loaded Ab5");
       }
     });
-    this.A5 = new Sound("A5.mp3", Sound.MAIN_BUNDLE, error => {
+    this.A5 = new Sound(A5, error => {
       if (error) {
         console.log("sound failed A5");
         console.log(error);
@@ -326,7 +330,7 @@ class Game extends Component {
 
   startNewGame(difficulty) {
     let { noteOne, noteTwo } = this.state;
-    if (noteOne || noteTwo) {
+    if (noteOne && noteTwo) {
       this[noteOne].stop();
       this[noteTwo].stop();
     }
@@ -406,6 +410,10 @@ class Game extends Component {
               PushNotification.cancelLocalNotifications({ id: userInfo.id });
             }
           });
+        });
+      } else {
+        PushNotification.cancelLocalNotifications({
+          id: id
         });
       }
     }
@@ -750,7 +758,7 @@ class Game extends Component {
               onPress={() =>this._navToDirections()}
               title="Rules"
               accessibilityLabel="Rules for game"
-              color="white"
+              color={Platform.OS === "ios" ? "white": ""}
             />
           </TouchableHighlight>
         </View>

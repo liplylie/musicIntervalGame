@@ -60,6 +60,10 @@ class AlarmList extends Component {
                         }
                     })
                 });
+            } else {
+                PushNotification.cancelLocalNotifications({
+                  id: alarm.id
+                });
             }
         } else if (value === 1) {
             if (!moment(alarm.date).isAfter(moment.now())){
@@ -70,7 +74,7 @@ class AlarmList extends Component {
                 PushNotification.localNotificationSchedule({
                     message: alarm.message || "Alarm",
                     date: new Date(alarm.date),
-                    soundName: "PerfectFifth.mp3",
+                    soundName: "perfect_fifth.mp3",
                     repeatType: "minute",
                     id: alarm.id,
                     // repeatType: "time",
@@ -138,6 +142,9 @@ class AlarmList extends Component {
                     }
                 })
             });
+        } else {
+            console.log(data.id, "look man")
+            PushNotification.cancelLocalNotifications(data.id);
         }
         rowRef.manuallySwipeRow(0);
     }

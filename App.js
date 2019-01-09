@@ -5,7 +5,8 @@ import {
   Text,
   View,
   PushNotificationIOS,
-  AppState
+  AppState, 
+  AsyncStorage
 } from "react-native";
 import { persistor } from "./src/store.js";
 import store from "./src/store.js";
@@ -34,13 +35,22 @@ export default class App extends Component {
         console.log("ROOT NOTIFICATION:", notification);
         let currentScene = Actions.currentScene;
         console.log(currentScene, "current Scene");
-        let { userInteraction, foreground, message, data } = notification;
+        let { userInteraction, foreground, message, data, id } = notification;
         const clicked = userInteraction;
         if (currentScene === "Home") {
           if (clicked) {
-            Actions.Game({ id: data.id });
+            if (Platform.OS === "ios"){
+              Actions.Game({ id: data.id });
+            } else {
+              Actions.Game({ id: id });
+            }
+           
           } else if (foreground && !clicked) {
-            Actions.Game({ id: data.id });
+            if (Platform.OS === "ios") {
+              Actions.Game({ id: data.id });
+            } else {
+              Actions.Game({ id: id });
+            }
           }
         }
 
@@ -61,6 +71,10 @@ export default class App extends Component {
     });
   }
   componentDidMount() {
+    // AsyncStorage.clear();
+    // PushNotification.cancelAllLocalNotifications();
+
+
     // PushNotificationIOS.requestPermissions()
     //   .then(perms => console.log(`PERMS`, perms))
     //   .catch(err => console.log(`ERROR REQUESTING PERMISSIONS`, err));
@@ -127,7 +141,7 @@ export default class App extends Component {
               PushNotification.localNotificationSchedule({
                 message: a.message || "Alarm",
                 date: new Date(a.date),
-                soundName: "PerfectFifth.mp3",
+                soundName: "perfect_fifth.mp3",
                 repeatType: "minute",
                 id: a.id
                 // repeatType: "time",
@@ -172,7 +186,7 @@ export default class App extends Component {
               PushNotification.localNotificationSchedule({
                 message: a.message || "Alarm",
                 date: new Date(a.date),
-                soundName: "PerfectFifth.mp3",
+                soundName: "perfect_fifth.mp3",
                 // repeatType: "minute",
                 id: a.id,
                 repeatType: "minute"

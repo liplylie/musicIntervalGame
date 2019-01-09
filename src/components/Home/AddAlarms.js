@@ -107,7 +107,7 @@ class AddAlarm extends Component {
     if (!time) {
       alert("Please enter a time for the alarm");
     } else {
-      let id = edit ? edit.id : uuid();
+      let id = edit ? edit.id : uuid(Platform.OS);
       if (moment(date).isBefore(moment().startOf("minute"))){
         date = moment(date).add(1, "days").startOf("minute").format()
       }
@@ -117,9 +117,10 @@ class AddAlarm extends Component {
         PushNotification.localNotificationSchedule({
           message: message || "Alarm",
           date: new Date(date),
-          soundName: "PerfectFifth.mp3",
+          soundName: "perfect_fifth.mp3",
           repeatType: "minute",
           id: id,
+          userInfo: { id: id }
           // repeatType: "minute"
           // repeatTime: new Date(Date.now() + (1000 * 60 * 10 ))
           // repeatTime: 100
@@ -154,23 +155,28 @@ class AddAlarm extends Component {
       }
       let alarm = new Alarm(id, 1, time, date, message || "Alarm");
       // console.log(alarm, "alarm edit")
-      PushNotificationIOS.getScheduledLocalNotifications(notification => {
-        console.log(notification, "local notification schedule in alarm list")
-        notification.forEach(({ userInfo }) => {
-          // console.log(userInfo, "userInfo")
-          if (userInfo.id === edit.id) {
-            PushNotification.cancelLocalNotifications({ id: userInfo.id })
-          }
-        })
-      });
+      if (Platform.OS === "ios"){
+        PushNotificationIOS.getScheduledLocalNotifications(notification => {
+          console.log(notification, "local notification schedule in alarm list")
+          notification.forEach(({ userInfo }) => {
+            // console.log(userInfo, "userInfo")
+            if (userInfo.id === edit.id) {
+              PushNotification.cancelLocalNotifications({ id: userInfo.id })
+            }
+          })
+        });
+      } else {
+        PushNotification.cancelLocalNotifications({ id: id })
+      }
       dispatch({ type: "editAlarm", payload: alarm });
       if (Platform.OS === "android") {
         PushNotification.localNotificationSchedule({
           message: message || "Alarm",
           date: new Date(date),
-          soundName: "PerfectFifth.mp3",
+          soundName: "perfect_fifth.mp3",
           repeatType: "minute",
           id: id,
+          userInfo: { id: id }
           // repeatType: "minute"
           // repeatTime: new Date(Date.now() + (1000 * 60 * 10 ))
           // repeatTime: 100
@@ -250,7 +256,7 @@ class AddAlarm extends Component {
                     height: Convert(40),
                     width: Convert(160),
                     borderRadius: Convert(10),
-                    backgroundColor: "dodgerblue",
+                    backgroundColor: Platform.OS === "ios" ? "dodgerblue" : "",
                     marginLeft: Convert(50),
                     marginRight: Convert(50),
                     marginTop: Convert(20)
@@ -258,8 +264,8 @@ class AddAlarm extends Component {
                   <Button onPress={this._showDateTimePicker}
                     title="Edit"
                     accessibilityLabel="Edit Alarm"
-                    color="white"
-                  />
+                    color={Platform.OS === "ios" ? "white" : "" }
+              />
                 </TouchableHighlight> 
               <DateTimePicker
                 isVisible={this.state.isDateTimePickerVisible}
@@ -320,13 +326,13 @@ class AddAlarm extends Component {
               style={{
                 height: iphoneX ? Convert(80) : Convert(50),
                 width: width,
-                backgroundColor: "dodgerblue",
+                backgroundColor: Platform.OS === "ios" ? "dodgerblue" : "" ,
                 margin: 0
               }}>
               <Button onPress={edit ? this._editAlarm : this._addAlarm}
                 title="SAVE"
                 accessibilityLabel="Save Alarm"
-                color="white"
+                color={Platform.OS === "ios" ? "white" : ""}
               />
             </TouchableHighlight> 
           </View>
