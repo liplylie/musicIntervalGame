@@ -13,10 +13,7 @@ import { Convert } from "../../styles";
 import { Actions } from "react-native-router-flux";
 import {
   BannerView,
-  AdSettings,
-  InterstitialAdManager,
-  NativeAdsManager
-} from "react-native-ads-facebook";
+} from "react-native-fbads";
 
 const { height, width } = Dimensions.get("window");
 const iphoneX = height > 800;

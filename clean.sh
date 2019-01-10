@@ -7,7 +7,13 @@ rm -rf $TMPDIR/react-*
 echo "\nRemoving node_modules... DONE"
 rm -rf ~/Library/Developer/Xcode/DerivedData
 echo "\nRemoving Xcode DerivedData... DONE"
-rm -rf ./ios/build
+cd ios
+rm -rf build
+rm -rf ~/Library/Caches/CocoaPods
+pod cache clean --all
+rm -rf Pods
+rm -rf ~/Library/Developer/Xcode/DerivedData/*
+cd ..
 echo "\nRemoving iOS Build folder... DONE"
 ./android/gradlew clean -p ./android/
 npm install

@@ -4,19 +4,46 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import suraj.tiwari.reactnativefbads.FBAdsPackage;
-import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.zmxv.RNSound.RNSoundPackage;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.facebook.ads.AudienceNetworkAds; // <-- add this
+
+
+
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
-import com.facebook.soloader.SoLoader;
+import com.facebook.appevents.AppEventsLogger;
 
 import java.util.Arrays;
 import java.util.List;
 
+import com.facebook.CallbackManager;
+
+
+
+
+
+
 public class MainApplication extends Application implements ReactApplication {
+
+  private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
+
+  protected static CallbackManager getCallbackManager() {
+    return mCallbackManager;
+  }
+
+  @Override
+  public void onCreate() {
+    super.onCreate();
+
+
+    AudienceNetworkAds.initialize(this);
+    AppEventsLogger.activateApp(this);
+  }
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
@@ -29,10 +56,11 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new FBAdsPackage(),
+              new FBSDKPackage(mCallbackManager),
+      new VectorIconsPackage(),
+            new RNSoundPackage(),
             new ReactNativePushNotificationPackage(),
-            new LinearGradientPackage(),
-            new VectorIconsPackage(),
-            new RNSoundPackage()
+            new LinearGradientPackage()
       );
     }
 
@@ -47,9 +75,5 @@ public class MainApplication extends Application implements ReactApplication {
     return mReactNativeHost;
   }
 
-  @Override
-  public void onCreate() {
-    super.onCreate();
-    SoLoader.init(this, /* native exopackage */ false);
-  }
+
 }

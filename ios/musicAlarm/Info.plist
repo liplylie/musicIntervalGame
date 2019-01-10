@@ -23,7 +23,7 @@
 	<key>CFBundleVersion</key>
 	<string>4</string>
 	<key>LSApplicationCategoryType</key>
-	<string></string>
+	<string/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -42,9 +42,9 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>MusicIntervalAlarm would like to access your microphone in order to play the intervals.</string>
 	<key>NSHumanReadableCopyright</key>
-	<string></string>
+	<string/>
 	<key>CFBundleGetInfoString</key>
-	<string></string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
