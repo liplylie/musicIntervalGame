@@ -23,6 +23,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		1D8CEBFD4AD74F838430A49C /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DB4F96836694F52BC1A79B3 /* FontAwesome5_Regular.ttf */; };
+		27D04662CE784D2B90BFBB95 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7EB6394D0DA4AC39499BE5C /* Zocial.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -36,9 +38,64 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* musicAlarmTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* musicAlarmTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
+		308132D871664F28B2C378CA /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEFF909AC53D452986A6734E /* Feather.ttf */; };
+		323F82CF038B4C24B2524F8D /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1789E53892E94FD7A77976A2 /* FontAwesome5_Brands.ttf */; };
+		352DA9D14469496FA83849ED /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 230C784254FE4948A7F0D057 /* EvilIcons.ttf */; };
+		37229706D13EB61BC58CBCA9 /* libPods-musicAlarm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D58982666A44C544C58772 /* libPods-musicAlarm.a */; };
+		44A51A5B1E1A4A5EB70F75EF /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B519CE6DDDBB44E1BCC3238D /* FontAwesome.ttf */; };
+		45F9A63F257A428656726808 /* libPods-musicAlarmTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 497351C9601B3AB4D65E0F63 /* libPods-musicAlarmTests.a */; };
+		47E9D95FFBC14679947872AA /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F3F6C3538C4EE08DF99DC7 /* libRNVectorIcons.a */; };
+		48C420FE4C134B4486780089 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DBC1C561AF674613A4C60EE1 /* MaterialIcons.ttf */; };
+		65EDCFC9416D411383DEA17D /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4265DA2CE6F84ACC839F6374 /* Ionicons.ttf */; };
+		6F32290721C395E600677CE4 /* D5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F32290621C395E600677CE4 /* D5.mp3 */; };
+		6F32290921C395EA00677CE4 /* D5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F32290821C395EA00677CE4 /* D5.mp3 */; };
+		6F3FDC1F21BE29A800E7DB2D /* A4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDBE721BE29A700E7DB2D /* A4.mp3 */; };
+		6F3FDC2021BE29A800E7DB2D /* Gb4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1421BE29A700E7DB2D /* Gb4.mp3 */; };
+		6F3FDC2121BE29A800E7DB2D /* F4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1521BE29A700E7DB2D /* F4.mp3 */; };
+		6F3FDC2221BE29A800E7DB2D /* Eb4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1621BE29A700E7DB2D /* Eb4.mp3 */; };
+		6F3FDC2321BE29A800E7DB2D /* Bb4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1721BE29A700E7DB2D /* Bb4.mp3 */; };
+		6F3FDC2421BE29A800E7DB2D /* Db4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1821BE29A700E7DB2D /* Db4.mp3 */; };
+		6F3FDC2621BE29A800E7DB2D /* D4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1A21BE29A700E7DB2D /* D4.mp3 */; };
+		6F3FDC2721BE29A800E7DB2D /* E4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1B21BE29A700E7DB2D /* E4.mp3 */; };
+		6F3FDC2821BE29A800E7DB2D /* C5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1C21BE29A700E7DB2D /* C5.mp3 */; };
+		6F3FDC2921BE29A800E7DB2D /* G4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1D21BE29A700E7DB2D /* G4.mp3 */; };
+		6F3FDC2A21BE29A800E7DB2D /* C4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC1E21BE29A800E7DB2D /* C4.mp3 */; };
+		6F3FDC9A21BE50F800E7DB2D /* Eb3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC9921BE50F800E7DB2D /* Eb3.mp3 */; };
+		6F3FDC9C21BE50FB00E7DB2D /* E3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDC9B21BE50FB00E7DB2D /* E3.mp3 */; };
+		6F3FDCDC21BF7D3600E7DB2D /* B3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCDB21BF7D3600E7DB2D /* B3.mp3 */; };
+		6F3FDCDE21BF7D7300E7DB2D /* Bb3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCDD21BF7D7300E7DB2D /* Bb3.mp3 */; };
+		6F3FDCE021BF7DA000E7DB2D /* A3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCDF21BF7DA000E7DB2D /* A3.mp3 */; };
+		6F3FDCE221BF7DF700E7DB2D /* Ab3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCE121BF7DF600E7DB2D /* Ab3.mp3 */; };
+		6F3FDCE421BF7E4D00E7DB2D /* G3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCE321BF7E4D00E7DB2D /* G3.mp3 */; };
+		6F3FDCE621BF7E8200E7DB2D /* G3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCE521BF7E8200E7DB2D /* G3.mp3 */; };
+		6F3FDCE821BF9B1B00E7DB2D /* Ab5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCE721BF9B1B00E7DB2D /* Ab5.mp3 */; };
+		6F3FDCEA21BF9B2100E7DB2D /* A5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCE921BF9B2100E7DB2D /* A5.mp3 */; };
+		6F3FDCEC21BF9B2600E7DB2D /* Ab4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCEB21BF9B2600E7DB2D /* Ab4.mp3 */; };
+		6F3FDCEE21BF9B7B00E7DB2D /* Db5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCED21BF9B7B00E7DB2D /* Db5.mp3 */; };
+		6F3FDCF221BF9C3000E7DB2D /* Eb5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCF121BF9C2F00E7DB2D /* Eb5.mp3 */; };
+		6F3FDCF421BF9C3400E7DB2D /* E5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCF321BF9C3300E7DB2D /* E5.mp3 */; };
+		6F3FDCF621BF9CBC00E7DB2D /* G5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCF521BF9CBC00E7DB2D /* G5.mp3 */; };
+		6F3FDCF821BF9CC000E7DB2D /* F5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCF721BF9CC000E7DB2D /* F5.mp3 */; };
+		6F3FDCFA21BF9CC500E7DB2D /* Gb5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCF921BF9CC500E7DB2D /* Gb5.mp3 */; };
+		6F3FDCFC21BF9EA300E7DB2D /* B4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCFB21BF9EA300E7DB2D /* B4.mp3 */; };
 		6F7F92B821B9127B00A3419B /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F7F929C21B9125E00A3419B /* libRCTPushNotification.a */; };
+		6FF2049321EB2A6E00264EAC /* libReactNativeAdsFacebook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FF2048F21EB28B400264EAC /* libReactNativeAdsFacebook.a */; };
+		6FF76A1121D2E93D00790B28 /* PerfectFifth.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6FF76A1021D2E93D00790B28 /* PerfectFifth.mp3 */; };
+		6FF76A1421D2EFB800790B28 /* Demo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6FF76A1321D2EFB800790B28 /* Demo.mp3 */; };
+		79E03B3A4EC04C618975CA72 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EA5653D5A86429195F21684 /* MaterialCommunityIcons.ttf */; };
+		7B3F6EC0354D4D69B3B3711D /* libRNVectorIcons-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C96EC56E2C941CAA14F4D8C /* libRNVectorIcons-tvOS.a */; };
+		7E78C7D9D93040458EE4C281 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B53076CF336422DB2ECC448 /* libRNSound.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		8665EB181ABE4B3F95CB7E30 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 886E703F26C44494BB9DE1A8 /* FontAwesome5_Solid.ttf */; };
+		8A08C0273ABF4C6AA7BEC778 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 252C7C10D9FA4DF38B5A9527 /* SimpleLineIcons.ttf */; };
+		A56F097E338F4A3282CDD2F9 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC64B83FF79E4401BBEE716B /* AntDesign.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		DECE6AA3C9E1494DB080548D /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E8B3102EDFF9467296C83FFF /* Entypo.ttf */; };
+		E6B55FCA9A86B6CBDE12A1A5 /* libPods-musicAlarm-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D0352A4678D00AA56E968DF /* libPods-musicAlarm-tvOS.a */; };
+		E6D5AE07358A41F199F06521 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 472CE79704FD49F593DBAD25 /* libBVLinearGradient.a */; };
+		F122D202B7F34BBF8D86D21E /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD91A6CE5EFF43FDB5F8FB40 /* Foundation.ttf */; };
+		F781084C3E5A1CB619D9BFB4 /* libPods-musicAlarm-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4F9E3FCF2CA21C55A7C686 /* libPods-musicAlarm-tvOSTests.a */; };
+		FDB29BFE2EF64F50B7BD5193 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9C12862D20EE4031B589515F /* Octicons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -308,6 +365,55 @@
 			remoteGlobalIDString = 3D05745F1DE6004600184BB4;
 			remoteInfo = "RCTPushNotification-tvOS";
 		};
+		6FB0C20721BD0AE000A15CA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8751605FA2C646308C10E8C9 /* BVLinearGradient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = BVLinearGradient;
+		};
+		6FB0C20921BD0AE000A15CA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8751605FA2C646308C10E8C9 /* BVLinearGradient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 64AA15081EF7F30100718508;
+			remoteInfo = "BVLinearGradient-tvOS";
+		};
+		6FD39F0C21BCA45F00ECAF14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F4508CCDC0F41C6A6EA2A5B /* RNSound.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 19825A1E1BD4A89800EE0337;
+			remoteInfo = RNSound;
+		};
+		6FD39F1021BCA45F00ECAF14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F4679E7E63744DCAED13D7C /* RNVectorIcons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
+			remoteInfo = RNVectorIcons;
+		};
+		6FD39F1221BCA45F00ECAF14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F4679E7E63744DCAED13D7C /* RNVectorIcons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A39873CE1EA65EE60051E01A;
+			remoteInfo = "RNVectorIcons-tvOS";
+		};
+		6FF2048E21EB28B400264EAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8B989ECC65A4A498B0E2491 /* ReactNativeAdsFacebook.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AFD333211B138E00580DF0;
+			remoteInfo = ReactNativeAdsFacebook;
+		};
+		6FFE294C21C77F4E00E1B756 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 83CBBA2D1A601D0E00E9B192;
+			remoteInfo = React;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -341,6 +447,9 @@
 		00E356EE1AD99517003FC87E /* musicAlarmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = musicAlarmTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* musicAlarmTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = musicAlarmTests.m; sourceTree = "<group>"; };
+		09CFF27742625618F0C04112 /* Pods-musicAlarm-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-musicAlarm-tvOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-musicAlarm-tvOSTests/Pods-musicAlarm-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		0DB4F96836694F52BC1A79B3 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		10F3F6C3538C4EE08DF99DC7 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* musicAlarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = musicAlarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -351,14 +460,120 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = musicAlarm/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = musicAlarm/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1789E53892E94FD7A77976A2 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		2135B1C6937D811F0F7EA838 /* Pods-musicAlarmTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-musicAlarmTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-musicAlarmTests/Pods-musicAlarmTests.release.xcconfig"; sourceTree = "<group>"; };
+		230C784254FE4948A7F0D057 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		252C7C10D9FA4DF38B5A9527 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		2B53076CF336422DB2ECC448 /* libRNSound.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSound.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* musicAlarm-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "musicAlarm-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* musicAlarm-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "musicAlarm-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4265DA2CE6F84ACC839F6374 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		45A63F8A138D6A413A48FC5F /* Pods-musicAlarm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-musicAlarm.release.xcconfig"; path = "Pods/Target Support Files/Pods-musicAlarm/Pods-musicAlarm.release.xcconfig"; sourceTree = "<group>"; };
+		472CE79704FD49F593DBAD25 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
+		497351C9601B3AB4D65E0F63 /* libPods-musicAlarmTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-musicAlarmTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D0352A4678D00AA56E968DF /* libPods-musicAlarm-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-musicAlarm-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F3531A23FFF0DF4647ED6AA /* Pods-musicAlarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-musicAlarm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-musicAlarm/Pods-musicAlarm.debug.xcconfig"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		6C96EC56E2C941CAA14F4D8C /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; };
+		6D3F0272A4C8855B67A0EF36 /* Pods-musicAlarm-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-musicAlarm-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-musicAlarm-tvOS/Pods-musicAlarm-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		6F0E017321D9FC6B006B90FF /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.39.0 (2)/FBSDKShareKit.framework"; sourceTree = "<group>"; };
+		6F0E017521D9FC72006B90FF /* FBSDKPlacesKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKPlacesKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.39.0 (2)/FBSDKPlacesKit.framework"; sourceTree = "<group>"; };
+		6F0E017721D9FC79006B90FF /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.39.0 (2)/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		6F0E017921D9FC7F006B90FF /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.39.0 (2)/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
+		6F0E017B21D9FC86006B90FF /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.39.0 (2)/Bolts.framework"; sourceTree = "<group>"; };
+		6F32290621C395E600677CE4 /* D5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = D5.mp3; path = ../../../Downloads/D5.mp3; sourceTree = "<group>"; };
+		6F32290821C395EA00677CE4 /* D5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = D5.mp3; path = ../../../Downloads/D5.mp3; sourceTree = "<group>"; };
+		6F39870C21D31EBF003C75B3 /* P5.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = P5.m4a; path = ../../../Documents/P5.m4a; sourceTree = "<group>"; };
+		6F3FDBE721BE29A700E7DB2D /* A4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = A4.mp3; path = ../../../Downloads/A4.mp3; sourceTree = "<group>"; };
+		6F3FDC1421BE29A700E7DB2D /* Gb4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Gb4.mp3; path = ../../../Downloads/Gb4.mp3; sourceTree = "<group>"; };
+		6F3FDC1521BE29A700E7DB2D /* F4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = F4.mp3; path = ../../../Downloads/F4.mp3; sourceTree = "<group>"; };
+		6F3FDC1621BE29A700E7DB2D /* Eb4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Eb4.mp3; path = ../../../Downloads/Eb4.mp3; sourceTree = "<group>"; };
+		6F3FDC1721BE29A700E7DB2D /* Bb4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Bb4.mp3; path = ../../../Downloads/Bb4.mp3; sourceTree = "<group>"; };
+		6F3FDC1821BE29A700E7DB2D /* Db4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Db4.mp3; path = ../../../Downloads/Db4.mp3; sourceTree = "<group>"; };
+		6F3FDC1A21BE29A700E7DB2D /* D4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = D4.mp3; path = ../../../Downloads/D4.mp3; sourceTree = "<group>"; };
+		6F3FDC1B21BE29A700E7DB2D /* E4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = E4.mp3; path = ../../../Downloads/E4.mp3; sourceTree = "<group>"; };
+		6F3FDC1C21BE29A700E7DB2D /* C5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = C5.mp3; path = ../../../Downloads/C5.mp3; sourceTree = "<group>"; };
+		6F3FDC1D21BE29A700E7DB2D /* G4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = G4.mp3; path = ../../../Downloads/G4.mp3; sourceTree = "<group>"; };
+		6F3FDC1E21BE29A800E7DB2D /* C4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = C4.mp3; path = ../../../Downloads/C4.mp3; sourceTree = "<group>"; };
+		6F3FDC9921BE50F800E7DB2D /* Eb3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Eb3.mp3; path = ../../../Downloads/Eb3.mp3; sourceTree = "<group>"; };
+		6F3FDC9B21BE50FB00E7DB2D /* E3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = E3.mp3; path = ../../../Downloads/E3.mp3; sourceTree = "<group>"; };
+		6F3FDCDB21BF7D3600E7DB2D /* B3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = B3.mp3; path = ../../../Downloads/B3.mp3; sourceTree = "<group>"; };
+		6F3FDCDD21BF7D7300E7DB2D /* Bb3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Bb3.mp3; path = ../../../Downloads/Bb3.mp3; sourceTree = "<group>"; };
+		6F3FDCDF21BF7DA000E7DB2D /* A3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = A3.mp3; path = ../../../Downloads/A3.mp3; sourceTree = "<group>"; };
+		6F3FDCE121BF7DF600E7DB2D /* Ab3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Ab3.mp3; path = ../../../Downloads/Ab3.mp3; sourceTree = "<group>"; };
+		6F3FDCE321BF7E4D00E7DB2D /* G3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = G3.mp3; path = ../../../Downloads/G3.mp3; sourceTree = "<group>"; };
+		6F3FDCE521BF7E8200E7DB2D /* G3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = G3.mp3; path = ../../../Downloads/G3.mp3; sourceTree = "<group>"; };
+		6F3FDCE721BF9B1B00E7DB2D /* Ab5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Ab5.mp3; path = ../../../Downloads/Ab5.mp3; sourceTree = "<group>"; };
+		6F3FDCE921BF9B2100E7DB2D /* A5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = A5.mp3; path = ../../../Downloads/A5.mp3; sourceTree = "<group>"; };
+		6F3FDCEB21BF9B2600E7DB2D /* Ab4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Ab4.mp3; path = ../../../Downloads/Ab4.mp3; sourceTree = "<group>"; };
+		6F3FDCED21BF9B7B00E7DB2D /* Db5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Db5.mp3; path = ../../../Downloads/Db5.mp3; sourceTree = "<group>"; };
+		6F3FDCF121BF9C2F00E7DB2D /* Eb5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Eb5.mp3; path = ../../../Downloads/Eb5.mp3; sourceTree = "<group>"; };
+		6F3FDCF321BF9C3300E7DB2D /* E5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = E5.mp3; path = ../../../Downloads/E5.mp3; sourceTree = "<group>"; };
+		6F3FDCF521BF9CBC00E7DB2D /* G5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = G5.mp3; path = ../../../Downloads/G5.mp3; sourceTree = "<group>"; };
+		6F3FDCF721BF9CC000E7DB2D /* F5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = F5.mp3; path = ../../../Downloads/F5.mp3; sourceTree = "<group>"; };
+		6F3FDCF921BF9CC500E7DB2D /* Gb5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Gb5.mp3; path = ../../../Downloads/Gb5.mp3; sourceTree = "<group>"; };
+		6F3FDCFB21BF9EA300E7DB2D /* B4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = B4.mp3; path = ../../../Downloads/B4.mp3; sourceTree = "<group>"; };
+		6F4C2AC621DCA9CE006307AB /* musicAlarm.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = musicAlarm.entitlements; path = musicAlarm/musicAlarm.entitlements; sourceTree = "<group>"; };
+		6F57C7CD21D320DF005F90E2 /* P5.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = P5.m4a; sourceTree = "<group>"; };
 		6F7F928A21B9125E00A3419B /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
+		6FE1F58D21C0E42D00487431 /* E4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = E4.mp3; sourceTree = "<group>"; };
+		6FE1F58E21C0E42D00487431 /* Eb5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Eb5.mp3; sourceTree = "<group>"; };
+		6FE1F58F21C0E42D00487431 /* E3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = E3.mp3; sourceTree = "<group>"; };
+		6FE1F59021C0E42E00487431 /* Db4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Db4.mp3; sourceTree = "<group>"; };
+		6FE1F59121C0E42E00487431 /* F4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = F4.mp3; sourceTree = "<group>"; };
+		6FE1F59221C0E42E00487431 /* A3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = A3.mp3; sourceTree = "<group>"; };
+		6FE1F59321C0E42E00487431 /* B3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = B3.mp3; sourceTree = "<group>"; };
+		6FE1F59421C0E42E00487431 /* G5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = G5.mp3; sourceTree = "<group>"; };
+		6FE1F59521C0E42E00487431 /* Ab5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Ab5.mp3; sourceTree = "<group>"; };
+		6FE1F59621C0E42E00487431 /* Eb4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Eb4.mp3; sourceTree = "<group>"; };
+		6FE1F59721C0E42E00487431 /* C4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = C4.mp3; sourceTree = "<group>"; };
+		6FE1F59821C0E42E00487431 /* G3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = G3.mp3; sourceTree = "<group>"; };
+		6FE1F59921C0E42E00487431 /* G3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = G3.mp3; path = ../../../Downloads/G3.mp3; sourceTree = "<group>"; };
+		6FE1F59A21C0E42E00487431 /* Ab4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Ab4.mp3; sourceTree = "<group>"; };
+		6FE1F59B21C0E42E00487431 /* A4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = A4.mp3; sourceTree = "<group>"; };
+		6FE1F59C21C0E42E00487431 /* Eb3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Eb3.mp3; sourceTree = "<group>"; };
+		6FE1F59D21C0E42F00487431 /* Gb5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Gb5.mp3; sourceTree = "<group>"; };
+		6FE1F59F21C0E42F00487431 /* Db5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Db5.mp3; sourceTree = "<group>"; };
+		6FE1F5A021C0E42F00487431 /* B4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = B4.mp3; sourceTree = "<group>"; };
+		6FE1F5A121C0E42F00487431 /* Ab3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Ab3.mp3; sourceTree = "<group>"; };
+		6FE1F5A221C0E42F00487431 /* C5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = C5.mp3; sourceTree = "<group>"; };
+		6FE1F5A321C0E42F00487431 /* E5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = E5.mp3; sourceTree = "<group>"; };
+		6FE1F5A421C0E42F00487431 /* F5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = F5.mp3; sourceTree = "<group>"; };
+		6FE1F5A521C0E42F00487431 /* D4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = D4.mp3; sourceTree = "<group>"; };
+		6FE1F5A621C0E42F00487431 /* A5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = A5.mp3; sourceTree = "<group>"; };
+		6FE1F5A721C0E42F00487431 /* Bb3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Bb3.mp3; sourceTree = "<group>"; };
+		6FE1F5A821C0E42F00487431 /* Bb4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Bb4.mp3; sourceTree = "<group>"; };
+		6FE1F5A921C0E42F00487431 /* G4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = G4.mp3; sourceTree = "<group>"; };
+		6FE1F5AA21C0E43000487431 /* Gb4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Gb4.mp3; sourceTree = "<group>"; };
+		6FF76A1021D2E93D00790B28 /* PerfectFifth.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = PerfectFifth.mp3; path = ../../../Downloads/PerfectFifth.mp3; sourceTree = "<group>"; };
+		6FF76A1221D2EA7700790B28 /* PerfectFifth.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PerfectFifth.mp3; sourceTree = "<group>"; };
+		6FF76A1321D2EFB800790B28 /* Demo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Demo.mp3; path = ../../../Documents/Demo.mp3; sourceTree = "<group>"; };
+		6FFB142721D30F9A00BC0AA2 /* PerfectFifth.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = PerfectFifth.m4a; path = ../../../Documents/PerfectFifth.m4a; sourceTree = "<group>"; };
+		6FFB145321D30FA100BC0AA2 /* PerfectFifth.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = PerfectFifth.m4a; path = ../../../Documents/PerfectFifth.m4a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
+		7F4679E7E63744DCAED13D7C /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		8751605FA2C646308C10E8C9 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
+		886E703F26C44494BB9DE1A8 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		8F4508CCDC0F41C6A6EA2A5B /* RNSound.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSound.xcodeproj; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; };
+		93BC94AD861AD041016932B1 /* Pods-musicAlarmTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-musicAlarmTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-musicAlarmTests/Pods-musicAlarmTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9C12862D20EE4031B589515F /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		9EA5653D5A86429195F21684 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		A5D132EA06CAE5208C181325 /* Pods-musicAlarm-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-musicAlarm-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-musicAlarm-tvOS/Pods-musicAlarm-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		AC64B83FF79E4401BBEE716B /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		B07D386FA7DDBD17A2A8A1AC /* Pods-musicAlarm-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-musicAlarm-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-musicAlarm-tvOSTests/Pods-musicAlarm-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B519CE6DDDBB44E1BCC3238D /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		BA4F9E3FCF2CA21C55A7C686 /* libPods-musicAlarm-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-musicAlarm-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD91A6CE5EFF43FDB5F8FB40 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		D7D58982666A44C544C58772 /* libPods-musicAlarm.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-musicAlarm.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7EB6394D0DA4AC39499BE5C /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		DBC1C561AF674613A4C60EE1 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		DEFF909AC53D452986A6734E /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		E8B3102EDFF9467296C83FFF /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		F86F98FFDFFE40E19799A39C /* libReactNativeAdsFacebook.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeAdsFacebook.a; sourceTree = "<group>"; };
+		F8B989ECC65A4A498B0E2491 /* ReactNativeAdsFacebook.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeAdsFacebook.xcodeproj; path = "../node_modules/react-native-fbads/ios/ReactNativeAdsFacebook.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -367,6 +582,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
+				45F9A63F257A428656726808 /* libPods-musicAlarmTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +603,11 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				7E78C7D9D93040458EE4C281 /* libRNSound.a in Frameworks */,
+				47E9D95FFBC14679947872AA /* libRNVectorIcons.a in Frameworks */,
+				6FF2049321EB2A6E00264EAC /* libReactNativeAdsFacebook.a in Frameworks */,
+				E6D5AE07358A41F199F06521 /* libBVLinearGradient.a in Frameworks */,
+				37229706D13EB61BC58CBCA9 /* libPods-musicAlarm.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +623,8 @@
 				2D02E4C61E0B4AEC006451C7 /* libRCTSettings-tvOS.a in Frameworks */,
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
+				7B3F6EC0354D4D69B3B3711D /* libRNVectorIcons-tvOS.a in Frameworks */,
+				E6B55FCA9A86B6CBDE12A1A5 /* libPods-musicAlarm-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +633,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */,
+				F781084C3E5A1CB619D9BFB4 /* libPods-musicAlarm-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,6 +722,7 @@
 		13B07FAE1A68108700A75B9A /* musicAlarm */ = {
 			isa = PBXGroup;
 			children = (
+				6F4C2AC621DCA9CE006307AB /* musicAlarm.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -535,7 +760,16 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6F0E017B21D9FC86006B90FF /* Bolts.framework */,
+				6F0E017921D9FC7F006B90FF /* FBSDKCoreKit.framework */,
+				6F0E017721D9FC79006B90FF /* FBSDKLoginKit.framework */,
+				6F0E017521D9FC72006B90FF /* FBSDKPlacesKit.framework */,
+				6F0E017321D9FC6B006B90FF /* FBSDKShareKit.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				D7D58982666A44C544C58772 /* libPods-musicAlarm.a */,
+				4D0352A4678D00AA56E968DF /* libPods-musicAlarm-tvOS.a */,
+				BA4F9E3FCF2CA21C55A7C686 /* libPods-musicAlarm-tvOSTests.a */,
+				497351C9601B3AB4D65E0F63 /* libPods-musicAlarmTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -558,6 +792,52 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		6FB0C20321BD0ADF00A15CA6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6FB0C20821BD0AE000A15CA6 /* libBVLinearGradient.a */,
+				6FB0C20A21BD0AE000A15CA6 /* libBVLinearGradient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6FD39EDF21BCA45E00ECAF14 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				2B53076CF336422DB2ECC448 /* libRNSound.a */,
+				10F3F6C3538C4EE08DF99DC7 /* libRNVectorIcons.a */,
+				6C96EC56E2C941CAA14F4D8C /* libRNVectorIcons-tvOS.a */,
+				472CE79704FD49F593DBAD25 /* libBVLinearGradient.a */,
+				F86F98FFDFFE40E19799A39C /* libReactNativeAdsFacebook.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		6FD39F0721BCA45F00ECAF14 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6FD39F0D21BCA45F00ECAF14 /* libRNSound.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6FD39F0921BCA45F00ECAF14 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6FD39F1121BCA45F00ECAF14 /* libRNVectorIcons.a */,
+				6FD39F1321BCA45F00ECAF14 /* libRNVectorIcons-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6FF2046321EB28B400264EAC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6FF2048F21EB28B400264EAC /* libReactNativeAdsFacebook.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -565,6 +845,61 @@
 				3DAD3E881DF850E9000B6D8A /* libRCTLinking-tvOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		7CA9DAAC345444D1A8E844F7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6FF76A1221D2EA7700790B28 /* PerfectFifth.mp3 */,
+				6FE1F5A821C0E42F00487431 /* Bb4.mp3 */,
+				6FE1F59B21C0E42E00487431 /* A4.mp3 */,
+				6F57C7CD21D320DF005F90E2 /* P5.m4a */,
+				6FE1F5A321C0E42F00487431 /* E5.mp3 */,
+				6FE1F58E21C0E42D00487431 /* Eb5.mp3 */,
+				6F32290821C395EA00677CE4 /* D5.mp3 */,
+				6FE1F59021C0E42E00487431 /* Db4.mp3 */,
+				6FFB145321D30FA100BC0AA2 /* PerfectFifth.m4a */,
+				6FE1F59521C0E42E00487431 /* Ab5.mp3 */,
+				6FE1F5A121C0E42F00487431 /* Ab3.mp3 */,
+				6FE1F59C21C0E42E00487431 /* Eb3.mp3 */,
+				6FE1F59821C0E42E00487431 /* G3.mp3 */,
+				6FE1F59921C0E42E00487431 /* G3.mp3 */,
+				6FE1F59721C0E42E00487431 /* C4.mp3 */,
+				6FE1F5A021C0E42F00487431 /* B4.mp3 */,
+				6FE1F5A221C0E42F00487431 /* C5.mp3 */,
+				6FE1F59221C0E42E00487431 /* A3.mp3 */,
+				6FE1F59621C0E42E00487431 /* Eb4.mp3 */,
+				6FE1F5A521C0E42F00487431 /* D4.mp3 */,
+				6FE1F59F21C0E42F00487431 /* Db5.mp3 */,
+				6FE1F59321C0E42E00487431 /* B3.mp3 */,
+				6FE1F59D21C0E42F00487431 /* Gb5.mp3 */,
+				6FE1F58D21C0E42D00487431 /* E4.mp3 */,
+				6FE1F5A421C0E42F00487431 /* F5.mp3 */,
+				6FE1F59A21C0E42E00487431 /* Ab4.mp3 */,
+				6FE1F59421C0E42E00487431 /* G5.mp3 */,
+				6FE1F5A721C0E42F00487431 /* Bb3.mp3 */,
+				6FE1F5A621C0E42F00487431 /* A5.mp3 */,
+				6FE1F58F21C0E42D00487431 /* E3.mp3 */,
+				6FE1F5AA21C0E43000487431 /* Gb4.mp3 */,
+				6FE1F59121C0E42E00487431 /* F4.mp3 */,
+				6FE1F5A921C0E42F00487431 /* G4.mp3 */,
+				AC64B83FF79E4401BBEE716B /* AntDesign.ttf */,
+				E8B3102EDFF9467296C83FFF /* Entypo.ttf */,
+				230C784254FE4948A7F0D057 /* EvilIcons.ttf */,
+				DEFF909AC53D452986A6734E /* Feather.ttf */,
+				B519CE6DDDBB44E1BCC3238D /* FontAwesome.ttf */,
+				1789E53892E94FD7A77976A2 /* FontAwesome5_Brands.ttf */,
+				0DB4F96836694F52BC1A79B3 /* FontAwesome5_Regular.ttf */,
+				886E703F26C44494BB9DE1A8 /* FontAwesome5_Solid.ttf */,
+				CD91A6CE5EFF43FDB5F8FB40 /* Foundation.ttf */,
+				4265DA2CE6F84ACC839F6374 /* Ionicons.ttf */,
+				9EA5653D5A86429195F21684 /* MaterialCommunityIcons.ttf */,
+				DBC1C561AF674613A4C60EE1 /* MaterialIcons.ttf */,
+				9C12862D20EE4031B589515F /* Octicons.ttf */,
+				252C7C10D9FA4DF38B5A9527 /* SimpleLineIcons.ttf */,
+				D7EB6394D0DA4AC39499BE5C /* Zocial.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -583,6 +918,10 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
+				8F4508CCDC0F41C6A6EA2A5B /* RNSound.xcodeproj */,
+				7F4679E7E63744DCAED13D7C /* RNVectorIcons.xcodeproj */,
+				8751605FA2C646308C10E8C9 /* BVLinearGradient.xcodeproj */,
+				F8B989ECC65A4A498B0E2491 /* ReactNativeAdsFacebook.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -599,11 +938,48 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				6F3FDC1721BE29A700E7DB2D /* Bb4.mp3 */,
+				6F3FDBE721BE29A700E7DB2D /* A4.mp3 */,
+				6FF76A1021D2E93D00790B28 /* PerfectFifth.mp3 */,
+				6F3FDCF321BF9C3300E7DB2D /* E5.mp3 */,
+				6F3FDCF121BF9C2F00E7DB2D /* Eb5.mp3 */,
+				6F3FDC1821BE29A700E7DB2D /* Db4.mp3 */,
+				6F3FDCE721BF9B1B00E7DB2D /* Ab5.mp3 */,
+				6F3FDCE521BF7E8200E7DB2D /* G3.mp3 */,
+				6F39870C21D31EBF003C75B3 /* P5.m4a */,
+				6F3FDC1E21BE29A800E7DB2D /* C4.mp3 */,
+				6F3FDCFB21BF9EA300E7DB2D /* B4.mp3 */,
+				6FF76A1321D2EFB800790B28 /* Demo.mp3 */,
+				6F3FDC1C21BE29A700E7DB2D /* C5.mp3 */,
+				6F3FDCDF21BF7DA000E7DB2D /* A3.mp3 */,
+				6F3FDC1621BE29A700E7DB2D /* Eb4.mp3 */,
+				6F3FDC1A21BE29A700E7DB2D /* D4.mp3 */,
+				6F3FDCED21BF9B7B00E7DB2D /* Db5.mp3 */,
+				6FFB142721D30F9A00BC0AA2 /* PerfectFifth.m4a */,
+				6F3FDCDB21BF7D3600E7DB2D /* B3.mp3 */,
+				6F3FDCE121BF7DF600E7DB2D /* Ab3.mp3 */,
+				6F3FDC9921BE50F800E7DB2D /* Eb3.mp3 */,
+				6F3FDCE321BF7E4D00E7DB2D /* G3.mp3 */,
+				6F3FDCF921BF9CC500E7DB2D /* Gb5.mp3 */,
+				6F32290621C395E600677CE4 /* D5.mp3 */,
+				6F3FDC1B21BE29A700E7DB2D /* E4.mp3 */,
+				6F3FDCF721BF9CC000E7DB2D /* F5.mp3 */,
+				6F3FDCEB21BF9B2600E7DB2D /* Ab4.mp3 */,
+				6F3FDCF521BF9CBC00E7DB2D /* G5.mp3 */,
+				6F3FDCDD21BF7D7300E7DB2D /* Bb3.mp3 */,
+				6F3FDCE921BF9B2100E7DB2D /* A5.mp3 */,
+				6F3FDC9B21BE50FB00E7DB2D /* E3.mp3 */,
+				6F3FDC1421BE29A700E7DB2D /* Gb4.mp3 */,
+				6F3FDC1521BE29A700E7DB2D /* F4.mp3 */,
+				6F3FDC1D21BE29A700E7DB2D /* G4.mp3 */,
 				13B07FAE1A68108700A75B9A /* musicAlarm */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* musicAlarmTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				7CA9DAAC345444D1A8E844F7 /* Resources */,
+				6FD39EDF21BCA45E00ECAF14 /* Recovered References */,
+				AAA5D9618ECF855BB73FBDA7 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -619,6 +995,21 @@
 				2D02E4901E0B4A5D006451C7 /* musicAlarm-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AAA5D9618ECF855BB73FBDA7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4F3531A23FFF0DF4647ED6AA /* Pods-musicAlarm.debug.xcconfig */,
+				45A63F8A138D6A413A48FC5F /* Pods-musicAlarm.release.xcconfig */,
+				A5D132EA06CAE5208C181325 /* Pods-musicAlarm-tvOS.debug.xcconfig */,
+				6D3F0272A4C8855B67A0EF36 /* Pods-musicAlarm-tvOS.release.xcconfig */,
+				B07D386FA7DDBD17A2A8A1AC /* Pods-musicAlarm-tvOSTests.debug.xcconfig */,
+				09CFF27742625618F0C04112 /* Pods-musicAlarm-tvOSTests.release.xcconfig */,
+				93BC94AD861AD041016932B1 /* Pods-musicAlarmTests.debug.xcconfig */,
+				2135B1C6937D811F0F7EA838 /* Pods-musicAlarmTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
@@ -637,6 +1028,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "musicAlarmTests" */;
 			buildPhases = (
+				515A16F6F4EE0BED00788631 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -655,14 +1047,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "musicAlarm" */;
 			buildPhases = (
+				B157A0AA355C8715869509E8 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				2A20E1BE1860DBE313CE1DA7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6FFE294D21C77F4E00E1B756 /* PBXTargetDependency */,
 			);
 			name = musicAlarm;
 			productName = "Hello World";
@@ -673,6 +1068,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "musicAlarm-tvOS" */;
 			buildPhases = (
+				73A1858320B3957B91C394BF /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
 				2D02E4791E0B4A5D006451C7 /* Resources */,
@@ -691,6 +1087,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "musicAlarm-tvOSTests" */;
 			buildPhases = (
+				87FA73A62206254BD3BEFD76 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -711,7 +1108,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -722,6 +1119,9 @@
 						DevelopmentTeam = PE5Y8F95T2;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -749,6 +1149,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 6FB0C20321BD0ADF00A15CA6 /* Products */;
+					ProjectRef = 8751605FA2C646308C10E8C9 /* BVLinearGradient.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -800,6 +1204,18 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = 6FF2046321EB28B400264EAC /* Products */;
+					ProjectRef = F8B989ECC65A4A498B0E2491 /* ReactNativeAdsFacebook.xcodeproj */;
+				},
+				{
+					ProductGroup = 6FD39F0721BCA45F00ECAF14 /* Products */;
+					ProjectRef = 8F4508CCDC0F41C6A6EA2A5B /* RNSound.xcodeproj */;
+				},
+				{
+					ProductGroup = 6FD39F0921BCA45F00ECAF14 /* Products */;
+					ProjectRef = 7F4679E7E63744DCAED13D7C /* RNVectorIcons.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1065,6 +1481,48 @@
 			remoteRef = 6F7F929D21B9125E00A3419B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		6FB0C20821BD0AE000A15CA6 /* libBVLinearGradient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBVLinearGradient.a;
+			remoteRef = 6FB0C20721BD0AE000A15CA6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6FB0C20A21BD0AE000A15CA6 /* libBVLinearGradient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBVLinearGradient.a;
+			remoteRef = 6FB0C20921BD0AE000A15CA6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6FD39F0D21BCA45F00ECAF14 /* libRNSound.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSound.a;
+			remoteRef = 6FD39F0C21BCA45F00ECAF14 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6FD39F1121BCA45F00ECAF14 /* libRNVectorIcons.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNVectorIcons.a;
+			remoteRef = 6FD39F1021BCA45F00ECAF14 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6FD39F1321BCA45F00ECAF14 /* libRNVectorIcons-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNVectorIcons-tvOS.a";
+			remoteRef = 6FD39F1221BCA45F00ECAF14 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6FF2048F21EB28B400264EAC /* libReactNativeAdsFacebook.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libReactNativeAdsFacebook.a;
+			remoteRef = 6FF2048E21EB28B400264EAC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1100,8 +1558,56 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F3FDCF221BF9C3000E7DB2D /* Eb5.mp3 in Resources */,
+				6F3FDCE021BF7DA000E7DB2D /* A3.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				A56F097E338F4A3282CDD2F9 /* AntDesign.ttf in Resources */,
+				6F3FDCE221BF7DF700E7DB2D /* Ab3.mp3 in Resources */,
+				6F3FDC9A21BE50F800E7DB2D /* Eb3.mp3 in Resources */,
+				6FF76A1421D2EFB800790B28 /* Demo.mp3 in Resources */,
+				6F3FDCE621BF7E8200E7DB2D /* G3.mp3 in Resources */,
+				DECE6AA3C9E1494DB080548D /* Entypo.ttf in Resources */,
+				352DA9D14469496FA83849ED /* EvilIcons.ttf in Resources */,
+				6F3FDC2621BE29A800E7DB2D /* D4.mp3 in Resources */,
+				6F3FDC2421BE29A800E7DB2D /* Db4.mp3 in Resources */,
+				308132D871664F28B2C378CA /* Feather.ttf in Resources */,
+				6F32290921C395EA00677CE4 /* D5.mp3 in Resources */,
+				6F3FDC9C21BE50FB00E7DB2D /* E3.mp3 in Resources */,
+				6F3FDCEA21BF9B2100E7DB2D /* A5.mp3 in Resources */,
+				44A51A5B1E1A4A5EB70F75EF /* FontAwesome.ttf in Resources */,
+				6F3FDC2821BE29A800E7DB2D /* C5.mp3 in Resources */,
+				6F3FDCDE21BF7D7300E7DB2D /* Bb3.mp3 in Resources */,
+				323F82CF038B4C24B2524F8D /* FontAwesome5_Brands.ttf in Resources */,
+				1D8CEBFD4AD74F838430A49C /* FontAwesome5_Regular.ttf in Resources */,
+				8665EB181ABE4B3F95CB7E30 /* FontAwesome5_Solid.ttf in Resources */,
+				6F3FDCE421BF7E4D00E7DB2D /* G3.mp3 in Resources */,
+				6F3FDCE821BF9B1B00E7DB2D /* Ab5.mp3 in Resources */,
+				6F3FDCFA21BF9CC500E7DB2D /* Gb5.mp3 in Resources */,
+				6FF76A1121D2E93D00790B28 /* PerfectFifth.mp3 in Resources */,
+				6F3FDC2121BE29A800E7DB2D /* F4.mp3 in Resources */,
+				6F3FDCF621BF9CBC00E7DB2D /* G5.mp3 in Resources */,
+				6F3FDC2721BE29A800E7DB2D /* E4.mp3 in Resources */,
+				F122D202B7F34BBF8D86D21E /* Foundation.ttf in Resources */,
+				6F3FDC2221BE29A800E7DB2D /* Eb4.mp3 in Resources */,
+				6F3FDC2A21BE29A800E7DB2D /* C4.mp3 in Resources */,
+				6F3FDC1F21BE29A800E7DB2D /* A4.mp3 in Resources */,
+				6F3FDC2021BE29A800E7DB2D /* Gb4.mp3 in Resources */,
+				65EDCFC9416D411383DEA17D /* Ionicons.ttf in Resources */,
+				6F3FDCF821BF9CC000E7DB2D /* F5.mp3 in Resources */,
+				79E03B3A4EC04C618975CA72 /* MaterialCommunityIcons.ttf in Resources */,
+				6F32290721C395E600677CE4 /* D5.mp3 in Resources */,
+				6F3FDCDC21BF7D3600E7DB2D /* B3.mp3 in Resources */,
+				6F3FDC2321BE29A800E7DB2D /* Bb4.mp3 in Resources */,
+				48C420FE4C134B4486780089 /* MaterialIcons.ttf in Resources */,
+				6F3FDCEC21BF9B2600E7DB2D /* Ab4.mp3 in Resources */,
+				6F3FDCF421BF9C3400E7DB2D /* E5.mp3 in Resources */,
+				6F3FDCFC21BF9EA300E7DB2D /* B4.mp3 in Resources */,
+				FDB29BFE2EF64F50B7BD5193 /* Octicons.ttf in Resources */,
+				6F3FDCEE21BF9B7B00E7DB2D /* Db5.mp3 in Resources */,
+				8A08C0273ABF4C6AA7BEC778 /* SimpleLineIcons.ttf in Resources */,
+				27D04662CE784D2B90BFBB95 /* Zocial.ttf in Resources */,
+				6F3FDC2921BE29A800E7DB2D /* G4.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1137,6 +1643,24 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		2A20E1BE1860DBE313CE1DA7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-musicAlarm/Pods-musicAlarm-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-musicAlarm/Pods-musicAlarm-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1150,6 +1674,78 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		515A16F6F4EE0BED00788631 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-musicAlarmTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		73A1858320B3957B91C394BF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-musicAlarm-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		87FA73A62206254BD3BEFD76 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-musicAlarm-tvOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B157A0AA355C8715869509E8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-musicAlarm-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1201,6 +1797,11 @@
 			target = 2D02E47A1E0B4A5D006451C7 /* musicAlarm-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
+		6FFE294D21C77F4E00E1B756 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = React;
+			targetProxy = 6FFE294C21C77F4E00E1B756 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1218,15 +1819,32 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 93BC94AD861AD041016932B1 /* Pods-musicAlarmTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-ads-facebook/ios/ReactNativeAdsFacebook",
+					"$(SRCROOT)/../node_modules/react-native-fbads/ios/ReactNativeAdsFacebook",
+				);
 				INFOPLIST_FILE = musicAlarmTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1239,12 +1857,29 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2135B1C6937D811F0F7EA838 /* Pods-musicAlarmTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-ads-facebook/ios/ReactNativeAdsFacebook",
+					"$(SRCROOT)/../node_modules/react-native-fbads/ios/ReactNativeAdsFacebook",
+				);
 				INFOPLIST_FILE = musicAlarmTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1257,11 +1892,26 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F3531A23FFF0DF4647ED6AA /* Pods-musicAlarm.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = musicAlarm/musicAlarm.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = PE5Y8F95T2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/FBAudienceNetwork\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-ads-facebook/ios/ReactNativeAdsFacebook",
+					"$(SRCROOT)/../node_modules/react-native-fbads/ios/ReactNativeAdsFacebook",
+				);
 				INFOPLIST_FILE = musicAlarm/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1269,7 +1919,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.MusicIntervalAlarm.app;
 				PRODUCT_NAME = musicAlarm;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1277,10 +1927,25 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45A63F8A138D6A413A48FC5F /* Pods-musicAlarm.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = musicAlarm/musicAlarm.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PE5Y8F95T2;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/FBAudienceNetwork\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-ads-facebook/ios/ReactNativeAdsFacebook",
+					"$(SRCROOT)/../node_modules/react-native-fbads/ios/ReactNativeAdsFacebook",
+				);
 				INFOPLIST_FILE = musicAlarm/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1288,7 +1953,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.MusicIntervalAlarm.app;
 				PRODUCT_NAME = musicAlarm;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1296,6 +1961,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5D132EA06CAE5208C181325 /* Pods-musicAlarm-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1306,8 +1972,24 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-ads-facebook/ios/ReactNativeAdsFacebook",
+					"$(SRCROOT)/../node_modules/react-native-fbads/ios/ReactNativeAdsFacebook",
+				);
 				INFOPLIST_FILE = "musicAlarm-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1322,6 +2004,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D3F0272A4C8855B67A0EF36 /* Pods-musicAlarm-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1332,8 +2015,24 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-ads-facebook/ios/ReactNativeAdsFacebook",
+					"$(SRCROOT)/../node_modules/react-native-fbads/ios/ReactNativeAdsFacebook",
+				);
 				INFOPLIST_FILE = "musicAlarm-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1348,6 +2047,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B07D386FA7DDBD17A2A8A1AC /* Pods-musicAlarm-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1357,8 +2057,24 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-ads-facebook/ios/ReactNativeAdsFacebook",
+					"$(SRCROOT)/../node_modules/react-native-fbads/ios/ReactNativeAdsFacebook",
+				);
 				INFOPLIST_FILE = "musicAlarm-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1373,6 +2089,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09CFF27742625618F0C04112 /* Pods-musicAlarm-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1382,8 +2099,24 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-ads-facebook/ios/ReactNativeAdsFacebook",
+					"$(SRCROOT)/../node_modules/react-native-fbads/ios/ReactNativeAdsFacebook",
+				);
 				INFOPLIST_FILE = "musicAlarm-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
