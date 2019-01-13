@@ -3,6 +3,12 @@ package com.musicalarm;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.zmxv.RNSound.RNSoundPackage;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import suraj.tiwari.reactnativefbads.FBAdsPackage;
 import suraj.tiwari.reactnativefbads.FBAdsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.zmxv.RNSound.RNSoundPackage;
@@ -55,6 +61,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new VectorIconsPackage(),
+            new RNSoundPackage(),
+            new ReactNativePushNotificationPackage(),
+            new LinearGradientPackage(),
+            new FBSDKPackage(),
+            new FBAdsPackage(),
             new FBAdsPackage(),
               new FBSDKPackage(mCallbackManager),
       new VectorIconsPackage(),

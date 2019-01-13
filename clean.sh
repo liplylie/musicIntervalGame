@@ -13,6 +13,7 @@ rm -rf ~/Library/Caches/CocoaPods
 pod cache clean --all
 rm -rf Pods
 rm -rf ~/Library/Developer/Xcode/DerivedData/*
+# pod install
 cd ..
 echo "\nRemoving iOS Build folder... DONE"
 ./android/gradlew clean -p ./android/

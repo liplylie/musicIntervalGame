@@ -141,6 +141,12 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-sound')
+    compile project(':react-native-push-notification')
+    compile project(':react-native-linear-gradient')
+    compile project(':react-native-fbsdk')
+    compile project(':react-native-fbads')
     implementation project(':react-native-fbads')
     implementation 'com.android.support:multidex:1.0.1'
 

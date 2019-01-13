@@ -17,7 +17,7 @@ pod 'FacebookSDK'
   target 'musicAlarm-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
-    pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+    # pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
 
   end
 
