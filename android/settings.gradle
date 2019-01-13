@@ -1,8 +1,5 @@
 rootProject.name = 'musicAlarm'
-include ':react-native-ads-facebook'
-project(':react-native-ads-facebook').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-ads-facebook/android/app')
-include ':react-native-fbads'
-project(':react-native-fbads').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fbads/android/app')
+
 include ':react-native-fbads'
 project(':react-native-fbads').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fbads/android/app')
 include ':react-native-vector-icons'

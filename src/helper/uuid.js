@@ -20,7 +20,7 @@ const uuid = platform => {
       s4()
     );
   } else {
-    return Math.floor(Math.random() * 100000);
+    return Math.floor(Math.random() * 100000) + 1;
   }
 };
 

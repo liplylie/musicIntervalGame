@@ -10,7 +10,7 @@ const alarm = (state = initialState, action) => {
       case "activateAlarm": {
           return {
               ...state, alarms: state.alarms.map(alarm => {
-                  if (alarm.id === action.payload.id) {
+                  if (alarm.id == action.payload.id) {
                       alarm.active = action.payload.active;
                   }
                   return alarm;
@@ -19,7 +19,7 @@ const alarm = (state = initialState, action) => {
       case "editAlarm": {
           return {
               ...state, alarms: state.alarms.map(alarm => {
-                  if (alarm.id === action.payload.id) {
+                  if (alarm.id == action.payload.id) {
                       alarm = action.payload;
                   }
                   return alarm;
@@ -29,7 +29,7 @@ const alarm = (state = initialState, action) => {
       case "deleteAlarm": {
           return {
               ...state, alarms: state.alarms.filter(alarm => {
-                  if (alarm.id !== action.payload.id) {
+                  if (alarm.id != action.payload.id) {
                       return alarm;
                   }
               })

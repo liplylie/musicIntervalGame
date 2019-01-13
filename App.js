@@ -66,7 +66,7 @@ export default class App extends Component {
         sound: true
       },
 
-      popInitialNotification: false,
+      popInitialNotification: Platform.OS === "android",
       requestPermissions: true
     });
   }
@@ -143,7 +143,8 @@ export default class App extends Component {
                 date: new Date(a.date),
                 soundName: "perfect_fifth.mp3",
                 repeatType: "minute",
-                id: a.id
+                id: JSON.stringify(a.id),
+                userInfo: { id: JSON.stringify(id) }
                 // repeatType: "time",
                 // repeatTime: 100
               });
@@ -188,8 +189,9 @@ export default class App extends Component {
                 date: new Date(a.date),
                 soundName: "perfect_fifth.mp3",
                 // repeatType: "minute",
-                id: a.id,
-                repeatType: "minute"
+                id: JSON.stringify(a.id),
+                repeatType: "minute",
+                userInfo: { id: JSON.stringify(a.id) }
                 // repeatTime: 100
               });
             } else {

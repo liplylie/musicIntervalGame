@@ -62,7 +62,7 @@ class AlarmList extends Component {
                 });
             } else {
                 PushNotification.cancelLocalNotifications({
-                  id: alarm.id
+                  id: JSON.stringify(alarm.id)
                 });
             }
         } else if (value === 1) {
@@ -76,7 +76,8 @@ class AlarmList extends Component {
                     date: new Date(alarm.date),
                     soundName: "perfect_fifth.mp3",
                     repeatType: "minute",
-                    id: alarm.id,
+                    id: JSON.stringify(alarm.id),
+                    userInfo: { id: JSON.stringify(id) }
                     // repeatType: "time",
                     // repeatTime: 1000
                 });
@@ -143,8 +144,7 @@ class AlarmList extends Component {
                 })
             });
         } else {
-            console.log(data.id, "look man")
-            PushNotification.cancelLocalNotifications(data.id);
+            PushNotification.cancelLocalNotifications({id:JSON.stringify(data.id)});
         }
         rowRef.manuallySwipeRow(0);
     }

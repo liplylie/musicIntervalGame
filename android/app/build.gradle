@@ -135,11 +135,14 @@ android {
             }
         }
     }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
 }
 
 dependencies {
-    implementation project(':react-native-ads-facebook')
     implementation project(':react-native-fbads')
+    implementation 'com.android.support:multidex:1.0.1'
 
     implementation project(':react-native-fbsdk')
     implementation 'com.facebook.android:facebook-android-sdk:4.34.0'

@@ -119,8 +119,8 @@ class AddAlarm extends Component {
           date: new Date(date),
           soundName: "perfect_fifth.mp3",
           repeatType: "minute",
-          id: id,
-          userInfo: { id: id }
+          id: JSON.stringify(id),
+          userInfo: { id: JSON.stringify(id) }
           // repeatType: "minute"
           // repeatTime: new Date(Date.now() + (1000 * 60 * 10 ))
           // repeatTime: 100
@@ -166,7 +166,7 @@ class AddAlarm extends Component {
           })
         });
       } else {
-        PushNotification.cancelLocalNotifications({ id: id })
+        PushNotification.cancelLocalNotifications({ id: JSON.stringify(id) })
       }
       dispatch({ type: "editAlarm", payload: alarm });
       if (Platform.OS === "android") {
@@ -175,8 +175,8 @@ class AddAlarm extends Component {
           date: new Date(date),
           soundName: "perfect_fifth.mp3",
           repeatType: "minute",
-          id: id,
-          userInfo: { id: id }
+          id: JSON.stringify(id),
+          userInfo: { id: JSON.stringify(id) }
           // repeatType: "minute"
           // repeatTime: new Date(Date.now() + (1000 * 60 * 10 ))
           // repeatTime: 100

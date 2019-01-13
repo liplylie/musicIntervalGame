@@ -390,7 +390,7 @@ class Game extends Component {
     );
   }
 
-  async endGame() {
+  endGame() {
     let { id, dispatch } = this.props;
     this.stopSoundOne();
     this.stopSoundTwo();
@@ -400,7 +400,7 @@ class Game extends Component {
     //   }
     // )
     if (id) {
-      await dispatch({ type: "activateAlarm", payload: { id: id, active: 0 } });
+      dispatch({ type: "activateAlarm", payload: { id: id, active: 0 } });
       if (Platform.OS === "ios") {
         PushNotificationIOS.getScheduledLocalNotifications(notification => {
           console.log(notification, "local notification schedule in end game");
@@ -411,13 +411,15 @@ class Game extends Component {
             }
           });
         });
+        Actions.Home();
       } else {
-        PushNotification.cancelLocalNotifications({
-          id: id
-        });
+        // alert(id + "piss")
+        // alert(typeof id)
+        PushNotification.cancelLocalNotifications({ id: JSON.stringify(Number(id))});
+        setTimeout(()=>Actions.Home(), 500)
       }
     }
-    Actions.Home();
+   
   }
 
   stopAnimation() {
