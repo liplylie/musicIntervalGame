@@ -22,12 +22,12 @@ const iphoneX = height > 800;
 const mode = process.env.NODE_ENV
 
 const placementId = 
-    Platform.OS === "ios" ? "2098852450199441_2098862933531726" : "2198523130404646_2198523313737961";
+  Platform.OS === "ios" ? "2098852450199441_2098862933531726" : "2098852450199441_2124160657668620";
 const adsManager = new NativeAdsManager(placementId, 1);
-console.log(AdSettings, "shit head")
-AdSettings.setLogLevel("debug");
-AdSettings.addTestDevice(AdSettings.currentDeviceHash);
-adsManager.disableAutoRefresh();
+// console.log(AdSettings, "shit head")
+// AdSettings.setLogLevel("debug");
+// AdSettings.addTestDevice(AdSettings.currentDeviceHash);
+// adsManager.disableAutoRefresh();
 
 class Banner extends Component {
   constructor(props) {
