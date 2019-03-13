@@ -1,4 +1,4 @@
-const intervals = {
+export const intervals = {
     0: {
         short: "Unison",
         long: "Unison"
@@ -61,5 +61,3 @@ const intervals = {
     }
 
 };
-
-export default intervals;

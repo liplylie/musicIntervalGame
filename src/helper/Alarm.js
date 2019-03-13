@@ -1,9 +1,19 @@
-export default class Alarm {
-    constructor(id, active, time, date, message){
-        this.id = id;
-        this.active = active;
-        this.time = time;
-        this.date = date;
-        this.message = message;
-    }
+export class Alarm {
+  constructor(
+    id,
+    active,
+    time,
+    date,
+    message,
+    snoozeTime = 1,
+    answersNeeded = 3
+  ) {
+    this.id = id;
+    this.active = active;
+    this.time = time;
+    this.date = date;
+    this.message = message;
+    this.snoozeTime = snoozeTime;
+    this.answersNeeded = answersNeeded;
+  }
 }

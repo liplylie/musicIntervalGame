@@ -18,8 +18,7 @@ import { connect } from "react-redux";
 import { Convert, Styles } from "../../styles";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
-import uuid from "../../helper/uuid";
-import Alarm from "../../helper/Alarm";
+import { uuid, Alarm, cancelAlarm, setAlarm } from "../../helper";
 import PushNotification from "react-native-push-notification";
 import ModalSelector from "react-native-modal-selector";
 
@@ -46,16 +45,16 @@ class AddAlarm extends Component {
       iconOne: new Animated.Value(0.7),
       iconTwo: new Animated.Value(0.7),
       springSpeed: 500,
-      snooze: 1,
-      answersNeeded: 3,
+      snooze: this.props.edit ? Number(this.props.edit.snoozeTime) : 1,
+      answersNeeded: this.props.edit ? Number(this.props.edit.answersNeeded) : 3,
       snoozePicker: false,
       instrument: "",
       renderInstrumentModal: false,
       instrumentModalData: [
-        { key: 0, section: true, label: 'Instruments' },
-        { key: 1, label: 'Piano', accessibilityLabel: 'Piano' },
-        { key: 2, label: 'Clarinet', accessibilityLabel: 'Clarinet' }
-      ],
+        { key: 0, section: true, label: "Instruments" },
+        { key: 1, label: "Piano", accessibilityLabel: "Piano" },
+        { key: 2, label: "Clarinet", accessibilityLabel: "Clarinet" }
+      ]
     };
     this._handleDatePicked = this._handleDatePicked.bind(this);
     this._addAlarm = this._addAlarm.bind(this);
@@ -106,7 +105,6 @@ class AddAlarm extends Component {
 
   _showSnoozePicker = () => this.setState({ snoozePicker: true });
 
-
   _handleDatePicked = date => {
     // console.log("A date has been picked: ", date);
     this._hideDateTimePicker();
@@ -124,7 +122,7 @@ class AddAlarm extends Component {
 
   _addAlarm() {
     let { dispatch, edit } = this.props;
-    let { time, date, message } = this.state;
+    let { time, date, message, snooze, answersNeeded } = this.state;
     if (!time) {
       alert("Please enter a time for the alarm");
     } else {
@@ -135,41 +133,17 @@ class AddAlarm extends Component {
           .startOf("minute")
           .format();
       }
-      let alarm = new Alarm(id, 1, time, date, message || "Alarm");
+      let alarm = new Alarm(id, 1, time, date, message || "Alarm", snooze, answersNeeded);
       dispatch({ type: "addAlarm", payload: alarm });
-      if (Platform.OS === "android") {
-        PushNotification.localNotificationSchedule({
-          message: message || "Alarm",
-          date: new Date(date),
-          soundName: "perfect_fifth.mp3",
-          repeatType: "minute",
-          id: JSON.stringify(id),
-          userInfo: { id: JSON.stringify(id) }
-          // repeatType: "minute"
-          // repeatTime: new Date(Date.now() + (1000 * 60 * 10 ))
-          // repeatTime: 100
-        });
-      } else {
-        for (let i = 0; i < 4; i++) {
-          let tempDate = moment(date).add(i * 8, "seconds");
-          PushNotification.localNotificationSchedule({
-            message: message || "Alarm",
-            date: new Date(tempDate),
-            soundName: "PerfectFifth.mp3",
-            repeatType: "minute",
-            userInfo: { id: id },
-            repeatType: "minute"
-            //repeatTime: new Date(Date.now() + 100)
-          });
-        }
-      }
+      setAlarm(Platform.OS, id, date, snooze );
       Actions.Home();
     }
   }
 
   _editAlarm() {
     let { dispatch, edit } = this.props;
-    let { time, date, message } = this.state;
+    console.log(edit, "edit shit")
+    let { time, date, message, snooze, answersNeeded } = this.state;
     if (!time) {
       alert("Please enter a time for the alarm");
     } else {
@@ -180,60 +154,16 @@ class AddAlarm extends Component {
           .startOf("minute")
           .format();
       }
-      let alarm = new Alarm(id, 1, time, date, message || "Alarm");
-      // console.log(alarm, "alarm edit")
-      if (Platform.OS === "ios") {
-        PushNotificationIOS.getScheduledLocalNotifications(notification => {
-          console.log(
-            notification,
-            "local notification schedule in alarm list"
-          );
-          notification.forEach(({ userInfo }) => {
-            // console.log(userInfo, "userInfo")
-            if (userInfo.id === edit.id) {
-              PushNotification.cancelLocalNotifications({ id: userInfo.id });
-            }
-          });
-        });
-      } else {
-        PushNotification.cancelLocalNotifications({ id: JSON.stringify(id) });
-      }
+      let alarm = new Alarm(id, 1, time, date, message || "Alarm", snooze, answersNeeded);
+      cancelAlarm(Platform.OS, id);
       dispatch({ type: "editAlarm", payload: alarm });
-      if (Platform.OS === "android") {
-        PushNotification.localNotificationSchedule({
-          message: message || "Alarm",
-          date: new Date(date),
-          soundName: "perfect_fifth.mp3",
-          repeatType: "minute",
-          id: JSON.stringify(id),
-          userInfo: { id: JSON.stringify(id) }
-          // repeatType: "minute"
-          // repeatTime: new Date(Date.now() + (1000 * 60 * 10 ))
-          // repeatTime: 100
-        });
-      } else {
-        for (let i = 0; i < 4; i++) {
-          let tempDate = moment(date).add(i * 8, "seconds");
-          PushNotification.localNotificationSchedule({
-            message: message || "Alarm",
-            date: new Date(tempDate),
-            soundName: "PerfectFifth.mp3",
-            repeatType: "minute",
-            userInfo: { id: id },
-            repeatType: "minute"
-            //repeatTime: new Date(Date.now() + 100)
-          });
-        }
-      }
+      setAlarm(Platform.OS, id, date, snooze);
       Actions.Home();
     }
   }
 
-  instrumentModal(){
-    let {
-      instrumentModalData,
-      instrument
-    } = this.state;
+  instrumentModal() {
+    let { instrumentModalData, instrument } = this.state;
     return (
       <View
         style={{
@@ -242,40 +172,38 @@ class AddAlarm extends Component {
           justifyContent: "space-between",
           borderBottomColor: "lightgray",
           borderBottomWidth: 1,
-          flex: 1,
+          flex: 1
         }}
         // onPress={() => this._showSnoozePicker()}
       >
         <ModalSelector
           data={instrumentModalData}
           initValue="Select an Instrument"
-          supportedOrientations={['portrait']}
+          supportedOrientations={["portrait"]}
           accessible={true}
-          scrollViewAccessibilityLabel={'Scrollable options'}
-          cancelButtonAccessibilityLabel={'Cancel Button'}
-          onChange={({ label }) => { this.setState({ instrument: label }) }}
+          style={{ display: "flex", flexDirection: "row" }}
+          scrollViewAccessibilityLabel={"Scrollable options"}
+          cancelButtonAccessibilityLabel={"Cancel Button"}
+          onChange={({ label }) => {
+            this.setState({ instrument: label });
+          }}
         >
-          <TextInput style={{ fontSize: Convert(20) }} onSubmitEditing={false}>Instrument</TextInput>
+          <Text style={{ fontSize: Convert(20) }}>Instrument</Text>
         </ModalSelector>
         <Text style={{ fontSize: Convert(20) }}>{instrument}</Text>
       </View>
-      
-    )
+    );
   }
 
-  snoozeModal(){
-    let {
-      snooze
-    } = this.state;
-    let data = [
-      {key: 0, section: true, label: "Snooze Time"}
-    ];
+  snoozeModal() {
+    let { snooze } = this.state;
+    let data = [{ key: 0, section: true, label: "Snooze Time" }];
     for (let i = 1; i < 60; i++) {
       data.push({
-        key: i + "", 
+        key: i + "",
         label: i + "",
         accessibilityLabel: i + ""
-      })
+      });
     }
     return (
       <View
@@ -285,31 +213,43 @@ class AddAlarm extends Component {
           justifyContent: "space-between",
           borderBottomColor: "lightgray",
           borderBottomWidth: 1,
-          flex: 1,
+          flex: 1
         }}
         // onPress={() => this._showSnoozePicker()}
       >
         <ModalSelector
           data={data}
           initValue="Select an Instrument"
-          supportedOrientations={['portrait']}
+          supportedOrientations={["portrait"]}
           accessible={true}
-          scrollViewAccessibilityLabel={'Scrollable options'}
-          cancelButtonAccessibilityLabel={'Cancel Button'}
-          onChange={({ label }) => { this.setState({ snooze: label }) }}
+          scrollViewAccessibilityLabel={"Scrollable options"}
+          cancelButtonAccessibilityLabel={"Cancel Button"}
+          style={{ width: "100%"}}
+          onChange={({ label }) => {
+            this.setState({ snooze: label });
+          }}
         >
-          <TextInput style={{ fontSize: Convert(20) }} onSubmitEditing={false}>Snooze</TextInput>
+        <View 
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+          width: "100%"
+        }}>
+          <Text style={{ fontSize: Convert(20) }}>Snooze</Text>
+          <Text style={{ fontSize: Convert(20) }}>
+            {snooze} minute{snooze > 1 ? "s" : null}
+          </Text>
+        </View>
         </ModalSelector>
-        <Text style={{ fontSize: Convert(20) }}>{snooze} minute{snooze > 1 ? "s" : null}</Text>
+       
       </View>
-
-    )
+    );
   }
 
   answersNeededModal() {
-    let {
-      answersNeeded
-    } = this.state;
+    let { answersNeeded } = this.state;
     let data = [
       { key: 0, section: true, label: "Answers Needed To Turn Off Alarm" }
     ];
@@ -318,7 +258,7 @@ class AddAlarm extends Component {
         key: i + "",
         label: i + "",
         accessibilityLabel: i + ""
-      })
+      });
     }
     return (
       <View
@@ -328,56 +268,50 @@ class AddAlarm extends Component {
           justifyContent: "space-between",
           borderBottomColor: "lightgray",
           borderBottomWidth: 1,
-          flex: 1,
+          flex: 1
         }}
       >
         <ModalSelector
           data={data}
           initValue="Answers Needed To Stop Alarm"
-          supportedOrientations={['portrait']}
+          supportedOrientations={["portrait"]}
           accessible={true}
-          scrollViewAccessibilityLabel={'Scrollable options'}
-          cancelButtonAccessibilityLabel={'Cancel Button'}
-          onChange={({ label }) => { this.setState({ answersNeeded: label }) }}
+          style={{ width: "100%" }}
+          scrollViewAccessibilityLabel={"Scrollable options"}
+          cancelButtonAccessibilityLabel={"Cancel Button"}
+          onChange={({ label }) => {
+            this.setState({ answersNeeded: label });
+          }}
         >
-          <TextInput style={{ fontSize: Convert(20) }} onSubmitEditing={false}>Answers Needed</TextInput>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              width: "100%"
+            }}
+          >
+            <Text style={{ fontSize: Convert(20) }}>
+              Answers Needed
+            </Text>
+            <Text style={{ fontSize: Convert(20) }}>{answersNeeded}</Text>
+          </View>
         </ModalSelector>
-        <Text style={{ fontSize: Convert(20) }}>{answersNeeded}</Text>
-      </View>
-
-    )
-  }
-
-  renderSelections() {
-    return (
-      <View
-        style={{
-          flexGrow: 1,
-          flexDirection: "column",
-          alignItems: "flex-end",
-          alignSelf: "flex-start",
-          justifyContent: "space-around",
-          paddingLeft: Convert(10)
-        }}
-      >
-        <Text>data</Text>
-        <Text>data</Text>
-        <Text>data</Text>
-        <Text>data</Text>
       </View>
     );
   }
 
   render() {
-    let { 
-      time, 
+    let {
+      time,
       meridian,
-      snoozePicker, 
+      snoozePicker,
       instrument,
       renderInstrumentModal
     } = this.state;
     let { edit } = this.props;
-    
+
     return (
       <View style={{ display: "flex", flex: 1 }}>
         <NavBar
@@ -395,7 +329,6 @@ class AddAlarm extends Component {
             backgroundColor: "white"
           }}
         >
-
           <View
             style={{
               flexGrow: 1,
@@ -492,7 +425,7 @@ class AddAlarm extends Component {
                 justifyContent: "space-around"
               }}
             >
-              { renderInstrumentModal ? this.instrumentModal() : null}
+              {renderInstrumentModal ? this.instrumentModal() : null}
               <View
                 style={{
                   display: "flex",
@@ -514,7 +447,6 @@ class AddAlarm extends Component {
                 }}
               >
                 {this.answersNeededModal()}
-
               </View>
             </View>
           </View>

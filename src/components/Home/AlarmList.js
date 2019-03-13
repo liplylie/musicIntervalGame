@@ -16,7 +16,8 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import { Actions, ActionConst } from "react-native-router-flux";
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 import PushNotification from "react-native-push-notification";
-import moment from "moment"
+import moment from "moment";
+import { cancelAlarm } from "../../helper";
 
 import { connect } from "react-redux";
 import { Colors, Convert, Styles } from "../../styles";
@@ -50,21 +51,7 @@ class AlarmList extends Component {
         let { dispatch } = this.props;
         dispatch({type: "activateAlarm", payload: { id: alarm.id, active: value}})
         if (value === 0 ) {
-            if (Platform.OS === "ios") {
-                PushNotificationIOS.getScheduledLocalNotifications(notification => {
-                    // console.log(notification, "local notification schedule in end game")
-                    notification.forEach(({ userInfo }) => {
-                        // console.log(userInfo, "userInfo")
-                        if (userInfo.id === alarm.id) {
-                            PushNotification.cancelLocalNotifications({ id: alarm.id })
-                        }
-                    })
-                });
-            } else {
-                PushNotification.cancelLocalNotifications({
-                  id: JSON.stringify(alarm.id)
-                });
-            }
+            cancelAlarm(Platform.OS, alarm.id)
         } else if (value === 1) {
             if (!moment(alarm.date).isAfter(moment.now())){
                 let diff = moment().diff(moment(alarm.date), "days")
@@ -130,22 +117,9 @@ class AlarmList extends Component {
     }
 
     handleDeletePress(data, rowRef) {
-        // delete data
         let { dispatch } = this.props;
         dispatch({type: "deleteAlarm", payload: data})
-        if (Platform.OS === "ios") {
-            PushNotificationIOS.getScheduledLocalNotifications(notification => {
-                console.log(notification, "local notification schedule in alarm list")
-                notification.forEach(({ userInfo }) => {
-                    // console.log(userInfo, "userInfo")
-                    if (userInfo.id === data.id) {
-                        PushNotification.cancelLocalNotifications({ id: userInfo.id })
-                    }
-                })
-            });
-        } else {
-            PushNotification.cancelLocalNotifications({id:JSON.stringify(data.id)});
-        }
+        cancelAlarm(Platform.OS, data.id);
         rowRef.manuallySwipeRow(0);
     }
 

@@ -38,13 +38,8 @@ class Home extends Component {
     }
 
     componentWillMount() {
-        // console.log(this.props, "home props")
         // this._navigateToGame()
 
-    }
-
-    componentDidMount(){
-       
     }
 
     _navigateToGame(){
@@ -59,10 +54,10 @@ class Home extends Component {
                             // console.log(userInfo, "userInfo")
                             // console.log(alarms, "alarms")
                             alarms.forEach(a => {
-                                // console.log(a, "a")
+                                console.log(a, "alarm round one")
                                 // console.log(userInfo, "u")
-                                if (a.id === userInfo.id && a.active) {
-                                    // console.log("alarm", a)
+                                if ( (a.id === userInfo.id || userInfo.oid === a.oid ) && a.active) {
+                                    console.log("alarm in home", a)
                                     let activeAlarm = moment(a.date).isBefore(moment.now())
                                     // console.log(activeAlarm, "active alarm")
                                     // console.log(activeGame, "active game")
@@ -70,10 +65,13 @@ class Home extends Component {
                                         // console.log("here")
                                         this.setState({
                                             activeGame: true
-                                        }, () => Actions.Game({id:a.id}))
+                                        }, () => Actions.Game({
+                                            id:a.id,
+                                            oid: a.oid || a.id,
+                                            snooze:a.snooze
+                                        }))
                                        
                                     }
-                                   // Actions.Game(a.id)
                                 }
                             })
                         })
@@ -113,11 +111,6 @@ class Home extends Component {
         )
     }
 }
-
-
-// const Home = connect(state => ({
-//     state
-// }))(UnconnectedHome);
 
 const mapStateToProps = state => ({alarm: state.alarm})
 export default connect(mapStateToProps)(Home);

@@ -20,8 +20,7 @@ import LinearGradient from "react-native-linear-gradient";
 import * as Animatable from "react-native-animatable";
 import Sound from "react-native-sound";
 
-import notes from "../../helper/noteArray";
-import intervals from "../../helper/intervals";
+import { notes, intervals, cancelAlarm, shuffle } from "../../helper";
 import { firstNum, secondNum } from "../../helper/randomNum";
 
 import G3 from "../../samples/G3.mp3";
@@ -56,7 +55,7 @@ import A5 from "../../samples/A5.mp3";
 import E3 from "../../samples/E3.mp3";
 
 import NavBar from "../Common/NavBar";
-import shuffle from "../../helper/shuffle";
+import AddAlarms from "../Home/AddAlarms";
 
 const { height, width } = Dimensions.get("window");
 
@@ -318,14 +317,7 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    // starts the game
     setTimeout(() => this.startNewGame(), 500);
-  }
-
-  componentWillUnmount() {
-    // this.setState({
-    //   stopAnimation: true
-    // });
   }
 
   startNewGame(difficulty) {
@@ -391,33 +383,20 @@ class Game extends Component {
   }
 
   endGame() {
-    let { id, dispatch } = this.props;
+    let { id, dispatch, oid } = this.props;
     this.stopSoundOne();
     this.stopSoundTwo();
-    // this.setState(
-    //   {
-    //     stopAnimation: true
-    //   }
-    // )
+    
     if (id) {
-      dispatch({ type: "activateAlarm", payload: { id: id, active: 0 } });
-      if (Platform.OS === "ios") {
-        PushNotificationIOS.getScheduledLocalNotifications(notification => {
-          console.log(notification, "local notification schedule in end game");
-          notification.forEach(({ userInfo }) => {
-            console.log(userInfo, "userInfo");
-            if (userInfo.id === id) {
-              PushNotification.cancelLocalNotifications({ id: userInfo.id });
-            }
-          });
-        });
-        Actions.Home();
+      if (Platform.OS === "ios"){
+        console.log("active 0")
+        dispatch({ type: "activateAlarm", payload: { id: oid, active: 0 } });
       } else {
-        // alert(id + "piss")
-        // alert(typeof id)
-        PushNotification.cancelLocalNotifications({ id: JSON.stringify(Number(id))});
-        setTimeout(()=>Actions.Home(), 500)
+        dispatch({ type: "activateAlarm", payload: { id: id, active: 0 } });
       }
+     
+      cancelAlarm(Platform.OS, id, oid);
+      Actions.Home();
     }
    
   }
@@ -576,16 +555,7 @@ class Game extends Component {
 
   answerAnimation() {
     let { renderAnswer, springSpeed } = this.state;
-    // Animated.spring(renderAnswer, {
-    //   toValue: 1.7,
-    //   friction: springSpeed,
-    //   tension: springSpeed
-    // }).start();
-    // Animated.spring(renderAnswer, {
-    //   toValue: 1,
-    //   friction: springSpeed,
-    //   tension: springSpeed
-    // }).start();
+
     Animated.loop(
       Animated.sequence([
         Animated.timing(renderAnswer, {
@@ -639,12 +609,10 @@ class Game extends Component {
   }
 
   checkAnswer(guess) {
-    // console.log(guess, "guess");
     let { correctAnswer, count } = this.state;
     let { id } = this.props;
     if (id) {
       if (guess === correctAnswer.long && count > 1) {
-        // alert("correct")
         this.setState(
           {
             stopAnimation: true,
@@ -678,7 +646,6 @@ class Game extends Component {
       }
     } else {
       if (guess === correctAnswer.long) {
-        // alert("correct")
         this.setState(
           {
             stopAnimation: true,
@@ -703,13 +670,15 @@ class Game extends Component {
   renderButton(item) {
     let { checking, attempt, correctAnswer } = this.state;
     let correct;
+    let buttonColor = ["#4c669f", "#3b5998", "#192f6a"]
+    let wrongColor = ["#ff4d4d", "#e60000"];
+    let correctColor = ["#0BAB64", "#3BB78F"];
+
     if (correctAnswer){
       correct = item === correctAnswer.long;
 
     }
-    let buttonColor = ["#4c669f", "#3b5998", "#192f6a"]
-    let wrongColor = ["#ff4d4d", "#e60000"];
-    let correctColor = ["#0BAB64","#3BB78F"];
+   
     return (
       <Animatable.View ref="view">
         <TouchableOpacity
@@ -860,7 +829,4 @@ const styles = StyleSheet.create({
   }
 });
 
-// const Game = connect(state => ({
-//     state
-// }))(UnconnectedHome);
 export default connect(null)(Game);
