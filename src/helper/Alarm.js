@@ -1,3 +1,13 @@
+/**
+  * Alarm
+  * @id {string} int for android
+  * @active {boolean}
+  * @time {string} formatted hh:mm A
+  * @date {string} ISO string
+  * @message {string} Alarm message
+  * @snoozeTime {int}
+  * @answersNeeded {int}
+*/
 export class Alarm {
   constructor(
     id,

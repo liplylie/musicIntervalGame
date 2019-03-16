@@ -1,3 +1,11 @@
+/**
+  * Cancel Alarm
+  * @device {string}
+  * @id {string} int for android
+  * @oid {string} needed for iOS
+  * @notification {object}
+  * @userInfo {object} 
+*/
 import PushNotification from "react-native-push-notification";
 import { PushNotificationIOS } from "react-native";
 export const cancelAlarm = (device, id, oid = "") => {

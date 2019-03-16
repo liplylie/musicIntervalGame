@@ -40,24 +40,19 @@ export default class App extends Component {
         if (currentScene === "Home") {
           if (clicked) {
             if (Platform.OS === "ios"){
-              Actions.Game({ id: data.id, oid: data.oid });
+              Actions.Game({ id: data.id, oid: data.oid, answersNeeded: data.answersNeeded });
             } else {
-              Actions.Game({ id: id, oid: id });
+              Actions.Game({ id: id, oid: id, answersNeeded: data.answersNeeded});
             }
            
           } else if (foreground && !clicked) {
             if (Platform.OS === "ios") {
-              Actions.Game({ id: data.id, oid: data.oid });
+              Actions.Game({ id: data.id, oid: data.oid, answersNeeded: data.answersNeeded });
             } else {
-              Actions.Game({ id: id, oid: id });
+              Actions.Game({ id: id, oid: id, answersNeeded: data.answersNeeded });
             }
           }
         }
-
-        // Actions.Game()
-
-        // PushNotification.cancelAllLocalNotifications();
-        // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
         notification.finish(PushNotificationIOS.FetchResult.NoData);
       },
       permissions: {

@@ -1,3 +1,13 @@
+/**
+  * Reset Alarm
+  * Double check alarms to make sure they are scheduled
+  * @device {string}
+  * @id {string} int for android
+  * @oid {string} needed for iOS
+  * @notification {object}
+  * @userInfo {object}
+*/
+
 import PushNotification from "react-native-push-notification";
 import { PushNotificationIOS } from "react-native";
 
@@ -17,7 +27,6 @@ export const resetAlarm = (device, a, id, snooze = 3) => {
     PushNotificationIOS.getScheduledLocalNotifications(notification => {
       console.log(notification, "notification in ff else ");
       if (notification.indexOf({ userInfo: { id: a.id } }) > -1) {
-        // a double check to make sure alarms are scheduled
         console.log("Made it");
         for (let j = 0; j < 10; j++) {
           let initialAlarm = moment(a.date).add(Number(snooze) * j, "minutes");

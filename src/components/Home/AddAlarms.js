@@ -11,7 +11,8 @@ import {
   KeyboardAvoidingView,
   PushNotificationIOS,
   Animated,
-  Picker
+  Picker,
+  StyleSheet
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
@@ -135,14 +136,14 @@ class AddAlarm extends Component {
       }
       let alarm = new Alarm(id, 1, time, date, message || "Alarm", snooze, answersNeeded);
       dispatch({ type: "addAlarm", payload: alarm });
-      setAlarm(Platform.OS, id, date, snooze );
+      setAlarm(Platform.OS, id, date, snooze, answersNeeded, message );
       Actions.Home();
     }
   }
 
   _editAlarm() {
     let { dispatch, edit } = this.props;
-    console.log(edit, "edit shit")
+    console.log(edit, "edit alarm")
     let { time, date, message, snooze, answersNeeded } = this.state;
     if (!time) {
       alert("Please enter a time for the alarm");
@@ -157,7 +158,7 @@ class AddAlarm extends Component {
       let alarm = new Alarm(id, 1, time, date, message || "Alarm", snooze, answersNeeded);
       cancelAlarm(Platform.OS, id);
       dispatch({ type: "editAlarm", payload: alarm });
-      setAlarm(Platform.OS, id, date, snooze);
+      setAlarm(Platform.OS, id, date, snooze, answersNeeded, message);
       Actions.Home();
     }
   }
@@ -165,17 +166,7 @@ class AddAlarm extends Component {
   instrumentModal() {
     let { instrumentModalData, instrument } = this.state;
     return (
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          borderBottomColor: "lightgray",
-          borderBottomWidth: 1,
-          flex: 1
-        }}
-        // onPress={() => this._showSnoozePicker()}
-      >
+      <View style={styles.setting}>
         <ModalSelector
           data={instrumentModalData}
           initValue="Select an Instrument"
@@ -206,17 +197,7 @@ class AddAlarm extends Component {
       });
     }
     return (
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          borderBottomColor: "lightgray",
-          borderBottomWidth: 1,
-          flex: 1
-        }}
-        // onPress={() => this._showSnoozePicker()}
-      >
+      <View style={[styles.setting, { flex: 1 }]}>
         <ModalSelector
           data={data}
           initValue="Select an Instrument"
@@ -229,21 +210,20 @@ class AddAlarm extends Component {
             this.setState({ snooze: label });
           }}
         >
-        <View 
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-          width: "100%"
-        }}>
-          <Text style={{ fontSize: Convert(20) }}>Snooze</Text>
-          <Text style={{ fontSize: Convert(20) }}>
-            {snooze} minute{snooze > 1 ? "s" : null}
-          </Text>
-        </View>
+          <View 
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            width: "100%"
+          }}>
+            <Text style={{ fontSize: Convert(20) }}>Snooze</Text>
+            <Text style={{ fontSize: Convert(20) }}>
+              {snooze} minute{snooze > 1 ? "s" : null}
+            </Text>
+          </View>
         </ModalSelector>
-       
       </View>
     );
   }
@@ -261,16 +241,7 @@ class AddAlarm extends Component {
       });
     }
     return (
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          borderBottomColor: "lightgray",
-          borderBottomWidth: 1,
-          flex: 1
-        }}
-      >
+      <View style={[styles.setting, {flex: 1}]}>
         <ModalSelector
           data={data}
           initValue="Answers Needed To Stop Alarm"
@@ -300,6 +271,37 @@ class AddAlarm extends Component {
         </ModalSelector>
       </View>
     );
+  }
+
+  renderNoteAnimation(){
+    return (
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around"
+        }}
+      >
+        <Animated.Image
+          source={require("../../../assets/images/appIcon1024.png")}
+          style={{
+            height: Convert(40),
+            width: Convert(40),
+            resizeMode: "contain",
+            transform: [{ scale: this.state.iconOne }]
+          }}
+        />
+        <Animated.Image
+          source={require("../../../assets/images/appIcon1024.png")}
+          style={{
+            height: Convert(40),
+            width: Convert(40),
+            resizeMode: "contain",
+            transform: [{ scale: this.state.iconTwo }]
+          }}
+        />
+      </View>
+    )
   }
 
   render() {
@@ -366,33 +368,6 @@ class AddAlarm extends Component {
                 onCancel={this._hideDateTimePicker}
                 mode="time"
               />
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-around"
-                }}
-              >
-                <Animated.Image
-                  source={require("../../../assets/images/appIcon1024.png")}
-                  style={{
-                    height: Convert(40),
-                    width: Convert(40),
-                    resizeMode: "contain",
-                    transform: [{ scale: this.state.iconOne }]
-                  }}
-                />
-                <Animated.Image
-                  source={require("../../../assets/images/appIcon1024.png")}
-                  style={{ height: Convert(40), width: Convert(40) }}
-                  style={{
-                    height: Convert(40),
-                    width: Convert(40),
-                    resizeMode: "contain",
-                    transform: [{ scale: this.state.iconTwo }]
-                  }}
-                />
-              </View>
             </View>
           </View>
           <View
@@ -426,26 +401,10 @@ class AddAlarm extends Component {
               }}
             >
               {renderInstrumentModal ? this.instrumentModal() : null}
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  borderBottomColor: "lightgray",
-                  borderBottomWidth: 1
-                }}
-              >
+              <View style={styles.setting}>
                 {this.snoozeModal()}
               </View>
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  borderBottomColor: "lightgray",
-                  borderBottomWidth: 1
-                }}
-              >
+              <View style={styles.setting}>
                 {this.answersNeededModal()}
               </View>
             </View>
@@ -472,6 +431,16 @@ class AddAlarm extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  setting: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderBottomColor: "lightgray",
+    borderBottomWidth: 1
+  }
+})
 
 const mapStateToProps = state => ({ alarm: state.alarm });
 export default connect(mapStateToProps)(AddAlarm);

@@ -58,12 +58,11 @@ import NavBar from "../Common/NavBar";
 import AddAlarms from "../Home/AddAlarms";
 
 const { height, width } = Dimensions.get("window");
-
 const AnimatableListView = Animatable.createAnimatableComponent(ListView);
 
 class Game extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       noteSpringOne: new Animated.Value(0.7),
       noteSpringTwo: new Animated.Value(0.7),
@@ -75,7 +74,7 @@ class Game extends Component {
       buttonData: ["", "", "", ""],
       correct: false,
       attempt: false,
-      count: 3,
+      count: this.props.answersNeeded ? this.props.answersNeeded : 3,
       checking: false
     };
     this.springAnimation = this.springAnimation.bind(this);

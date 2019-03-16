@@ -10,8 +10,10 @@ import {
     TouchableOpacity,
     ListView,
     Platform,
-    PushNotificationIOS
+    PushNotificationIOS,
+    StyleSheet
 } from "react-native";
+import LinearGradient from 'react-native-linear-gradient';
 import { SwipeListView } from "react-native-swipe-list-view";
 import { Actions, ActionConst } from "react-native-router-flux";
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
@@ -85,34 +87,46 @@ class AlarmList extends Component {
     }
 
     renderAlarms(data){
-        // console.log(data, "alarm data")
-        var radio_props = [
+        let radio_props = [
             { label: 'On', value: 1 },
             { label: 'Off', value: 0 }
         ];
+        let alarmColor = ["rgba(240, 240, 240, 0.9)", "rgba(200, 200, 200, 1)"];
+        let alarmReverse = ["rgba(200, 200, 200, 1)","rgba(240, 240, 240, 0.9)"];
         if (!data) {
             return null
         }
         return (
-            <View style={{height: Convert(100), display: "flex", flexDirection: "column", justifyContent: "space-around", borderStyle: "solid", borderColor: "black", borderWidth: 1, backgroundColor: "white"}}>
-                <View style={{display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "center"}} >
-                    <TouchableOpacity onPress={() => Actions.EditAlarm({ edit: data })}><Text style={{fontSize: Convert(40), paddingLeft: Convert(8)}}>{data.time}</Text></TouchableOpacity>
-                    <RadioForm
-                        radio_props={radio_props}
-                        labelColor={'gray'}
-                        onPress={value => this.handleAlarmActivation(value, data)}
-                        formHorizontal={true}
-                        animation={true}
-                        initial={data.active ? 0 : 1 }
-                        radioStyle={{ paddingRight: Convert(13) }}
-                        style={{marginLeft: Convert(100)}}
-                    />
+                <LinearGradient
+                    style={styles.alarmContainer}
+                    start={{ x: 0.0, y: 0.25 }}
+                    end={{ x: 1, y: 1.0 }}
+                    colors={data.active ? alarmColor : alarmReverse}
+            >
+                <View style={{display: "flex", flexDirection: "column"}}>
+                    <View style={styles.alarm}>
+                            <TouchableOpacity onPress={() => Actions.EditAlarm({ edit: data })}>
+                                <Text style={{ fontSize: Convert(40), paddingLeft: Convert(10) }}>{data.time}</Text>
+                            </TouchableOpacity>
+                            <RadioForm
+                                radio_props={radio_props}
+                                labelColor={'gray'}
+                                onPress={value => this.handleAlarmActivation(value, data)}
+                                formHorizontal={true}
+                                animation={true}
+                                initial={data.active ? 0 : 1}
+                                radioStyle={{ paddingRight: Convert(13) }}
+                                style={{ marginLeft: Convert(60) }}
+                            />
+                        </View>
+                       
+
+                        <View style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <Text>{data.message}</Text>
+                        </View>
                 </View>
-                <View style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                    <Text>{data.message}</Text>
-                </View>
-                
-            </View>
+                        
+                </LinearGradient>
         )
     }
 
@@ -142,7 +156,8 @@ class AlarmList extends Component {
                             marginRight: Convert(10),
                             marginTop: Convert(5),
                             padding: Convert(11),
-                            backgroundColor: "red"
+                            backgroundColor: "red",
+                            
                         }}
                     >
                         <TouchableOpacity
@@ -151,7 +166,7 @@ class AlarmList extends Component {
                             }
                         >
                             <Image
-                                style={{ height: Convert(60), width: Convert(60) }}
+                                style={{ height: Convert(60), width: Convert(60), opacity: 0.5 }}
                                 source={require("../../../assets/images/trash.png")}
                             />
                         </TouchableOpacity>
@@ -162,6 +177,31 @@ class AlarmList extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    alarmContainer: {
+        height: Convert(100), 
+        display: "flex", 
+        flexDirection: "column",
+        justifyContent: "space-around",
+        borderStyle: "solid",
+        borderColor: "rgba(235, 235,235, 1)",
+        borderWidth: 1, 
+        shadowColor: "#000000",
+        shadowOffset: {
+            width: 0,
+            height: 3
+        },
+        shadowRadius: 3,
+        shadowOpacity: 1.0,
+    },
+    alarm: {
+        display: "flex", 
+        flexDirection: "row", 
+        justifyContent: "space-around",
+        alignItems: "center"
+    },
+});
 
 const mapStateToProps = state => ({ alarms: state.alarm.alarms})
 

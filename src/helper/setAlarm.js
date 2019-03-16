@@ -1,6 +1,18 @@
+/**
+  * Set Alarm
+  * Creates push notifications for alarm
+  * @device {string}
+  * @id {string}
+  * @date {string} ISO format
+  * @oid {string} needed for iOS
+  * @snooze {int}
+  * @answersNeeded {int}
+   * @message {string} Alarm message
+*/
+
 import PushNotification from "react-native-push-notification";
 import moment from "moment";
-export const setAlarm = (device, id, date, snooze) => {
+export const setAlarm = (device, id, date, snooze, answersNeeded, message) => {
   if (device === "android") {
     let repeatTime = 1000 * 60 * Number(snooze);
     PushNotification.localNotificationSchedule({
@@ -8,7 +20,10 @@ export const setAlarm = (device, id, date, snooze) => {
       date: new Date(date),
       soundName: "perfect_fifth.mp3",
       id: JSON.stringify(id),
-      userInfo: { id: JSON.stringify(id) },
+      userInfo: { 
+        id: JSON.stringify(id),
+        answersNeeded: answersNeeded
+       },
       repeatType: "time",
       repeatTime: repeatTime
     });
@@ -25,7 +40,8 @@ export const setAlarm = (device, id, date, snooze) => {
           soundName: "PerfectFifth.mp3",
           userInfo: {
             id: id + String(j) + String(i),
-            oid: id
+            oid: id,
+            answersNeeded: answersNeeded
           }
         });
       }
