@@ -1,4 +1,4 @@
-const uuid = platform => {
+export const uuid = platform => {
   if (platform === "ios") {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
@@ -24,4 +24,3 @@ const uuid = platform => {
   }
 };
 
-export default uuid;

@@ -5,7 +5,7 @@ import {
   Text,
   View,
   PushNotificationIOS,
-  AppState, 
+  AppState,
   AsyncStorage
 } from "react-native";
 import { persistor } from "./src/store.js";
@@ -19,6 +19,7 @@ import { ActionConst, Actions, Router, Scene } from "react-native-router-flux";
 import PushNotification from "react-native-push-notification";
 import moment from "moment";
 import Rules from "./src/components/Game/Rules";
+import { resetAlarm } from "./src/helper";
 
 export default class App extends Component {
   constructor() {
@@ -30,34 +31,42 @@ export default class App extends Component {
   }
   componentWillMount() {
     PushNotification.configure({
-      // (required) Called when a remote or local notification is opened or received
       onNotification: function(notification) {
         console.log("ROOT NOTIFICATION:", notification);
         let currentScene = Actions.currentScene;
-        console.log(currentScene, "current Scene");
         let { userInteraction, foreground, message, data, id } = notification;
         const clicked = userInteraction;
         if (currentScene === "Home") {
           if (clicked) {
-            if (Platform.OS === "ios"){
-              Actions.Game({ id: data.id });
+            if (Platform.OS === "ios") {
+              Actions.Game({
+                id: data.id,
+                oid: data.oid,
+                answersNeeded: data.answersNeeded
+              });
             } else {
-              Actions.Game({ id: id });
+              Actions.Game({
+                id: id,
+                oid: id,
+                answersNeeded: data.answersNeeded
+              });
             }
-           
           } else if (foreground && !clicked) {
             if (Platform.OS === "ios") {
-              Actions.Game({ id: data.id });
+              Actions.Game({
+                id: data.id,
+                oid: data.oid,
+                answersNeeded: data.answersNeeded
+              });
             } else {
-              Actions.Game({ id: id });
+              Actions.Game({
+                id: id,
+                oid: id,
+                answersNeeded: data.answersNeeded
+              });
             }
           }
         }
-
-        // Actions.Game()
-
-        // PushNotification.cancelAllLocalNotifications();
-        // required on iOS only (see fetchCompletionHandler docs: https://facebook.github.io/react-native/docs/pushnotificationios.html)
         notification.finish(PushNotificationIOS.FetchResult.NoData);
       },
       permissions: {
@@ -71,25 +80,11 @@ export default class App extends Component {
     });
   }
   componentDidMount() {
-    // AsyncStorage.clear();
-    // PushNotification.cancelAllLocalNotifications();
-
-
-    // PushNotificationIOS.requestPermissions()
-    //   .then(perms => console.log(`PERMS`, perms))
-    //   .catch(err => console.log(`ERROR REQUESTING PERMISSIONS`, err));
-
     AppState.addEventListener("change", this._handleAppStateChange);
-    PushNotificationIOS.addEventListener("localNotification", notification => {
-      console.log(notification, "received");
-    });
   }
 
   async _handleAppStateChange(appState) {
-    console.log(appState, "app state");
-
     if (appState === "active") {
-      // let local = await PushNotificationIOS.getInitialNotification();
       let { activeGame } = this.state;
       let state = store.getState();
       let { alarms } = state.alarm;
@@ -98,28 +93,29 @@ export default class App extends Component {
           console.log(notification, "notification navigate to Game in app");
           if (notification.length && !activeGame) {
             notification.forEach(({ userInfo }) => {
-              console.log(userInfo, "userInfo");
-              console.log(alarms, "alarms");
               alarms.forEach(a => {
-                console.log(a, "a");
-                console.log(userInfo, "u");
-                if (a.id === userInfo.id && a.active) {
+                if (
+                  (a.id === userInfo.id || a.id === userInfo.oid) &&
+                  a.active
+                ) {
                   let activeAlarm = moment(a.date)
                     .startOf("minute")
                     .isBefore(moment.now());
                   let currentScene = Actions.currentScene;
-                  console.log(activeAlarm, "active alarm");
-                  console.log(currentScene, "currentScene");
                   if (activeAlarm && !activeGame && currentScene === "Home") {
-                    console.log("here");
                     this.setState(
                       {
                         activeGame: true
                       },
-                      () => Actions.Game({ id: a.id })
+                      () =>
+                        Actions.Game({
+                          id: a.id,
+                          oid: userInfo.oid || a.id,
+                          snooze: a.snoozeTime || 1,
+                          answersNeeded: a.answersNeeded || 3
+                        })
                     );
                   }
-                  // Actions.Game(a.id)
                 }
               });
             });
@@ -132,98 +128,26 @@ export default class App extends Component {
       let state = store.getState();
       let { alarms } = state.alarm;
       console.log(alarms, "alarms");
-      // PushNotification.cancelAllLocalNotifications()
       alarms.map(a => {
         if (moment(a.date).isAfter(moment.now())) {
           // if the alarms are after the current time, schedule them
           if (a.active) {
-            if (Platform.OS === "android") {
-              PushNotification.localNotificationSchedule({
-                message: a.message || "Alarm",
-                date: new Date(a.date),
-                soundName: "perfect_fifth.mp3",
-                repeatType: "minute",
-                id: JSON.stringify(a.id),
-                userInfo: { id: JSON.stringify(id) }
-                // repeatType: "time",
-                // repeatTime: 100
-              });
-            } else {
-              PushNotificationIOS.getScheduledLocalNotifications(
-                notification => {
-                  console.log(notification, "notification in ff else ");
-                  if (notification.indexOf({ userInfo: { id: a.id } }) > -1) {
-                    // a double check to make sure alarms are scheduled
-                    console.log("Made it");
-                    PushNotification.localNotificationSchedule({
-                      message: a.message || "Alarm",
-                      date: new Date(a.date),
-                      soundName: "PerfectFifth.mp3",
-                      userInfo: { id: a.id },
-                      repeatType: "minute"
-                      //repeatTime: new Date(Date.now() + 1000 * 60 * 10)
-                      // repeatType: "minute",
-                      // repeatTime: 100
-                    });
-                  }
-                }
-              );
-            }
+            resetAlarm(Platform.OS, a, id, (a.snoozeTime = 3));
           }
         } else {
           // set the alarms to the next day
           if (!active) {
             let diff = moment().diff(moment(a.date), "days");
-            // console.log(a.date, "before");
-            // console.log(diff, "diff");
             a.date = moment(a.date)
               .add(diff + 1, "days")
               .format();
-            // console.log(a.date, "after");
           }
 
           if (a.active) {
-            if (Platform.OS === "android") {
-              PushNotification.localNotificationSchedule({
-                message: a.message || "Alarm",
-                date: new Date(a.date),
-                soundName: "perfect_fifth.mp3",
-                // repeatType: "minute",
-                id: JSON.stringify(a.id),
-                repeatType: "minute",
-                userInfo: { id: JSON.stringify(a.id) }
-                // repeatTime: 100
-              });
-            } else {
-              PushNotificationIOS.getScheduledLocalNotifications(
-                notification => {
-                  // a double check to make sure alarms are scheduled
-                  console.log(notification, "notification in else app");
-                  if (notification.indexOf({ userInfo: { id: a.id } }) > -1) {
-                    console.log("Made it mofo");
-
-                    PushNotification.localNotificationSchedule({
-                      message: a.message || "Alarm",
-                      date: new Date(a.date),
-                      soundName: "PerfectFifth.mp3",
-                      userInfo: { id: a.id },
-                      repeatType: "minute"
-                      // repeatTime: "time",
-                      // repeatTime: 100
-                    });
-                  }
-                }
-              );
-            }
+            resetAlarm(Platform.OS, a, id, (a.snoozeTime = 3));
           }
         }
       });
-      // PushNotificationIOS.scheduleLocalNotification(details)
-      // PushNotification.presentLocalNotification(details);
-    } else {
-      // PushNotification.popInitialNotification(notification => {
-      //   console.log(notification, "notification")
-      // })
     }
   }
 
