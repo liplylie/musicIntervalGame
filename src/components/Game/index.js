@@ -50,8 +50,6 @@ import Gb5 from "../../samples/Gb5.mp3";
 import G5 from "../../samples/G5.mp3";
 import Ab5 from "../../samples/Ab5.mp3";
 import A5 from "../../samples/A5.mp3";
-
-
 import E3 from "../../samples/E3.mp3";
 
 import NavBar from "../Common/NavBar";
@@ -74,7 +72,7 @@ class Game extends Component {
       buttonData: ["", "", "", ""],
       correct: false,
       attempt: false,
-      count: this.props.answersNeeded ? this.props.answersNeeded : 3,
+      count: this.props.answersNeeded ? Number(this.props.answersNeeded) : 3,
       checking: false
     };
     this.springAnimation = this.springAnimation.bind(this);
@@ -330,6 +328,8 @@ class Game extends Component {
     let firstNote = notes[randomOne];
     let secondNote = notes[randomTwo];
     console.log(notes.length, "length of notes array");
+    console.log(firstNote, "first")
+    console.log(secondNote, "second ")
     this.setState(
       {
         noteOne: firstNote,
@@ -388,7 +388,6 @@ class Game extends Component {
     
     if (id) {
       if (Platform.OS === "ios"){
-        console.log("active 0")
         dispatch({ type: "activateAlarm", payload: { id: oid, active: 0 } });
       } else {
         dispatch({ type: "activateAlarm", payload: { id: id, active: 0 } });
@@ -401,7 +400,6 @@ class Game extends Component {
   }
 
   stopAnimation() {
-    // this.playSoundOne();
     this.setState({
       stopAnimation: true
     });
@@ -632,7 +630,7 @@ class Game extends Component {
         );
       }
 
-      if (guess === correctAnswer.long && count === 1) {
+      if (guess === correctAnswer.long && count <= 1) {
         this.setState(
           {
             stopAnimation: true,
