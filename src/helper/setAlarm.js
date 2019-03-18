@@ -4,10 +4,10 @@
   * @device {string}
   * @id {string}
   * @date {string} ISO format
-  * @oid {string} needed for iOS
+  * @oid {string} needed for iOS. oid = Original ID.
   * @snooze {int}
   * @answersNeeded {int}
-   * @message {string} Alarm message
+  * @message {string} Alarm message
 */
 
 import PushNotification from "react-native-push-notification";
@@ -22,14 +22,14 @@ export const setAlarm = (device, id, date, snooze, answersNeeded, message) => {
       id: JSON.stringify(id),
       userInfo: { 
         id: JSON.stringify(id),
+        oid: JSON.stringify(id),
+        snooze: snooze,
         answersNeeded: answersNeeded
        },
       repeatType: "time",
       repeatTime: repeatTime
     });
   } else {
-    // work around for repeat type time for ios
-    // oid stands for original id.
     for (let j = 0; j < 10; j++) {
       let initialAlarm = moment(date).add(Number(snooze) * j, "minutes");
       for (let i = 0; i < 4; i++) {
@@ -41,6 +41,7 @@ export const setAlarm = (device, id, date, snooze, answersNeeded, message) => {
           userInfo: {
             id: id + String(j) + String(i),
             oid: id,
+            snooze: snooze,
             answersNeeded: answersNeeded
           }
         });

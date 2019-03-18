@@ -11,21 +11,16 @@ import {
 } from "react-native";
 import { Convert } from "../../styles";
 import { Actions } from "react-native-router-flux";
-import {
-  BannerView,
-  NativeAdsManager,
-  AdSettings
-} from "react-native-fbads";
+import { BannerView, NativeAdsManager, AdSettings } from "react-native-fbads";
 
 const { height, width } = Dimensions.get("window");
 const iphoneX = height > 800;
-const mode = process.env.NODE_ENV
+const mode = process.env.NODE_ENV;
 
-const placementId = 
-  Platform.OS === "ios" ? "2098852450199441_2098862933531726" : "2098852450199441_2124160657668620";
-// const adsManager = new NativeAdsManager(placementId, 1);
-
-
+const placementId =
+  Platform.OS === "ios"
+    ? "2098852450199441_2098862933531726"
+    : "2098852450199441_2124160657668620";
 class Banner extends Component {
   constructor(props) {
     super(props);

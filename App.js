@@ -5,7 +5,7 @@ import {
   Text,
   View,
   PushNotificationIOS,
-  AppState, 
+  AppState,
   AsyncStorage
 } from "react-native";
 import { persistor } from "./src/store.js";
@@ -34,22 +34,36 @@ export default class App extends Component {
       onNotification: function(notification) {
         console.log("ROOT NOTIFICATION:", notification);
         let currentScene = Actions.currentScene;
-        console.log(currentScene, "current Scene");
         let { userInteraction, foreground, message, data, id } = notification;
         const clicked = userInteraction;
         if (currentScene === "Home") {
           if (clicked) {
-            if (Platform.OS === "ios"){
-              Actions.Game({ id: data.id, oid: data.oid, answersNeeded: data.answersNeeded });
+            if (Platform.OS === "ios") {
+              Actions.Game({
+                id: data.id,
+                oid: data.oid,
+                answersNeeded: data.answersNeeded
+              });
             } else {
-              Actions.Game({ id: id, oid: id, answersNeeded: data.answersNeeded});
+              Actions.Game({
+                id: id,
+                oid: id,
+                answersNeeded: data.answersNeeded
+              });
             }
-           
           } else if (foreground && !clicked) {
             if (Platform.OS === "ios") {
-              Actions.Game({ id: data.id, oid: data.oid, answersNeeded: data.answersNeeded });
+              Actions.Game({
+                id: data.id,
+                oid: data.oid,
+                answersNeeded: data.answersNeeded
+              });
             } else {
-              Actions.Game({ id: id, oid: id, answersNeeded: data.answersNeeded });
+              Actions.Game({
+                id: id,
+                oid: id,
+                answersNeeded: data.answersNeeded
+              });
             }
           }
         }
@@ -67,14 +81,9 @@ export default class App extends Component {
   }
   componentDidMount() {
     AppState.addEventListener("change", this._handleAppStateChange);
-    PushNotificationIOS.addEventListener("localNotification", notification => {
-      console.log(notification, "received");
-    });
   }
 
   async _handleAppStateChange(appState) {
-    console.log(appState, "app state");
-
     if (appState === "active") {
       let { activeGame } = this.state;
       let state = store.getState();
@@ -84,12 +93,11 @@ export default class App extends Component {
           console.log(notification, "notification navigate to Game in app");
           if (notification.length && !activeGame) {
             notification.forEach(({ userInfo }) => {
-              console.log(userInfo, "userInfo");
-              console.log(alarms, "alarms");
               alarms.forEach(a => {
-                console.log(a, "a");
-                console.log(userInfo, "u");
-                if ( (a.id === userInfo.id || a.id === userInfo.oid) && a.active) {
+                if (
+                  (a.id === userInfo.id || a.id === userInfo.oid) &&
+                  a.active
+                ) {
                   let activeAlarm = moment(a.date)
                     .startOf("minute")
                     .isBefore(moment.now());
@@ -99,7 +107,13 @@ export default class App extends Component {
                       {
                         activeGame: true
                       },
-                      () => Actions.Game({ id: a.id, oid: userInfo.oid || a.id })
+                      () =>
+                        Actions.Game({
+                          id: a.id,
+                          oid: userInfo.oid || a.id,
+                          snooze: a.snoozeTime || 1,
+                          answersNeeded: a.answersNeeded || 3
+                        })
                     );
                   }
                 }
@@ -118,7 +132,7 @@ export default class App extends Component {
         if (moment(a.date).isAfter(moment.now())) {
           // if the alarms are after the current time, schedule them
           if (a.active) {
-            resetAlarm(Platform.OS, a, id, a.snoozeTime = 3);
+            resetAlarm(Platform.OS, a, id, (a.snoozeTime = 3));
           }
         } else {
           // set the alarms to the next day
@@ -130,11 +144,11 @@ export default class App extends Component {
           }
 
           if (a.active) {
-            resetAlarm(Platform.OS, a, id, a.snoozeTime = 3);
+            resetAlarm(Platform.OS, a, id, (a.snoozeTime = 3));
           }
         }
       });
-    } 
+    }
   }
 
   render() {

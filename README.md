@@ -6,9 +6,18 @@ This is the Music Interval Alarm.
 2.  `npm install`
 3. react-native link
 4. For ios, cd into ios, and run pod install
+
 ## Deployment
 - ios: build archive, send to itunes connect
 - android: build signed apk, send to google play store
+
+## Structure
+- src/components: contains main components (Ads, Common, Game, Home)
+- src/helpers: helper functions (Alarm, cancelAlarm)
+- src/reducuers: redux reducers
+- src/samples: sound files
+- store.js: redux store4
+- style.js: responsive styling
 
 ## Developing Locally
 - ios: open `.xcworkspace` 

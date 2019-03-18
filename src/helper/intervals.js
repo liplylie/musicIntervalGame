@@ -58,6 +58,13 @@ export const intervals = {
     14: {
         short: "M9",
         long: "Major Ninth"
+    },
+    15: {
+        short: "m10",
+        long: "Minor Tenth"
+    },
+    16: {
+        short: "M10",
+        long: "Major Tenth"
     }
-
 };
