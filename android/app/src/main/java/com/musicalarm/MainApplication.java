@@ -9,12 +9,6 @@ import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import suraj.tiwari.reactnativefbads.FBAdsPackage;
-import suraj.tiwari.reactnativefbads.FBAdsPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.zmxv.RNSound.RNSoundPackage;
-import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.ads.AudienceNetworkAds; // <-- add this
 
 
@@ -65,13 +59,8 @@ public class MainApplication extends Application implements ReactApplication {
             new RNSoundPackage(),
             new ReactNativePushNotificationPackage(),
             new LinearGradientPackage(),
-            new FBSDKPackage(),
-            new FBAdsPackage(),
-            new FBAdsPackage(),
               new FBSDKPackage(mCallbackManager),
-      new VectorIconsPackage(),
-            new RNSoundPackage(),
-            new ReactNativePushNotificationPackage(),
+            new FBAdsPackage(),
             new LinearGradientPackage()
       );
     }

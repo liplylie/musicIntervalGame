@@ -143,7 +143,6 @@ class AddAlarm extends Component {
 
   _editAlarm() {
     let { dispatch, edit } = this.props;
-    console.log(edit, "edit alarm")
     let { time, date, message, snooze, answersNeeded } = this.state;
     if (!time) {
       alert("Please enter a time for the alarm");
@@ -348,7 +347,7 @@ class AddAlarm extends Component {
                   height: Convert(40),
                   width: Convert(160),
                   borderRadius: Convert(10),
-                  backgroundColor: Platform.OS === "ios" ? "dodgerblue" : "",
+                  backgroundColor: Platform.OS === "ios" ? "dodgerblue" : null,
                   marginLeft: Convert(50),
                   marginRight: Convert(50),
                   marginTop: Convert(20),
@@ -359,7 +358,7 @@ class AddAlarm extends Component {
                   onPress={this._showDateTimePicker}
                   title="Edit"
                   accessibilityLabel="Edit Alarm"
-                  color={Platform.OS === "ios" ? "white" : ""}
+                  color={Platform.OS === "ios" ? "white" : null}
                 />
               </TouchableHighlight>
               <DateTimePicker
@@ -414,7 +413,7 @@ class AddAlarm extends Component {
               style={{
                 height: iphoneX ? Convert(80) : Convert(50),
                 width: width,
-                backgroundColor: Platform.OS === "ios" ? "dodgerblue" : "",
+                backgroundColor: Platform.OS === "ios" ? "dodgerblue" : null,
                 margin: 0
               }}
             >
@@ -422,7 +421,7 @@ class AddAlarm extends Component {
                 onPress={edit ? this._editAlarm : this._addAlarm}
                 title="SAVE"
                 accessibilityLabel="Save Alarm"
-                color={Platform.OS === "ios" ? "white" : ""}
+                color={Platform.OS === "ios" ? "white" : null}
               />
             </TouchableHighlight>
           </View>

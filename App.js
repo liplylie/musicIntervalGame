@@ -32,9 +32,9 @@ export default class App extends Component {
   componentWillMount() {
     PushNotification.configure({
       onNotification: function(notification) {
-        console.log("ROOT NOTIFICATION:", notification);
+        // console.log("ROOT NOTIFICATION:", notification);
         let currentScene = Actions.currentScene;
-        let { userInteraction, foreground, message, data, id } = notification;
+        let { userInteraction, foreground, message, data, id, userInfo } = notification;
         const clicked = userInteraction;
         if (currentScene === "Home") {
           if (clicked) {
@@ -46,9 +46,9 @@ export default class App extends Component {
               });
             } else {
               Actions.Game({
-                id: id,
-                oid: id,
-                answersNeeded: data.answersNeeded
+                id: userInfo.id,
+                oid: userInfo.id,
+                answersNeeded: userInfo.answersNeeded
               });
             }
           } else if (foreground && !clicked) {
@@ -60,9 +60,9 @@ export default class App extends Component {
               });
             } else {
               Actions.Game({
-                id: id,
-                oid: id,
-                answersNeeded: data.answersNeeded
+                id: userInfo.id,
+                oid: userInfo.id,
+                answersNeeded: userInfo.answersNeeded
               });
             }
           }
@@ -127,7 +127,7 @@ export default class App extends Component {
     if (appState === "background" || appState === "inactive") {
       let state = store.getState();
       let { alarms } = state.alarm;
-      console.log(alarms, "alarms");
+      
       alarms.map(a => {
         if (moment(a.date).isAfter(moment.now())) {
           // if the alarms are after the current time, schedule them

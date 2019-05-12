@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  PushNotificationIOS,
   Platform,
   Dimensions,
   StyleSheet,
@@ -20,7 +19,13 @@ import LinearGradient from "react-native-linear-gradient";
 import * as Animatable from "react-native-animatable";
 import Sound from "react-native-sound";
 
-import { notes, intervals, cancelAlarm, shuffle } from "../../helper";
+import {
+  notes,
+  intervals,
+  cancelAlarm,
+  shuffle,
+  androidCancelAlarm
+} from "../../helper";
 import { firstNum, secondNum } from "../../helper/randomNum";
 
 import G3 from "../../samples/G3.mp3";
@@ -53,9 +58,8 @@ import A5 from "../../samples/A5.mp3";
 import E3 from "../../samples/E3.mp3";
 
 import NavBar from "../Common/NavBar";
-import AddAlarms from "../Home/AddAlarms";
 
-const { height, width } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 const AnimatableListView = Animatable.createAnimatableComponent(ListView);
 
 class Game extends Component {
@@ -79,6 +83,8 @@ class Game extends Component {
     this.stopAnimation = this.stopAnimation.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this._navToDirections = this._navToDirections.bind(this);
+    this.endGame = this.endGame.bind(this);
+
     this.ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
@@ -306,7 +312,7 @@ class Game extends Component {
         console.log("sound loaded A5");
       }
     });
-    Sound.setCategory("Playback")
+    Sound.setCategory("Playback");
   }
 
   componentWillMount() {
@@ -328,8 +334,8 @@ class Game extends Component {
     let firstNote = notes[randomOne];
     let secondNote = notes[randomTwo];
     console.log(notes.length, "length of notes array");
-    console.log(firstNote, "first")
-    console.log(secondNote, "second ")
+    console.log(firstNote, "first");
+    console.log(secondNote, "second ");
     this.setState(
       {
         noteOne: firstNote,
@@ -382,21 +388,21 @@ class Game extends Component {
   }
 
   endGame() {
-    let { id, dispatch, oid } = this.props;
+    let { id, dispatch, oid, alarm } = this.props;
     this.stopSoundOne();
     this.stopSoundTwo();
-    
+
     if (id) {
-      if (Platform.OS === "ios"){
+      if (Platform.OS === "ios") {
         dispatch({ type: "activateAlarm", payload: { id: oid, active: 0 } });
+        cancelAlarm(Platform.OS, JSON.stringify(id), oid);
       } else {
-        dispatch({ type: "activateAlarm", payload: { id: id, active: 0 } });
+        dispatch({ type: "activateAlarm", payload: { id: id, active: 0 }});
+        androidCancelAlarm(id, alarm.alarms);
       }
-     
-      cancelAlarm(Platform.OS, id, oid);
-      Actions.Home();
+
+      setTimeout(() => Actions.Home(), 0);
     }
-   
   }
 
   stopAnimation() {
@@ -477,7 +483,8 @@ class Game extends Component {
         Animated.spring(noteSpringOne, {
           toValue: 1.7,
           friction: springSpeed,
-          tension: springSpeed
+          tension: springSpeed,
+          useNativeDriver: true
         }).start(
           stopAnimation ? () => {} : () => this.springAnimation("OneShrink")
         );
@@ -486,7 +493,8 @@ class Game extends Component {
         Animated.spring(noteSpringTwo, {
           toValue: 1.7,
           friction: springSpeed,
-          tension: springSpeed
+          tension: springSpeed,
+          useNativeDriver: true
         }).start(
           stopAnimation ? () => {} : () => this.springAnimation("TwoShrink")
         );
@@ -494,25 +502,29 @@ class Game extends Component {
         Animated.spring(noteSpringOne, {
           toValue: 1,
           friction: springSpeed,
-          tension: springSpeed
+          tension: springSpeed,
+          useNativeDriver: true
         }).start(stopAnimation ? () => {} : () => this.springAnimation("Two"));
       } else if (type === "TwoShrink") {
         Animated.spring(noteSpringTwo, {
           toValue: 1,
           friction: springSpeed,
-          tension: springSpeed
+          tension: springSpeed,
+          useNativeDriver: true
         }).start(stopAnimation ? () => {} : () => this.springAnimation("One"));
       }
     } else {
       Animated.spring(noteSpringOne, {
         toValue: 1,
         friction: springSpeed,
-        tension: springSpeed
+        tension: springSpeed,
+        useNativeDriver: true
       }).start();
       Animated.spring(noteSpringTwo, {
         toValue: 1,
         friction: springSpeed,
-        tension: springSpeed
+        tension: springSpeed,
+        useNativeDriver: true
       }).start();
       return;
     }
@@ -557,11 +569,13 @@ class Game extends Component {
       Animated.sequence([
         Animated.timing(renderAnswer, {
           toValue: 1,
-          duration: 0
+          duration: 0,
+          useNativeDriver: true
         }),
         Animated.timing(renderAnswer, {
           toValue: 0,
-          duration: 500
+          duration: 500,
+          useNativeDriver: true
         })
       ]),
       {
@@ -667,15 +681,14 @@ class Game extends Component {
   renderButton(item) {
     let { checking, attempt, correctAnswer } = this.state;
     let correct;
-    let buttonColor = ["#4c669f", "#3b5998", "#192f6a"]
+    let buttonColor = ["#4c669f", "#3b5998", "#192f6a"];
     let wrongColor = ["#ff4d4d", "#e60000"];
     let correctColor = ["#0BAB64", "#3BB78F"];
 
-    if (correctAnswer){
+    if (correctAnswer) {
       correct = item === correctAnswer.long;
-
     }
-   
+
     return (
       <Animatable.View ref="view">
         <TouchableOpacity
@@ -693,7 +706,9 @@ class Game extends Component {
             style={styles.item}
             start={{ x: 0.0, y: 0.25 }}
             end={{ x: 0.5, y: 1.0 }}
-            colors={attempt ? correct ? correctColor : wrongColor : buttonColor}
+            colors={
+              attempt ? (correct ? correctColor : wrongColor) : buttonColor
+            }
           >
             <Text style={styles.fontStyle}>{item}</Text>
           </LinearGradient>
@@ -705,7 +720,7 @@ class Game extends Component {
   _navToDirections() {
     this.stopSoundOne();
     this.stopSoundTwo();
-    setTimeout(() =>Actions.Rules(), 100)
+    setTimeout(() => Actions.Rules(), 100);
   }
 
   renderDirections() {
@@ -723,10 +738,10 @@ class Game extends Component {
             }}
           >
             <Button
-              onPress={() =>this._navToDirections()}
+              onPress={() => this._navToDirections()}
               title="Rules"
               accessibilityLabel="Rules for game"
-              color={Platform.OS === "ios" ? "white": ""}
+              color={Platform.OS === "ios" ? "white" : ""}
             />
           </TouchableHighlight>
         </View>
@@ -826,4 +841,5 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null)(Game);
+const mapStateToProps = state => ({ alarm: state.alarm });
+export default connect(mapStateToProps)(Game);

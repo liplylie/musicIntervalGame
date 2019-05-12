@@ -5,5 +5,6 @@ export { resetAlarm } from "./resetAlarm";
 export { uuid } from "./uuid";
 export { Alarm } from "./Alarm";
 export { notes}  from "./noteArray";
-export { shuffle } from "./shuffle"
+export { shuffle } from "./shuffle";
+export { androidCancelAlarm } from "./androidCancelAlarm";
 
