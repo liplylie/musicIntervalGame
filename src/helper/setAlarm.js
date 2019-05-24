@@ -21,12 +21,12 @@ export const setAlarm = (device, id, date, snooze, answersNeeded, message) => {
       soundName: "perfect_fifth.mp3",
       id: JSON.stringify(id),
       notificationId: JSON.stringify(id),
-      userInfo: { 
+      userInfo: {
         id: JSON.stringify(id),
         oid: JSON.stringify(id),
         snooze: snooze,
         answersNeeded: answersNeeded
-       },
+      },
       repeatType: "time",
       repeatTime: repeatTime
     });

@@ -32,9 +32,8 @@ export default class App extends Component {
   componentWillMount() {
     PushNotification.configure({
       onNotification: function(notification) {
-        // console.log("ROOT NOTIFICATION:", notification);
         let currentScene = Actions.currentScene;
-        let { userInteraction, foreground, message, data, id, userInfo } = notification;
+        let { userInteraction, foreground, data, userInfo } = notification;
         const clicked = userInteraction;
         if (currentScene === "Home") {
           if (clicked) {
@@ -90,7 +89,6 @@ export default class App extends Component {
       let { alarms } = state.alarm;
       if (Platform.OS === "ios") {
         PushNotificationIOS.getScheduledLocalNotifications(notification => {
-          console.log(notification, "notification navigate to Game in app");
           if (notification.length && !activeGame) {
             notification.forEach(({ userInfo }) => {
               alarms.forEach(a => {
@@ -101,7 +99,7 @@ export default class App extends Component {
                   let activeAlarm = moment(a.date)
                     .startOf("minute")
                     .isBefore(moment.now());
-                  let currentScene = Actions.currentScene;
+                  let { currentScene } = Actions;
                   if (activeAlarm && !activeGame && currentScene === "Home") {
                     this.setState(
                       {
@@ -121,13 +119,36 @@ export default class App extends Component {
             });
           }
         });
+      } else {
+        alarms.forEach(a => {
+          if (a.active) {
+            let activeAlarm = moment(a.date)
+              .startOf("minute")
+              .isBefore(moment.now());
+            let { currentScene } = Actions;
+            if (activeAlarm && !activeGame && currentScene === "Home") {
+              this.setState(
+                {
+                  activeGame: true
+                },
+                () =>
+                  Actions.Game({
+                    id: a.id,
+                    oid: a.id,
+                    snooze: a.snoozeTime || 1,
+                    answersNeeded: a.answersNeeded || 3
+                  })
+              );
+            }
+          }
+        });
       }
     }
 
     if (appState === "background" || appState === "inactive") {
       let state = store.getState();
       let { alarms } = state.alarm;
-      
+
       alarms.map(a => {
         if (moment(a.date).isAfter(moment.now())) {
           // if the alarms are after the current time, schedule them
