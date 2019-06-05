@@ -76,7 +76,7 @@ project.ext.react = [
     entryFile: "index.js"
 ]
 
-apply from: "../../node_modules/react-native/react.gradle"
+// apply from: "../../node_modules/react-native/react.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -100,8 +100,8 @@ android {
         applicationId "com.musicalarm"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.0.2"
         multiDexEnabled true
         ndk {
             abiFilters "armeabi-v7a", "x86"
