@@ -73,7 +73,8 @@ class AlarmList extends Component {
         alarm.date,
         alarm.snoozeTime,
         alarm.answersNeeded,
-        alarm.message
+        alarm.message,
+        alarm.instrument
       );
     }
   }

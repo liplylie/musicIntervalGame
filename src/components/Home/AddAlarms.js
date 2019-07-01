@@ -23,69 +23,40 @@ import NavBar from "../Common/NavBar";
 
 const { height, width } = Dimensions.get("window");
 const iphoneX = height > 800;
+
 class AddAlarm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isDateTimePickerVisible: false,
-      time: this.props.edit
-        ? this.props.edit.time
-        : moment()
-            .startOf("minute")
-            .format("hh:mm A"),
-      date: this.props.edit
-        ? this.props.edit.date
-        : moment()
-            .startOf("minute")
-            .format(),
-      message: this.props.edit ? this.props.edit.message : "",
-      iconOne: new Animated.Value(0.7),
-      iconTwo: new Animated.Value(0.7),
-      springSpeed: 500,
-      snooze: this.props.edit ? Number(this.props.edit.snoozeTime) : 1,
-      answersNeeded: this.props.edit
-        ? Number(this.props.edit.answersNeeded)
-        : 3,
-      snoozePicker: false,
-      instrument: "Clarinet",
-      instrumentListData: [
-        { key: 0, section: true, label: "Instruments" },
-        { key: 1, label: "Piano", accessibilityLabel: "Piano" },
-        { key: 2, label: "Clarinet", accessibilityLabel: "Clarinet" }
-      ]
-    };
-    this._handleDatePicked = this._handleDatePicked.bind(this);
-    this._addAlarm = this._addAlarm.bind(this);
-    this._editAlarm = this._editAlarm.bind(this);
-  }
+  state = {
+    isDateTimePickerVisible: false,
+    time: this.props.edit
+      ? this.props.edit.time
+      : moment()
+          .startOf("minute")
+          .format("hh:mm A"),
+    date: this.props.edit
+      ? this.props.edit.date
+      : moment()
+          .startOf("minute")
+          .format(),
+    message: this.props.edit ? this.props.edit.message : "",
+    iconOne: new Animated.Value(0.7),
+    iconTwo: new Animated.Value(0.7),
+    springSpeed: 500,
+    snooze: this.props.edit ? Number(this.props.edit.snoozeTime) : 1,
+    answersNeeded: this.props.edit ? Number(this.props.edit.answersNeeded) : 3,
+    snoozePicker: false,
+    instrument: this.props.instrument || "Clarinet",
+    instrumentListData: [
+      { key: 0, section: true, label: "Instruments" },
+      { key: 1, label: "Piano", accessibilityLabel: "Piano" },
+      { key: 2, label: "Clarinet", accessibilityLabel: "Clarinet" }
+    ]
+  };
 
   componentDidMount() {
     PushNotification.checkPermissions(permissions => {
       if (!permissions.alert) {
         alert("Please enable push notifications for the alarm to work");
       }
-    });
-    this.runAnimation();
-  }
-  runAnimation() {
-    this.state.iconOne.setValue(1.5);
-    Animated.timing(this.state.iconOne, {
-      toValue: 1,
-      duration: 1000
-    }).start(() => {
-      Animated.timing(this.state.iconOne, {
-        toValue: 1.5,
-        duration: 1000
-      }).start();
-    });
-    Animated.timing(this.state.iconTwo, {
-      toValue: 1,
-      duration: 1000
-    }).start(() => {
-      Animated.timing(this.state.iconTwo, {
-        toValue: 1.5,
-        duration: 1000
-      }).start(() => this.runAnimation());
     });
   }
 
@@ -111,9 +82,9 @@ class AddAlarm extends Component {
     });
   };
 
-  _addAlarm() {
+  _addAlarm = () => {
     let { dispatch, edit } = this.props;
-    let { time, date, message, snooze, answersNeeded } = this.state;
+    let { time, date, message, snooze, answersNeeded, instrument } = this.state;
     if (!time) {
       alert("Please enter a time for the alarm");
     } else {
@@ -131,17 +102,26 @@ class AddAlarm extends Component {
         date,
         message || "Alarm",
         snooze,
-        answersNeeded
+        answersNeeded,
+        instrument
       );
       dispatch({ type: "addAlarm", payload: alarm });
-      setAlarm(Platform.OS, id, date, snooze, answersNeeded, message);
+      setAlarm(
+        Platform.OS,
+        id,
+        date,
+        snooze,
+        answersNeeded,
+        message,
+        instrument
+      );
       Actions.Home();
     }
-  }
+  };
 
-  _editAlarm() {
+  _editAlarm = () => {
     let { dispatch, edit } = this.props;
-    let { time, date, message, snooze, answersNeeded } = this.state;
+    let { time, date, message, snooze, answersNeeded, instrument } = this.state;
     if (!time) {
       alert("Please enter a time for the alarm");
     } else {
@@ -159,14 +139,23 @@ class AddAlarm extends Component {
         date,
         message || "Alarm",
         snooze,
-        answersNeeded
+        answersNeeded,
+        instrument
       );
       cancelAlarm(Platform.OS, id);
       dispatch({ type: "editAlarm", payload: alarm });
-      setAlarm(Platform.OS, id, date, snooze, answersNeeded, message);
+      setAlarm(
+        Platform.OS,
+        id,
+        date,
+        snooze,
+        answersNeeded,
+        message,
+        instrument
+      );
       Actions.Home();
     }
-  }
+  };
 
   instrumentList = () => {
     let { instrumentListData, instrument } = this.state;
@@ -280,14 +269,17 @@ class AddAlarm extends Component {
             }}
           >
             <Text style={{ fontSize: Convert(20) }}>Answers Needed</Text>
+
             <Text style={{ fontSize: Convert(20) }}>{answersNeeded}</Text>
           </View>
         </ModalSelector>
       </View>
     );
-  }
+  };
 
   renderNoteAnimation() {
+    let { iconOne, iconTwo } = this.state;
+
     return (
       <View
         style={{
@@ -302,7 +294,7 @@ class AddAlarm extends Component {
             height: Convert(40),
             width: Convert(40),
             resizeMode: "contain",
-            transform: [{ scale: this.state.iconOne }]
+            transform: [{ scale: iconOne }]
           }}
         />
         <Animated.Image
@@ -311,7 +303,7 @@ class AddAlarm extends Component {
             height: Convert(40),
             width: Convert(40),
             resizeMode: "contain",
-            transform: [{ scale: this.state.iconTwo }]
+            transform: [{ scale: iconTwo }]
           }}
         />
       </View>
@@ -319,7 +311,7 @@ class AddAlarm extends Component {
   }
 
   render() {
-    let { time, meridian, snoozePicker, instrument } = this.state;
+    let { time, isDateTimePickerVisible } = this.state;
     let { edit } = this.props;
 
     return (
@@ -373,7 +365,7 @@ class AddAlarm extends Component {
               </TouchableHighlight>
 
               <DateTimePicker
-                isVisible={this.state.isDateTimePickerVisible}
+                isVisible={isDateTimePickerVisible}
                 onConfirm={this._handleDatePicked}
                 onCancel={this._hideDateTimePicker}
                 mode="time"

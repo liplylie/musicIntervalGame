@@ -1,13 +1,5 @@
 import React, { Component } from "react";
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  PushNotificationIOS,
-  AppState,
-  AsyncStorage
-} from "react-native";
+import { Platform, PushNotificationIOS, AppState } from "react-native";
 import { persistor } from "./src/store.js";
 import store from "./src/store.js";
 import { Provider } from "react-redux";
@@ -22,13 +14,10 @@ import Rules from "./src/components/Game/Rules";
 import { resetAlarm } from "./src/helper";
 
 export default class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      activeGame: false
-    };
-    this._handleAppStateChange = this._handleAppStateChange.bind(this);
-  }
+  state = {
+    activeGame: false
+  };
+
   componentWillMount() {
     PushNotification.configure({
       onNotification: function(notification) {
@@ -41,13 +30,15 @@ export default class App extends Component {
               Actions.Game({
                 id: data.id,
                 oid: data.oid,
-                answersNeeded: data.answersNeeded
+                answersNeeded: data.answersNeeded,
+                instrument: data.instrument
               });
             } else {
               Actions.Game({
                 id: userInfo.id,
                 oid: userInfo.id,
-                answersNeeded: userInfo.answersNeeded
+                answersNeeded: userInfo.answersNeeded,
+                instrument: userInfo.instrument
               });
             }
           } else if (foreground && !clicked) {
@@ -55,13 +46,15 @@ export default class App extends Component {
               Actions.Game({
                 id: data.id,
                 oid: data.oid,
-                answersNeeded: data.answersNeeded
+                answersNeeded: data.answersNeeded,
+                instrument: data.instrument
               });
             } else {
               Actions.Game({
                 id: userInfo.id,
                 oid: userInfo.id,
-                answersNeeded: userInfo.answersNeeded
+                answersNeeded: userInfo.answersNeeded,
+                instrument: userInfo.instrument
               });
             }
           }
@@ -82,7 +75,7 @@ export default class App extends Component {
     AppState.addEventListener("change", this._handleAppStateChange);
   }
 
-  async _handleAppStateChange(appState) {
+  _handleAppStateChange = async appState => {
     if (appState === "active") {
       let { activeGame } = this.state;
       let state = store.getState();
@@ -170,7 +163,7 @@ export default class App extends Component {
         }
       });
     }
-  }
+  };
 
   render() {
     return (
@@ -215,22 +208,3 @@ export default class App extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
-  }
-});

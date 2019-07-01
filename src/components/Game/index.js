@@ -13,11 +13,12 @@ import {
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
-import { Convert, Styles } from "../../styles";
 import LinearGradient from "react-native-linear-gradient";
 import * as Animatable from "react-native-animatable";
 import Sound from "react-native-sound";
 
+// Global
+import { Convert } from "../../styles";
 import {
   notes,
   intervals,
@@ -26,14 +27,19 @@ import {
   androidCancelAlarm
 } from "../../helper";
 import { firstNum, secondNum } from "../../helper/randomNum";
-import * as Clarinet from "../../samples/Piano";
 
-console.log(Clarinet, 'asshole')
+// Sounds
+import * as Clarinet from "../../samples/Clarinet";
+import * as Piano from "../../samples/Piano";
 
 import NavBar from "../Common/NavBar";
 
 const { height } = Dimensions.get("window");
 const AnimatableListView = Animatable.createAnimatableComponent(ListView);
+const Instrument = {
+  "Clarinet": Clarinet,
+  "Piano": Piano
+}
 
 class Game extends Component {
   constructor(props) {
@@ -50,7 +56,8 @@ class Game extends Component {
       correct: false,
       attempt: false,
       count: this.props.answersNeeded ? Number(this.props.answersNeeded) : 3,
-      checking: false
+      checking: false,
+      instrument: this.props.instrument || "Piano"
     };
     this.springAnimation = this.springAnimation.bind(this);
     this.stopAnimation = this.stopAnimation.bind(this);
@@ -62,7 +69,7 @@ class Game extends Component {
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    this.E3 = new Sound(Clarinet.E3, error => {
+    this.E3 = new Sound(Instrument[this.state.instrument].E3, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -70,7 +77,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.G3 = new Sound(Clarinet.G3, error => {
+    this.G3 = new Sound(Instrument[this.state.instrument].G3, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -78,7 +85,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Ab3 = new Sound(Clarinet.Ab3, error => {
+    this.Ab3 = new Sound(Instrument[this.state.instrument].Ab3, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -86,7 +93,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.A3 = new Sound(Clarinet.A3, error => {
+    this.A3 = new Sound(Instrument[this.state.instrument].A3, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -94,7 +101,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Bb3 = new Sound(Clarinet.Bb3, error => {
+    this.Bb3 = new Sound(Instrument[this.state.instrument].Bb3, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -102,7 +109,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.B3 = new Sound(Clarinet.B3, error => {
+    this.B3 = new Sound(Instrument[this.state.instrument].B3, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -110,7 +117,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.C4 = new Sound(Clarinet.C4, error => {
+    this.C4 = new Sound(Instrument[this.state.instrument].C4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -118,7 +125,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Db4 = new Sound(Clarinet.Db4, error => {
+    this.Db4 = new Sound(Instrument[this.state.instrument].Db4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -126,7 +133,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.D4 = new Sound(Clarinet.D4, error => {
+    this.D4 = new Sound(Instrument[this.state.instrument].D4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -134,7 +141,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Eb4 = new Sound(Clarinet.Eb4, error => {
+    this.Eb4 = new Sound(Instrument[this.state.instrument].Eb4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -142,7 +149,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.E4 = new Sound(Clarinet.E4, error => {
+    this.E4 = new Sound(Instrument[this.state.instrument].E4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -150,7 +157,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.F4 = new Sound(Clarinet.F4, error => {
+    this.F4 = new Sound(Instrument[this.state.instrument].F4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -158,7 +165,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Gb4 = new Sound(Clarinet.Gb4, error => {
+    this.Gb4 = new Sound(Instrument[this.state.instrument].Gb4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -166,7 +173,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.G4 = new Sound(Clarinet.G4, error => {
+    this.G4 = new Sound(Instrument[this.state.instrument].G4, error => {
       if (error) {
         console.log("sound failed G4");
         console.log(error);
@@ -174,7 +181,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Ab4 = new Sound(Clarinet.Ab4, error => {
+    this.Ab4 = new Sound(Instrument[this.state.instrument].Ab4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -182,7 +189,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.A4 = new Sound(Clarinet.A4, error => {
+    this.A4 = new Sound(Instrument[this.state.instrument].A4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -190,7 +197,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Bb4 = new Sound(Clarinet.Bb4, error => {
+    this.Bb4 = new Sound(Instrument[this.state.instrument].Bb4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -198,7 +205,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.B4 = new Sound(Clarinet.B4, error => {
+    this.B4 = new Sound(Instrument[this.state.instrument].B4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -206,7 +213,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.C5 = new Sound(Clarinet.C5, error => {
+    this.C5 = new Sound(Instrument[this.state.instrument].C5, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -214,7 +221,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Db5 = new Sound(Clarinet.Db5, error => {
+    this.Db5 = new Sound(Instrument[this.state.instrument].Db5, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -222,7 +229,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.D5 = new Sound(Clarinet.D5, error => {
+    this.D5 = new Sound(Instrument[this.state.instrument].D5, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -230,7 +237,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Eb5 = new Sound(Clarinet.Eb5, error => {
+    this.Eb5 = new Sound(Instrument[this.state.instrument].Eb5, error => {
       if (error) {
         console.log("sound failed Eb5");
         console.log(error);
@@ -238,7 +245,7 @@ class Game extends Component {
         console.log("sound loaded Eb5");
       }
     });
-    this.E5 = new Sound(Clarinet.E5, error => {
+    this.E5 = new Sound(Instrument[this.state.instrument].E5, error => {
       if (error) {
         console.log("sound failed E5 ");
         console.log(error);
@@ -246,7 +253,7 @@ class Game extends Component {
         console.log("sound loaded E5");
       }
     });
-    this.F5 = new Sound(Clarinet.F5, error => {
+    this.F5 = new Sound(Instrument[this.state.instrument].F5, error => {
       if (error) {
         console.log("sound failed F5");
         console.log(error);
@@ -254,7 +261,7 @@ class Game extends Component {
         console.log("sound loaded F5");
       }
     });
-    this.Gb5 = new Sound(Clarinet.Gb5, error => {
+    this.Gb5 = new Sound(Instrument[this.state.instrument].Gb5, error => {
       if (error) {
         console.log("sound failed Gbb5");
         console.log(error);
@@ -262,7 +269,7 @@ class Game extends Component {
         console.log("sound loaded Gb5");
       }
     });
-    this.G5 = new Sound(Clarinet.G5, error => {
+    this.G5 = new Sound(Instrument[this.state.instrument].G5, error => {
       if (error) {
         console.log("sound failed G5");
         console.log(error);
@@ -270,7 +277,7 @@ class Game extends Component {
         console.log("sound loaded G5");
       }
     });
-    this.Ab5 = new Sound(Clarinet.Ab5, error => {
+    this.Ab5 = new Sound(Instrument[this.state.instrument].Ab5, error => {
       if (error) {
         console.log("sound failed Ab5");
         console.log(error);
@@ -278,7 +285,7 @@ class Game extends Component {
         console.log("sound loaded Ab5");
       }
     });
-    this.A5 = new Sound(Clarinet.A5, error => {
+    this.A5 = new Sound(Instrument[this.state.instrument].A5, error => {
       if (error) {
         console.log("sound failed A5");
         console.log(error);
@@ -307,9 +314,6 @@ class Game extends Component {
     let randomTwo = secondNum(13, randomOne);
     let firstNote = notes[randomOne];
     let secondNote = notes[randomTwo];
-    console.log(notes, "length of notes array");
-    console.log(firstNote, "first");
-    console.log(secondNote, "second ");
     this.setState(
       {
         noteOne: firstNote,
@@ -387,10 +391,7 @@ class Game extends Component {
 
   playSoundOne() {
     let { noteOne } = this.state;
-    console.log(noteOne, "note one play");
     this[noteOne].play(success => {
-      console.log(success, "success play");
-
       if (!success) {
         //Alert.alert("There was an error playing this audio");
       }
@@ -399,7 +400,6 @@ class Game extends Component {
 
   stopSoundOne() {
     let { noteOne } = this.state;
-    // console.log(noteOne, "note one play");
     if (noteOne) {
       this[noteOne].stop(() =>
         this.setState({ noteOne: "", stopAnimation: true })
@@ -409,7 +409,6 @@ class Game extends Component {
 
   playSoundTwo() {
     let { noteTwo } = this.state;
-    // console.log(noteTwo, "note two");
     this[noteTwo].play(success => {
       // console.log(success, "success play");
       if (!success) {
@@ -420,7 +419,6 @@ class Game extends Component {
 
   stopSoundTwo() {
     let { noteTwo } = this.state;
-    console.log(noteTwo, "note one play");
     if (noteTwo) {
       this[noteTwo].stop(() =>
         this.setState({ noteTwo: "", stopAnimation: true })
@@ -449,8 +447,7 @@ class Game extends Component {
       noteSpringOne,
       noteSpringTwo
     } = this.state;
-    // console.log(stopAnimation, "stop");
-    // console.log(type, "type");
+
     if (!stopAnimation) {
       if (type === "One") {
         this.playSoundOne();

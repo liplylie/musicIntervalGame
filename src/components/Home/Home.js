@@ -1,71 +1,39 @@
-import React, { Component } from "react";
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    FlatList,
-    Image,
-    ScrollView,
-    Platform,
-    PermissionsAndroid,
-    Dimensions,
-    ActivityIndicator,
-    Alert,
-    KeyboardAvoidingView,
-    PushNotificationIOS
-} from "react-native";
+import React from "react";
+import { View, ScrollView } from "react-native";
 import { Actions } from "react-native-router-flux";
-import { connect } from "react-redux";
-import { Convert, Styles } from "../../styles";
-import Banner from "../Ads/Banner"
+import { Convert } from "../../styles";
+import Banner from "../Ads/Banner";
 
 import AlarmList from "./AlarmList";
-import  NavBar  from "../Common/NavBar";
-import moment from "moment"
+import NavBar from "../Common/NavBar";
 
-const { height, width } = Dimensions.get("window");
+const Home = () => {
+  const handleMusicSymbolPress = () => {
+    Actions.Game();
+  };
 
+  const handleAddAlarm = () => {
+    Actions.AddAlarms();
+  };
 
-class Home extends Component {
-    constructor(){
-        super()
-        this.state = {
-            activeGame: false
-        }
-        this.handleMusicSymbolPress = this.handleMusicSymbolPress.bind(this);
-        this.handleAddAlarm = this.handleAddAlarm.bind(this);
-       
-    }
+  return (
+    <View style={{ display: "flex", flex: 1 }}>
+      <NavBar
+        title="Alarms"
+        leftButtonIcon="music"
+        rightButtonIcon="plus"
+        onLeftButtonPress={handleMusicSymbolPress}
+        onRightButtonPress={handleAddAlarm}
+      />
+      <ScrollView contentContainerStyle={{ display: "flex", flex: 1 }}>
+        <AlarmList />
+      </ScrollView>
 
-    handleMusicSymbolPress(){
-        Actions.Game()
-    }
-    
-    handleAddAlarm(){
-        Actions.AddAlarms()
-    }
+      <View style={{ marginBottom: Convert(30) }}>
+        <Banner />
+      </View>
+    </View>
+  );
+};
 
-    render() {
-        return (
-            <View style={{display: "flex", flex: 1}}>
-                <NavBar 
-                    title="Alarms"
-                    leftButtonIcon="music"
-                    rightButtonIcon="plus"
-                    onLeftButtonPress={this.handleMusicSymbolPress}
-                    onRightButtonPress={this.handleAddAlarm}
-                />
-                <ScrollView contentContainerStyle={{ display: "flex",flex: 1 }}>
-                    <AlarmList />
-                </ScrollView>
-                <View style={{marginBottom: Convert(30)}}>
-                    <Banner />
-                </View>
-               
-            </View>
-        )
-    }
-}
-
-const mapStateToProps = state => ({alarm: state.alarm})
-export default connect(mapStateToProps)(Home);
+export default Home;

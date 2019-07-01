@@ -11,7 +11,7 @@ export const androidCancelAlarm = (id, alarms) => {
   if (alarms.length) {
     alarms.forEach(a => {
       if (a.id !== id && a.active) {
-        setAlarm("android", a.id, a.date, a.snooze, a.answersNeeded, a.message);
+        setAlarm("android", a.id, a.date, a.snooze, a.answersNeeded, a.message, a.instrument);
       }
     });
   }
