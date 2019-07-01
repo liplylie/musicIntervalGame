@@ -9,7 +9,8 @@ import {
   Animated,
   ListView,
   TouchableHighlight,
-  Button
+  Button,
+  Easing
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
@@ -37,9 +38,9 @@ import NavBar from "../Common/NavBar";
 const { height } = Dimensions.get("window");
 const AnimatableListView = Animatable.createAnimatableComponent(ListView);
 const Instrument = {
-  "Clarinet": Clarinet,
-  "Piano": Piano
-}
+  Clarinet: Clarinet,
+  Piano: Piano
+};
 
 class Game extends Component {
   constructor(props) {
@@ -48,6 +49,7 @@ class Game extends Component {
       noteSpringOne: new Animated.Value(0.7),
       noteSpringTwo: new Animated.Value(0.7),
       renderAnswer: new Animated.Value(0),
+      spinValue: new Animated.Value(0),
       springSpeed: 500,
       stopAnimation: false,
       noteOne: "",
@@ -534,7 +536,7 @@ class Game extends Component {
   }
 
   answerAnimation() {
-    let { renderAnswer, springSpeed } = this.state;
+    let { renderAnswer } = this.state;
 
     Animated.loop(
       Animated.sequence([
@@ -555,7 +557,18 @@ class Game extends Component {
     ).start();
   }
 
+  gearAnimation(callback) {
+    let { spinValue } = this.state;
+    Animated.timing(spinValue, {
+      toValue: 1,
+      duration: 300,
+      easing: Easing.linear,
+      useNativeDriver: true
+    }).start(callback);
+  }
+
   renderAnswer(val) {
+    let { renderAnswer } = this.state;
     this.answerAnimation();
     if (val) {
       return (
@@ -567,7 +580,7 @@ class Game extends Component {
               width: Convert(50),
               //top: Convert(1)/2,
               resizeMode: "contain",
-              transform: [{ scale: this.state.renderAnswer }]
+              transform: [{ scale: renderAnswer }]
             }}
           />
         </View>
@@ -582,7 +595,7 @@ class Game extends Component {
               width: Convert(50),
               //top: Convert(1)/2,
               resizeMode: "contain",
-              transform: [{ scale: this.state.renderAnswer }]
+              transform: [{ scale: renderAnswer }]
             }}
           />
         </View>
@@ -691,30 +704,48 @@ class Game extends Component {
   _navToDirections() {
     this.stopSoundOne();
     this.stopSoundTwo();
-    setTimeout(() => Actions.Rules(), 100);
+    this.gearAnimation(Actions.Rules);
   }
 
   renderDirections() {
     let { id } = this.props;
+    let { spinValue } = this.state;
+
     if (!id) {
+      const spin = spinValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: ["0deg", "360deg"]
+      });
+
       return (
-        <View style={{ display: "flex", alignItems: "center" }}>
-          <TouchableHighlight
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-end"
+          }}
+        >
+          <TouchableOpacity
             style={{
-              height: Convert(40),
-              width: Convert(100),
-              borderRadius: Convert(10),
-              backgroundColor: "dodgerblue",
-              marginTop: Convert(10)
+              height: "auto",
+              width: "auto",
+              marginTop: Convert(10),
+              marginRight: Convert(10)
             }}
+            onPress={() => this._navToDirections()}
           >
-            <Button
-              onPress={() => this._navToDirections()}
-              title="Rules"
-              accessibilityLabel="Rules for game"
-              color={Platform.OS === "ios" ? "white" : ""}
+            <Animated.Image
+              id="settings"
+              source={require("../../../assets/images/gear.png")}
+              style={{
+                height: Convert(50),
+                width: Convert(50),
+                //top: Convert(1)/2,
+                resizeMode: "contain",
+                transform: [{ rotate: spin }]
+              }}
             />
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       );
     } else {
