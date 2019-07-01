@@ -8,8 +8,6 @@ import {
   StyleSheet,
   Animated,
   ListView,
-  TouchableHighlight,
-  Button,
   Easing
 } from "react-native";
 import { Actions } from "react-native-router-flux";
@@ -33,7 +31,9 @@ import { firstNum, secondNum } from "../../helper/randomNum";
 import * as Clarinet from "../../samples/Clarinet";
 import * as Piano from "../../samples/Piano";
 
+// Components
 import NavBar from "../Common/NavBar";
+import Modal from "../Common/Modal";
 
 const { height } = Dimensions.get("window");
 const AnimatableListView = Animatable.createAnimatableComponent(ListView);
@@ -59,7 +59,8 @@ class Game extends Component {
       attempt: false,
       count: this.props.answersNeeded ? Number(this.props.answersNeeded) : 3,
       checking: false,
-      instrument: this.props.instrument || "Piano"
+      instrument: this.props.instrument || "Clarinet",
+      showModal: false
     };
     this.springAnimation = this.springAnimation.bind(this);
     this.stopAnimation = this.stopAnimation.bind(this);
@@ -71,242 +72,29 @@ class Game extends Component {
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    this.E3 = new Sound(Instrument[this.state.instrument].E3, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.G3 = new Sound(Instrument[this.state.instrument].G3, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.Ab3 = new Sound(Instrument[this.state.instrument].Ab3, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.A3 = new Sound(Instrument[this.state.instrument].A3, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.Bb3 = new Sound(Instrument[this.state.instrument].Bb3, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.B3 = new Sound(Instrument[this.state.instrument].B3, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.C4 = new Sound(Instrument[this.state.instrument].C4, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.Db4 = new Sound(Instrument[this.state.instrument].Db4, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.D4 = new Sound(Instrument[this.state.instrument].D4, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.Eb4 = new Sound(Instrument[this.state.instrument].Eb4, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.E4 = new Sound(Instrument[this.state.instrument].E4, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.F4 = new Sound(Instrument[this.state.instrument].F4, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.Gb4 = new Sound(Instrument[this.state.instrument].Gb4, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.G4 = new Sound(Instrument[this.state.instrument].G4, error => {
-      if (error) {
-        console.log("sound failed G4");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.Ab4 = new Sound(Instrument[this.state.instrument].Ab4, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.A4 = new Sound(Instrument[this.state.instrument].A4, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.Bb4 = new Sound(Instrument[this.state.instrument].Bb4, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.B4 = new Sound(Instrument[this.state.instrument].B4, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.C5 = new Sound(Instrument[this.state.instrument].C5, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.Db5 = new Sound(Instrument[this.state.instrument].Db5, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.D5 = new Sound(Instrument[this.state.instrument].D5, error => {
-      if (error) {
-        console.log("sound failed");
-        console.log(error);
-      } else {
-        console.log("sound loaded");
-      }
-    });
-    this.Eb5 = new Sound(Instrument[this.state.instrument].Eb5, error => {
-      if (error) {
-        console.log("sound failed Eb5");
-        console.log(error);
-      } else {
-        console.log("sound loaded Eb5");
-      }
-    });
-    this.E5 = new Sound(Instrument[this.state.instrument].E5, error => {
-      if (error) {
-        console.log("sound failed E5 ");
-        console.log(error);
-      } else {
-        console.log("sound loaded E5");
-      }
-    });
-    this.F5 = new Sound(Instrument[this.state.instrument].F5, error => {
-      if (error) {
-        console.log("sound failed F5");
-        console.log(error);
-      } else {
-        console.log("sound loaded F5");
-      }
-    });
-    this.Gb5 = new Sound(Instrument[this.state.instrument].Gb5, error => {
-      if (error) {
-        console.log("sound failed Gbb5");
-        console.log(error);
-      } else {
-        console.log("sound loaded Gb5");
-      }
-    });
-    this.G5 = new Sound(Instrument[this.state.instrument].G5, error => {
-      if (error) {
-        console.log("sound failed G5");
-        console.log(error);
-      } else {
-        console.log("sound loaded G5");
-      }
-    });
-    this.Ab5 = new Sound(Instrument[this.state.instrument].Ab5, error => {
-      if (error) {
-        console.log("sound failed Ab5");
-        console.log(error);
-      } else {
-        console.log("sound loaded Ab5");
-      }
-    });
-    this.A5 = new Sound(Instrument[this.state.instrument].A5, error => {
-      if (error) {
-        console.log("sound failed A5");
-        console.log(error);
-      } else {
-        console.log("sound loaded A5");
-      }
-    });
     Sound.setCategory("Playback");
   }
 
   componentWillMount() {
-    console.log(this.props, "game props");
+    this.loadInstrumentFiles();
   }
 
   componentDidMount() {
     setTimeout(() => this.startNewGame(), 500);
   }
 
-  startNewGame(difficulty) {
+  loadInstrumentFiles = () => {
+    const { instrument } = this.state;
+    for (let key in Instrument[instrument]) {
+      this[key] = new Sound(Instrument[instrument][key], error => {
+        if (error) {
+          console.error(error);
+        }
+      });
+    }
+  };
+
+  startNewGame = difficulty => {
     let { noteOne, noteTwo } = this.state;
     if (noteOne && noteTwo) {
       this[noteOne].stop();
@@ -324,7 +112,7 @@ class Game extends Component {
       },
       () => this.renderButtonData(randomTwo - randomOne)
     );
-  }
+  };
 
   renderButtonData(num) {
     let { noteOne, noteTwo } = this.state;
@@ -557,7 +345,7 @@ class Game extends Component {
     ).start();
   }
 
-  gearAnimation(callback) {
+  gearAnimation = callback => {
     let { spinValue } = this.state;
     Animated.timing(spinValue, {
       toValue: 1,
@@ -565,7 +353,7 @@ class Game extends Component {
       easing: Easing.linear,
       useNativeDriver: true
     }).start(callback);
-  }
+  };
 
   renderAnswer(val) {
     let { renderAnswer } = this.state;
@@ -701,11 +489,11 @@ class Game extends Component {
     );
   }
 
-  _navToDirections() {
+  _navToDirections = () => {
     this.stopSoundOne();
     this.stopSoundTwo();
-    this.gearAnimation(Actions.Rules);
-  }
+    this.gearAnimation(() => this.setState({ showModal: true }));
+  };
 
   renderDirections() {
     let { id } = this.props;
@@ -753,8 +541,13 @@ class Game extends Component {
     }
   }
 
+  onModalClose = instrument => {
+    this.setState({ instrument }, this.loadInstrumentFiles);
+    setTimeout(this.startNewGame, 0);
+  };
+
   render() {
-    let { buttonData, correct, attempt } = this.state;
+    let { buttonData, correct, attempt, showModal } = this.state;
     let { id } = this.props;
     const dataSource = this.ds.cloneWithRows(buttonData);
     return (
@@ -764,6 +557,7 @@ class Game extends Component {
           leftButtonIcon={id ? null : "left"}
           onLeftButtonPress={() => this.goBack()}
         />
+
         <View
           style={{
             display: "flex",
@@ -771,6 +565,11 @@ class Game extends Component {
             backgroundColor: "white"
           }}
         >
+          <Modal
+            showModal={showModal}
+            closeModal={() => this.setState({ showModal: false })}
+            onClose={instrument => this.onModalClose(instrument)}
+          />
           {this.renderDirections()}
           <View
             style={{
