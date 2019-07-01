@@ -13,7 +13,6 @@ import {
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
-import PushNotification from "react-native-push-notification";
 import { Convert, Styles } from "../../styles";
 import LinearGradient from "react-native-linear-gradient";
 import * as Animatable from "react-native-animatable";
@@ -27,35 +26,9 @@ import {
   androidCancelAlarm
 } from "../../helper";
 import { firstNum, secondNum } from "../../helper/randomNum";
+import * as Clarinet from "../../samples/Piano";
 
-import G3 from "../../samples/G3.mp3";
-import Ab3 from "../../samples/Ab3.mp3";
-import A3 from "../../samples/A3.mp3";
-import Bb3 from "../../samples/Bb3.mp3";
-import B3 from "../../samples/B3.mp3";
-import C4 from "../../samples/C4.mp3";
-import Db4 from "../../samples/Db4.mp3";
-import D4 from "../../samples/D4.mp3";
-import Eb4 from "../../samples/Eb4.mp3";
-import E4 from "../../samples/E4.mp3";
-import F4 from "../../samples/F4.mp3";
-import Gb4 from "../../samples/Gb4.mp3";
-import G4 from "../../samples/G4.mp3";
-import Ab4 from "../../samples/Ab4.mp3";
-import A4 from "../../samples/A4.mp3";
-import Bb4 from "../../samples/Bb4.mp3";
-import B4 from "../../samples/B4.mp3";
-import C5 from "../../samples/C5.mp3";
-import Db5 from "../../samples/Db5.mp3";
-import D5 from "../../samples/D5.mp3";
-import Eb5 from "../../samples/Eb5.mp3";
-import E5 from "../../samples/E5.mp3";
-import F5 from "../../samples/F5.mp3";
-import Gb5 from "../../samples/Gb5.mp3";
-import G5 from "../../samples/G5.mp3";
-import Ab5 from "../../samples/Ab5.mp3";
-import A5 from "../../samples/A5.mp3";
-import E3 from "../../samples/E3.mp3";
+console.log(Clarinet, 'asshole')
 
 import NavBar from "../Common/NavBar";
 
@@ -88,7 +61,8 @@ class Game extends Component {
     this.ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-    this.E3 = new Sound(E3, error => {
+
+    this.E3 = new Sound(Clarinet.E3, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -96,7 +70,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.G3 = new Sound(G3, error => {
+    this.G3 = new Sound(Clarinet.G3, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -104,7 +78,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Ab3 = new Sound(Ab3, error => {
+    this.Ab3 = new Sound(Clarinet.Ab3, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -112,7 +86,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.A3 = new Sound(A3, error => {
+    this.A3 = new Sound(Clarinet.A3, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -120,7 +94,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Bb3 = new Sound(Bb3, error => {
+    this.Bb3 = new Sound(Clarinet.Bb3, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -128,7 +102,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.B3 = new Sound(B3, error => {
+    this.B3 = new Sound(Clarinet.B3, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -136,7 +110,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.C4 = new Sound(C4, error => {
+    this.C4 = new Sound(Clarinet.C4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -144,7 +118,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Db4 = new Sound(Db4, error => {
+    this.Db4 = new Sound(Clarinet.Db4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -152,7 +126,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.D4 = new Sound(D4, error => {
+    this.D4 = new Sound(Clarinet.D4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -160,7 +134,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Eb4 = new Sound(Eb4, error => {
+    this.Eb4 = new Sound(Clarinet.Eb4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -168,7 +142,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.E4 = new Sound(E4, error => {
+    this.E4 = new Sound(Clarinet.E4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -176,7 +150,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.F4 = new Sound(F4, error => {
+    this.F4 = new Sound(Clarinet.F4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -184,7 +158,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Gb4 = new Sound(Gb4, error => {
+    this.Gb4 = new Sound(Clarinet.Gb4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -192,7 +166,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.G4 = new Sound(G4, error => {
+    this.G4 = new Sound(Clarinet.G4, error => {
       if (error) {
         console.log("sound failed G4");
         console.log(error);
@@ -200,7 +174,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Ab4 = new Sound(Ab4, error => {
+    this.Ab4 = new Sound(Clarinet.Ab4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -208,7 +182,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.A4 = new Sound(A4, error => {
+    this.A4 = new Sound(Clarinet.A4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -216,7 +190,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Bb4 = new Sound(Bb4, error => {
+    this.Bb4 = new Sound(Clarinet.Bb4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -224,7 +198,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.B4 = new Sound(B4, error => {
+    this.B4 = new Sound(Clarinet.B4, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -232,7 +206,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.C5 = new Sound(C5, error => {
+    this.C5 = new Sound(Clarinet.C5, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -240,7 +214,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Db5 = new Sound(Db5, error => {
+    this.Db5 = new Sound(Clarinet.Db5, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -248,7 +222,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.D5 = new Sound(D5, error => {
+    this.D5 = new Sound(Clarinet.D5, error => {
       if (error) {
         console.log("sound failed");
         console.log(error);
@@ -256,7 +230,7 @@ class Game extends Component {
         console.log("sound loaded");
       }
     });
-    this.Eb5 = new Sound(Eb5, error => {
+    this.Eb5 = new Sound(Clarinet.Eb5, error => {
       if (error) {
         console.log("sound failed Eb5");
         console.log(error);
@@ -264,7 +238,7 @@ class Game extends Component {
         console.log("sound loaded Eb5");
       }
     });
-    this.E5 = new Sound(E5, error => {
+    this.E5 = new Sound(Clarinet.E5, error => {
       if (error) {
         console.log("sound failed E5 ");
         console.log(error);
@@ -272,7 +246,7 @@ class Game extends Component {
         console.log("sound loaded E5");
       }
     });
-    this.F5 = new Sound(F5, error => {
+    this.F5 = new Sound(Clarinet.F5, error => {
       if (error) {
         console.log("sound failed F5");
         console.log(error);
@@ -280,7 +254,7 @@ class Game extends Component {
         console.log("sound loaded F5");
       }
     });
-    this.Gb5 = new Sound(Gb5, error => {
+    this.Gb5 = new Sound(Clarinet.Gb5, error => {
       if (error) {
         console.log("sound failed Gbb5");
         console.log(error);
@@ -288,7 +262,7 @@ class Game extends Component {
         console.log("sound loaded Gb5");
       }
     });
-    this.G5 = new Sound(G5, error => {
+    this.G5 = new Sound(Clarinet.G5, error => {
       if (error) {
         console.log("sound failed G5");
         console.log(error);
@@ -296,7 +270,7 @@ class Game extends Component {
         console.log("sound loaded G5");
       }
     });
-    this.Ab5 = new Sound(Ab5, error => {
+    this.Ab5 = new Sound(Clarinet.Ab5, error => {
       if (error) {
         console.log("sound failed Ab5");
         console.log(error);
@@ -304,7 +278,7 @@ class Game extends Component {
         console.log("sound loaded Ab5");
       }
     });
-    this.A5 = new Sound(A5, error => {
+    this.A5 = new Sound(Clarinet.A5, error => {
       if (error) {
         console.log("sound failed A5");
         console.log(error);
@@ -333,7 +307,7 @@ class Game extends Component {
     let randomTwo = secondNum(13, randomOne);
     let firstNote = notes[randomOne];
     let secondNote = notes[randomTwo];
-    console.log(notes.length, "length of notes array");
+    console.log(notes, "length of notes array");
     console.log(firstNote, "first");
     console.log(secondNote, "second ");
     this.setState(
@@ -397,7 +371,7 @@ class Game extends Component {
         dispatch({ type: "activateAlarm", payload: { id: oid, active: 0 } });
         cancelAlarm(Platform.OS, JSON.stringify(id), oid);
       } else {
-        dispatch({ type: "activateAlarm", payload: { id: id, active: 0 }});
+        dispatch({ type: "activateAlarm", payload: { id: id, active: 0 } });
         androidCancelAlarm(id, alarm.alarms);
       }
 

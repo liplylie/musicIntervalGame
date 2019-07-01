@@ -2,21 +2,17 @@ import React, { Component } from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   TextInput,
   Platform,
   Dimensions,
   Button,
   TouchableHighlight,
-  KeyboardAvoidingView,
-  PushNotificationIOS,
   Animated,
-  Picker,
   StyleSheet
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
-import { Convert, Styles } from "../../styles";
+import { Convert } from "../../styles";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
 import { uuid, Alarm, cancelAlarm, setAlarm } from "../../helper";
@@ -47,11 +43,12 @@ class AddAlarm extends Component {
       iconTwo: new Animated.Value(0.7),
       springSpeed: 500,
       snooze: this.props.edit ? Number(this.props.edit.snoozeTime) : 1,
-      answersNeeded: this.props.edit ? Number(this.props.edit.answersNeeded) : 3,
+      answersNeeded: this.props.edit
+        ? Number(this.props.edit.answersNeeded)
+        : 3,
       snoozePicker: false,
-      instrument: "",
-      renderInstrumentModal: false,
-      instrumentModalData: [
+      instrument: "Clarinet",
+      instrumentListData: [
         { key: 0, section: true, label: "Instruments" },
         { key: 1, label: "Piano", accessibilityLabel: "Piano" },
         { key: 2, label: "Clarinet", accessibilityLabel: "Clarinet" }
@@ -60,12 +57,6 @@ class AddAlarm extends Component {
     this._handleDatePicked = this._handleDatePicked.bind(this);
     this._addAlarm = this._addAlarm.bind(this);
     this._editAlarm = this._editAlarm.bind(this);
-    this.instrumentModal = this.instrumentModal.bind(this);
-  }
-
-  componentWillMount() {
-    const { dispatch } = this.props;
-    // dispatch({ type: "addAlarm", payload: alarm })
   }
 
   componentDidMount() {
@@ -107,7 +98,6 @@ class AddAlarm extends Component {
   _showSnoozePicker = () => this.setState({ snoozePicker: true });
 
   _handleDatePicked = date => {
-    // console.log("A date has been picked: ", date);
     this._hideDateTimePicker();
     let time = moment(date)
       .startOf("minute")
@@ -134,9 +124,17 @@ class AddAlarm extends Component {
           .startOf("minute")
           .format();
       }
-      let alarm = new Alarm(id, 1, time, date, message || "Alarm", snooze, answersNeeded);
+      let alarm = new Alarm(
+        id,
+        1,
+        time,
+        date,
+        message || "Alarm",
+        snooze,
+        answersNeeded
+      );
       dispatch({ type: "addAlarm", payload: alarm });
-      setAlarm(Platform.OS, id, date, snooze, answersNeeded, message );
+      setAlarm(Platform.OS, id, date, snooze, answersNeeded, message);
       Actions.Home();
     }
   }
@@ -154,7 +152,15 @@ class AddAlarm extends Component {
           .startOf("minute")
           .format();
       }
-      let alarm = new Alarm(id, 1, time, date, message || "Alarm", snooze, answersNeeded);
+      let alarm = new Alarm(
+        id,
+        1,
+        time,
+        date,
+        message || "Alarm",
+        snooze,
+        answersNeeded
+      );
       cancelAlarm(Platform.OS, id);
       dispatch({ type: "editAlarm", payload: alarm });
       setAlarm(Platform.OS, id, date, snooze, answersNeeded, message);
@@ -162,28 +168,39 @@ class AddAlarm extends Component {
     }
   }
 
-  instrumentModal() {
-    let { instrumentModalData, instrument } = this.state;
+  instrumentList = () => {
+    let { instrumentListData, instrument } = this.state;
+
     return (
       <View style={styles.setting}>
         <ModalSelector
-          data={instrumentModalData}
+          data={instrumentListData}
           initValue="Select an Instrument"
           supportedOrientations={["portrait"]}
           accessible={true}
-          style={{ display: "flex", flexDirection: "row" }}
+          style={{ flex: 1 }}
           scrollViewAccessibilityLabel={"Scrollable options"}
           cancelButtonAccessibilityLabel={"Cancel Button"}
           onChange={({ label }) => {
             this.setState({ instrument: label });
           }}
         >
-          <Text style={{ fontSize: Convert(20) }}>Instrument</Text>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-between"
+            }}
+          >
+            <Text style={{ fontSize: Convert(20) }}>Instrument</Text>
+
+            <Text style={{ fontSize: Convert(20) }}>{instrument}</Text>
+          </View>
         </ModalSelector>
-        <Text style={{ fontSize: Convert(20) }}>{instrument}</Text>
       </View>
     );
-  }
+  };
 
   snoozeModal() {
     let { snooze } = this.state;
@@ -196,7 +213,7 @@ class AddAlarm extends Component {
       });
     }
     return (
-      <View style={[styles.setting, { flex: 1 }]}>
+      <View style={styles.setting}>
         <ModalSelector
           data={data}
           initValue="Select an Instrument"
@@ -204,20 +221,21 @@ class AddAlarm extends Component {
           accessible={true}
           scrollViewAccessibilityLabel={"Scrollable options"}
           cancelButtonAccessibilityLabel={"Cancel Button"}
-          style={{ width: "100%"}}
+          style={{ flex: 1 }}
           onChange={({ label }) => {
             this.setState({ snooze: label });
           }}
         >
-          <View 
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            width: "100%"
-          }}>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-between"
+            }}
+          >
             <Text style={{ fontSize: Convert(20) }}>Snooze</Text>
+
             <Text style={{ fontSize: Convert(20) }}>
               {snooze} minute{snooze > 1 ? "s" : null}
             </Text>
@@ -227,7 +245,7 @@ class AddAlarm extends Component {
     );
   }
 
-  answersNeededModal() {
+  answersNeededModal = () => {
     let { answersNeeded } = this.state;
     let data = [
       { key: 0, section: true, label: "Answers Needed To Turn Off Alarm" }
@@ -240,13 +258,13 @@ class AddAlarm extends Component {
       });
     }
     return (
-      <View style={[styles.setting, {flex: 1}]}>
+      <View style={styles.setting}>
         <ModalSelector
           data={data}
           initValue="Answers Needed To Stop Alarm"
           supportedOrientations={["portrait"]}
           accessible={true}
-          style={{ width: "100%" }}
+          style={{ flex: 1 }}
           scrollViewAccessibilityLabel={"Scrollable options"}
           cancelButtonAccessibilityLabel={"Cancel Button"}
           onChange={({ label }) => {
@@ -258,13 +276,10 @@ class AddAlarm extends Component {
               display: "flex",
               flexDirection: "row",
               flexWrap: "wrap",
-              justifyContent: "space-between",
-              width: "100%"
+              justifyContent: "space-between"
             }}
           >
-            <Text style={{ fontSize: Convert(20) }}>
-              Answers Needed
-            </Text>
+            <Text style={{ fontSize: Convert(20) }}>Answers Needed</Text>
             <Text style={{ fontSize: Convert(20) }}>{answersNeeded}</Text>
           </View>
         </ModalSelector>
@@ -272,7 +287,7 @@ class AddAlarm extends Component {
     );
   }
 
-  renderNoteAnimation(){
+  renderNoteAnimation() {
     return (
       <View
         style={{
@@ -300,17 +315,11 @@ class AddAlarm extends Component {
           }}
         />
       </View>
-    )
+    );
   }
 
   render() {
-    let {
-      time,
-      meridian,
-      snoozePicker,
-      instrument,
-      renderInstrumentModal
-    } = this.state;
+    let { time, meridian, snoozePicker, instrument } = this.state;
     let { edit } = this.props;
 
     return (
@@ -341,17 +350,18 @@ class AddAlarm extends Component {
             <View>
               <Text style={{ fontSize: Convert(80) }}>{time}</Text>
             </View>
+
             <View>
               <TouchableHighlight
                 style={{
                   height: Convert(40),
                   width: Convert(160),
                   borderRadius: Convert(10),
-                  backgroundColor: Platform.OS === "ios" ? "dodgerblue" : null,
                   marginLeft: Convert(50),
                   marginRight: Convert(50),
                   marginTop: Convert(20),
-                  marginBottom: Convert(30)
+                  marginBottom: Convert(30),
+                  backgroundColor: Platform.OS === "ios" ? "dodgerblue" : null
                 }}
               >
                 <Button
@@ -361,6 +371,7 @@ class AddAlarm extends Component {
                   color={Platform.OS === "ios" ? "white" : null}
                 />
               </TouchableHighlight>
+
               <DateTimePicker
                 isVisible={this.state.isDateTimePickerVisible}
                 onConfirm={this._handleDatePicked}
@@ -369,6 +380,7 @@ class AddAlarm extends Component {
               />
             </View>
           </View>
+
           <View
             style={{
               flexGrow: 1.5,
@@ -384,30 +396,32 @@ class AddAlarm extends Component {
                 borderWidth: 1,
                 borderRadius: Convert(10),
                 backgroundColor: "white",
-                textAlign: "center"
+                textAlign: "center",
+                alignSelf: "center"
               }}
               onChangeText={message => this.setState({ message })}
               value={this.state.message}
               placeholder="Description"
               maxLength={30}
             />
+
             <View
               style={{
                 display: "flex",
                 flex: 0.4,
                 flexDirection: "column",
-                justifyContent: "space-around"
+                justifyContent: "space-around",
+                width: Convert(300)
               }}
             >
-              {renderInstrumentModal ? this.instrumentModal() : null}
-              <View style={styles.setting}>
-                {this.snoozeModal()}
-              </View>
-              <View style={styles.setting}>
-                {this.answersNeededModal()}
-              </View>
+              <View>{this.instrumentList()}</View>
+
+              <View>{this.snoozeModal()}</View>
+
+              <View>{this.answersNeededModal()}</View>
             </View>
           </View>
+
           <View style={{ flexGrow: 1, justifyContent: "flex-end" }}>
             <TouchableHighlight
               style={{
@@ -439,7 +453,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "lightgray",
     borderBottomWidth: 1
   }
-})
+});
 
 const mapStateToProps = state => ({ alarm: state.alarm });
 export default connect(mapStateToProps)(AddAlarm);
