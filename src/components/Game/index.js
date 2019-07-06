@@ -542,12 +542,16 @@ class Game extends Component {
   }
 
   onModalClose = instrument => {
-    this.setState({ instrument }, this.loadInstrumentFiles);
-    setTimeout(this.startNewGame, 0);
+    if (!instrument) {
+      this.setState({ showModal: false }, this.startNewGame);
+    } else {
+      this.setState({ instrument, showModal: false }, this.loadInstrumentFiles);
+      setTimeout(this.startNewGame, 0);
+    }
   };
 
   render() {
-    let { buttonData, correct, attempt, showModal } = this.state;
+    let { buttonData, correct, attempt, showModal, instrument } = this.state;
     let { id } = this.props;
     const dataSource = this.ds.cloneWithRows(buttonData);
     return (
@@ -567,10 +571,12 @@ class Game extends Component {
         >
           <Modal
             showModal={showModal}
-            closeModal={() => this.setState({ showModal: false })}
+            instrument={instrument}
             onClose={instrument => this.onModalClose(instrument)}
           />
+
           {this.renderDirections()}
+
           <View
             style={{
               backgroundColor: "white",
@@ -588,10 +594,9 @@ class Game extends Component {
               }}
             >
               {this.renderCount()}
+
               {attempt ? this.renderAnswer(correct) : null}
-              {/* <TouchableOpacity onPress={() => this.stopAnimation()}>
-                <Text style={[styles.fontStyle, {color: "black"}]}>Stop</Text>
-              </TouchableOpacity> */}
+              
               {this.renderMusicIcon("separate")}
             </View>
           </View>

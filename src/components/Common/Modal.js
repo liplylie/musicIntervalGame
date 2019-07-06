@@ -1,35 +1,106 @@
 import React, { Component } from "react";
-import { Modal, Text, TouchableHighlight, View, Alert } from "react-native";
+import { Modal, Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import { Actions } from "react-native-router-flux";
+import ModalSelector from "react-native-modal-selector";
 
-const ModalComponent = props => {
-  const setModalVisible = () => {
-    const { closeModal, onClose } = props;
-    onClose("Piano");
-    closeModal();
+import { Convert } from "../../styles";
+import NavBar from "../Common/NavBar";
+
+class ModalComponent extends Component {
+  state = {
+    selectedInstrument: this.props.instrument || "Clarinet",
+    changeSetting: false
   };
 
-  const { showModal } = props;
-  return (
-    <View style={{ marginTop: 22 }}>
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={showModal}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-        }}
-      >
-        <View style={{ marginTop: 22 }}>
-          <View style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100%"}}>
+  closeModal = () => {
+    const { onClose } = this.props;
+    const { changeSetting, selectedInstrument } = this.state;
 
-            <TouchableHighlight onPress={setModalVisible}>
-              <Text>Hide Modal</Text>
-            </TouchableHighlight>
+    if (changeSetting) {
+      onClose(selectedInstrument);
+    } else {
+      onClose();
+    }
+  };
+
+  instrumentListData = [
+    { key: 0, section: true, label: "Instruments" },
+    { key: 1, label: "Piano", accessibilityLabel: "Piano" },
+    { key: 2, label: "Clarinet", accessibilityLabel: "Clarinet" }
+  ];
+  render() {
+    const { showModal } = this.props;
+    const { selectedInstrument } = this.state;
+
+    return (
+      <View>
+        <Modal animationType="slide" transparent={false} visible={showModal}>
+          <NavBar
+            setToTop
+            rightButtonIcon={"close"}
+            onRightButtonPress={this.closeModal}
+          />
+
+          <View style={[styles.container, { justifyContent: "center" }]}>
+            <View style={styles.setting}>
+              <ModalSelector
+                data={this.instrumentListData}
+                initValue="Select an Instrument"
+                supportedOrientations={["portrait"]}
+                accessible={true}
+                scrollViewAccessibilityLabel={"Scrollable options"}
+                cancelButtonAccessibilityLabel={"Cancel Button"}
+                onChange={({ label }) => {
+                  this.setState({ selectedInstrument: label, changeSetting: true });
+                }}
+              >
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    justifyContent: "space-around"
+                  }}
+                >
+                  <Text style={{ fontSize: Convert(20) }}>Instrument</Text>
+
+                  <Text style={{ fontSize: Convert(20) }}>
+                    {selectedInstrument}
+                  </Text>
+                </View>
+              </ModalSelector>
+            </View>
+
+            <View style={[styles.setting, styles.centerContainer]}>
+              <TouchableOpacity onPress={Actions.Rules}>
+                <Text>Rules</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </Modal>
-    </View>
-  );
-};
+        </Modal>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+  },
+  setting: {
+    borderBottomColor: "lightgray",
+    borderBottomWidth: 1,
+    width: "100%"
+  },
+  centerContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center"
+  }
+});
 
 export default ModalComponent;
