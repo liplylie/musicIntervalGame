@@ -48,7 +48,8 @@ class AddAlarm extends Component {
     instrumentListData: [
       { key: 0, section: true, label: "Instruments" },
       { key: 1, label: "Piano", accessibilityLabel: "Piano" },
-      { key: 2, label: "Clarinet", accessibilityLabel: "Clarinet" }
+      { key: 2, label: "Clarinet", accessibilityLabel: "Clarinet" },
+      { key: 2, label: "Guitar", accessibilityLabel: "Guitar" }
     ]
   };
 
