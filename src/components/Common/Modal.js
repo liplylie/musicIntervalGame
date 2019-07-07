@@ -26,7 +26,8 @@ class ModalComponent extends Component {
   instrumentListData = [
     { key: 0, section: true, label: "Instruments" },
     { key: 1, label: "Piano", accessibilityLabel: "Piano" },
-    { key: 2, label: "Clarinet", accessibilityLabel: "Clarinet" }
+    { key: 2, label: "Clarinet", accessibilityLabel: "Clarinet" },
+    { key: 2, label: "Guitar", accessibilityLabel: "Guitar" }
   ];
   render() {
     const { showModal } = this.props;
@@ -51,7 +52,10 @@ class ModalComponent extends Component {
                 scrollViewAccessibilityLabel={"Scrollable options"}
                 cancelButtonAccessibilityLabel={"Cancel Button"}
                 onChange={({ label }) => {
-                  this.setState({ selectedInstrument: label, changeSetting: true });
+                  this.setState({
+                    selectedInstrument: label,
+                    changeSetting: true
+                  });
                 }}
               >
                 <View

@@ -30,6 +30,7 @@ import { firstNum, secondNum } from "../../helper/randomNum";
 // Sounds
 import * as Clarinet from "../../samples/Clarinet";
 import * as Piano from "../../samples/Piano";
+import * as Guitar from "../../samples/Guitar";
 
 // Components
 import NavBar from "../Common/NavBar";
@@ -37,9 +38,11 @@ import Modal from "../Common/Modal";
 
 const { height } = Dimensions.get("window");
 const AnimatableListView = Animatable.createAnimatableComponent(ListView);
+
 const Instrument = {
   Clarinet: Clarinet,
-  Piano: Piano
+  Piano: Piano,
+  Guitar: Guitar
 };
 
 class Game extends Component {
@@ -102,6 +105,8 @@ class Game extends Component {
     }
     let randomOne = firstNum(13);
     let randomTwo = secondNum(13, randomOne);
+    console.log(randomOne, "random One");
+    console.log(randomTwo, "random two");
     let firstNote = notes[randomOne];
     let secondNote = notes[randomTwo];
     this.setState(
@@ -115,22 +120,21 @@ class Game extends Component {
   };
 
   renderButtonData(num) {
-    let { noteOne, noteTwo } = this.state;
     let buttonData = [];
-    console.log(num, "num");
     let interval = intervals[num];
     buttonData.push(interval);
-    console.log(interval, "interval in render data");
+
     while (buttonData.length < 4) {
       // first num is used to generate a random number
       let random = firstNum(13);
-      console.log(random, "rand");
+
       if (!buttonData.includes(intervals[random])) {
         buttonData.push(intervals[random]);
       }
     }
-    console.log(buttonData, "button data");
+
     buttonData = shuffle(buttonData);
+    console.log(interval, "interval");
     this.setState(
       {
         buttonData,
@@ -180,10 +184,14 @@ class Game extends Component {
   }
 
   playSoundOne() {
-    let { noteOne } = this.state;
+    let { noteOne, noteTwo } = this.state;
+    console.log(noteOne, "note One");
+    if (noteOne === noteTwo) {
+      this[noteOne].setCurrentTime(0);
+    }
     this[noteOne].play(success => {
       if (!success) {
-        //Alert.alert("There was an error playing this audio");
+        console.log("one fail");
       }
     });
   }
@@ -198,11 +206,14 @@ class Game extends Component {
   }
 
   playSoundTwo() {
-    let { noteTwo } = this.state;
+    let { noteOne, noteTwo } = this.state;
+    console.log(noteTwo, "note Two");
+    if (noteOne === noteTwo) {
+      this[noteTwo].setCurrentTime(0);
+    }
     this[noteTwo].play(success => {
-      // console.log(success, "success play");
       if (!success) {
-        //Alert.alert("There was an error playing this audio");
+        console.log("one fail");
       }
     });
   }
@@ -492,7 +503,9 @@ class Game extends Component {
   _navToDirections = () => {
     this.stopSoundOne();
     this.stopSoundTwo();
-    this.gearAnimation(() => this.setState({ showModal: true }));
+    this.gearAnimation(() =>
+      this.setState({ showModal: true, spinValue: new Animated.Value(0) })
+    );
   };
 
   renderDirections() {
@@ -546,7 +559,7 @@ class Game extends Component {
       this.setState({ showModal: false }, this.startNewGame);
     } else {
       this.setState({ instrument, showModal: false }, this.loadInstrumentFiles);
-      setTimeout(this.startNewGame, 0);
+      setTimeout(this.startNewGame, 500);
     }
   };
 
@@ -596,7 +609,7 @@ class Game extends Component {
               {this.renderCount()}
 
               {attempt ? this.renderAnswer(correct) : null}
-              
+
               {this.renderMusicIcon("separate")}
             </View>
           </View>

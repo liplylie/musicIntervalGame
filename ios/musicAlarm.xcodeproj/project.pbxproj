@@ -47,6 +47,8 @@
 		47E9D95FFBC14679947872AA /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F3F6C3538C4EE08DF99DC7 /* libRNVectorIcons.a */; };
 		48C420FE4C134B4486780089 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DBC1C561AF674613A4C60EE1 /* MaterialIcons.ttf */; };
 		65EDCFC9416D411383DEA17D /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4265DA2CE6F84ACC839F6374 /* Ionicons.ttf */; };
+		6F20202222D184FE00420FA6 /* Clarinet in Resources */ = {isa = PBXBuildFile; fileRef = 6F201FF522D184FE00420FA6 /* Clarinet */; };
+		6F20202422D1857600420FA6 /* Piano in Resources */ = {isa = PBXBuildFile; fileRef = 6F20202322D1857600420FA6 /* Piano */; };
 		6F32290721C395E600677CE4 /* D5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F32290621C395E600677CE4 /* D5.mp3 */; };
 		6F32290921C395EA00677CE4 /* D5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F32290821C395EA00677CE4 /* D5.mp3 */; };
 		6F3FDC1F21BE29A800E7DB2D /* A4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDBE721BE29A700E7DB2D /* A4.mp3 */; };
@@ -482,6 +484,8 @@
 		6F0E017721D9FC79006B90FF /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.39.0 (2)/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		6F0E017921D9FC7F006B90FF /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.39.0 (2)/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		6F0E017B21D9FC86006B90FF /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.39.0 (2)/Bolts.framework"; sourceTree = "<group>"; };
+		6F201FF522D184FE00420FA6 /* Clarinet */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Clarinet; path = ../src/samples/Clarinet; sourceTree = "<group>"; };
+		6F20202322D1857600420FA6 /* Piano */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Piano; path = ../src/samples/Piano; sourceTree = "<group>"; };
 		6F32290621C395E600677CE4 /* D5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = D5.mp3; path = ../../../Downloads/D5.mp3; sourceTree = "<group>"; };
 		6F32290821C395EA00677CE4 /* D5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = D5.mp3; path = ../../../Downloads/D5.mp3; sourceTree = "<group>"; };
 		6F39870C21D31EBF003C75B3 /* P5.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = P5.m4a; path = ../../../Documents/P5.m4a; sourceTree = "<group>"; };
@@ -938,8 +942,10 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				6F201FF522D184FE00420FA6 /* Clarinet */,
 				6F3FDC1721BE29A700E7DB2D /* Bb4.mp3 */,
 				6F3FDBE721BE29A700E7DB2D /* A4.mp3 */,
+				6F20202322D1857600420FA6 /* Piano */,
 				6FF76A1021D2E93D00790B28 /* PerfectFifth.mp3 */,
 				6F3FDCF321BF9C3300E7DB2D /* E5.mp3 */,
 				6F3FDCF121BF9C2F00E7DB2D /* Eb5.mp3 */,
@@ -1142,6 +1148,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1562,6 +1569,7 @@
 				6F3FDCE021BF7DA000E7DB2D /* A3.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				6F20202422D1857600420FA6 /* Piano in Resources */,
 				A56F097E338F4A3282CDD2F9 /* AntDesign.ttf in Resources */,
 				6F3FDCE221BF7DF700E7DB2D /* Ab3.mp3 in Resources */,
 				6F3FDC9A21BE50F800E7DB2D /* Eb3.mp3 in Resources */,
@@ -1600,6 +1608,7 @@
 				6F3FDCDC21BF7D3600E7DB2D /* B3.mp3 in Resources */,
 				6F3FDC2321BE29A800E7DB2D /* Bb4.mp3 in Resources */,
 				48C420FE4C134B4486780089 /* MaterialIcons.ttf in Resources */,
+				6F20202222D184FE00420FA6 /* Clarinet in Resources */,
 				6F3FDCEC21BF9B2600E7DB2D /* Ab4.mp3 in Resources */,
 				6F3FDCF421BF9C3400E7DB2D /* E5.mp3 in Resources */,
 				6F3FDCFC21BF9EA300E7DB2D /* B4.mp3 in Resources */,
