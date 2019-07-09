@@ -80,6 +80,7 @@
 		6F3FDCF821BF9CC000E7DB2D /* F5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCF721BF9CC000E7DB2D /* F5.mp3 */; };
 		6F3FDCFA21BF9CC500E7DB2D /* Gb5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCF921BF9CC500E7DB2D /* Gb5.mp3 */; };
 		6F3FDCFC21BF9EA300E7DB2D /* B4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FDCFB21BF9EA300E7DB2D /* B4.mp3 */; };
+		6F6A932322D4399F003F4ACF /* Guitar in Resources */ = {isa = PBXBuildFile; fileRef = 6F6A92F622D4399F003F4ACF /* Guitar */; };
 		6F7F92B821B9127B00A3419B /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F7F929C21B9125E00A3419B /* libRCTPushNotification.a */; };
 		6FF2049321EB2A6E00264EAC /* libReactNativeAdsFacebook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FF2048F21EB28B400264EAC /* libReactNativeAdsFacebook.a */; };
 		6FF76A1121D2E93D00790B28 /* PerfectFifth.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6FF76A1021D2E93D00790B28 /* PerfectFifth.mp3 */; };
@@ -520,6 +521,7 @@
 		6F3FDCFB21BF9EA300E7DB2D /* B4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = B4.mp3; path = ../../../Downloads/B4.mp3; sourceTree = "<group>"; };
 		6F4C2AC621DCA9CE006307AB /* musicAlarm.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = musicAlarm.entitlements; path = musicAlarm/musicAlarm.entitlements; sourceTree = "<group>"; };
 		6F57C7CD21D320DF005F90E2 /* P5.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = P5.m4a; sourceTree = "<group>"; };
+		6F6A92F622D4399F003F4ACF /* Guitar */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Guitar; sourceTree = "<group>"; };
 		6F7F928A21B9125E00A3419B /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		6FE1F58D21C0E42D00487431 /* E4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = E4.mp3; sourceTree = "<group>"; };
 		6FE1F58E21C0E42D00487431 /* Eb5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Eb5.mp3; sourceTree = "<group>"; };
@@ -948,6 +950,7 @@
 				6F20202322D1857600420FA6 /* Piano */,
 				6FF76A1021D2E93D00790B28 /* PerfectFifth.mp3 */,
 				6F3FDCF321BF9C3300E7DB2D /* E5.mp3 */,
+				6F6A92F622D4399F003F4ACF /* Guitar */,
 				6F3FDCF121BF9C2F00E7DB2D /* Eb5.mp3 */,
 				6F3FDC1821BE29A700E7DB2D /* Db4.mp3 */,
 				6F3FDCE721BF9B1B00E7DB2D /* Ab5.mp3 */,
@@ -1606,6 +1609,7 @@
 				79E03B3A4EC04C618975CA72 /* MaterialCommunityIcons.ttf in Resources */,
 				6F32290721C395E600677CE4 /* D5.mp3 in Resources */,
 				6F3FDCDC21BF7D3600E7DB2D /* B3.mp3 in Resources */,
+				6F6A932322D4399F003F4ACF /* Guitar in Resources */,
 				6F3FDC2321BE29A800E7DB2D /* Bb4.mp3 in Resources */,
 				48C420FE4C134B4486780089 /* MaterialIcons.ttf in Resources */,
 				6F20202222D184FE00420FA6 /* Clarinet in Resources */,

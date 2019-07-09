@@ -83,7 +83,7 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => this.startNewGame(), 500);
+    setTimeout(() => this.startNewGame(), 1000);
   }
 
   loadInstrumentFiles = () => {
