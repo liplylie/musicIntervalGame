@@ -83,7 +83,7 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => this.startNewGame(), 1000);
+    setTimeout(() => this.startNewGame(), 700);
   }
 
   loadInstrumentFiles = () => {
@@ -99,16 +99,16 @@ class Game extends Component {
 
   startNewGame = difficulty => {
     let { noteOne, noteTwo } = this.state;
+    let randomOne = firstNum(13);
+    let randomTwo = secondNum(13, randomOne);
+    let firstNote = notes[randomOne];
+    let secondNote = notes[randomTwo];
+
     if (noteOne && noteTwo) {
       this[noteOne].stop();
       this[noteTwo].stop();
     }
-    let randomOne = firstNum(13);
-    let randomTwo = secondNum(13, randomOne);
-    console.log(randomOne, "random One");
-    console.log(randomTwo, "random two");
-    let firstNote = notes[randomOne];
-    let secondNote = notes[randomTwo];
+
     this.setState(
       {
         noteOne: firstNote,
@@ -134,7 +134,7 @@ class Game extends Component {
     }
 
     buttonData = shuffle(buttonData);
-    console.log(interval, "interval");
+
     this.setState(
       {
         buttonData,
@@ -185,13 +185,13 @@ class Game extends Component {
 
   playSoundOne() {
     let { noteOne, noteTwo } = this.state;
-    console.log(noteOne, "note One");
+
     if (noteOne === noteTwo) {
       this[noteOne].setCurrentTime(0);
     }
     this[noteOne].play(success => {
       if (!success) {
-        console.log("one fail");
+        console.log("sound one fail");
       }
     });
   }
@@ -207,13 +207,13 @@ class Game extends Component {
 
   playSoundTwo() {
     let { noteOne, noteTwo } = this.state;
-    console.log(noteTwo, "note Two");
+
     if (noteOne === noteTwo) {
       this[noteTwo].setCurrentTime(0);
     }
     this[noteTwo].play(success => {
       if (!success) {
-        console.log("one fail");
+        console.log("sound two fail");
       }
     });
   }
@@ -414,7 +414,7 @@ class Game extends Component {
             attempt: true,
             count: count - 1
           },
-          () => setTimeout(() => this.startNewGame("easy"), 600)
+          () => setTimeout(() => this.startNewGame("easy"), 700)
         );
       } else if (guess !== correctAnswer.long) {
         this.setState(

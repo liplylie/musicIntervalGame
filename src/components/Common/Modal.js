@@ -66,9 +66,22 @@ class ModalComponent extends Component {
                     justifyContent: "space-around"
                   }}
                 >
-                  <Text style={{ fontSize: Convert(20) }}>Instrument</Text>
+                  <Text
+                    style={{
+                      fontSize: Convert(20),
+                      width: Convert(100)
+                    }}
+                  >
+                    Instrument
+                  </Text>
 
-                  <Text style={{ fontSize: Convert(20) }}>
+                  <Text
+                    style={{
+                      fontSize: Convert(20),
+                      width: Convert(100),
+                      textAlign: "center"
+                    }}
+                  >
                     {selectedInstrument}
                   </Text>
                 </View>
@@ -77,7 +90,14 @@ class ModalComponent extends Component {
 
             <View style={[styles.setting, styles.centerContainer]}>
               <TouchableOpacity onPress={Actions.Rules}>
-                <Text>Rules</Text>
+                <Text
+                  style={{
+                    fontSize: Convert(20),
+                    textAlign: "center"
+                  }}
+                >
+                  Rules
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
