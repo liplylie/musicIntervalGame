@@ -31,14 +31,16 @@ export default class App extends Component {
                 id: data.id,
                 oid: data.oid,
                 answersNeeded: data.answersNeeded,
-                instrument: data.instrument
+                instrument: data.instrument,
+                intervalType: data.intervalType
               });
             } else {
               Actions.Game({
                 id: userInfo.id,
                 oid: userInfo.id,
                 answersNeeded: userInfo.answersNeeded,
-                instrument: userInfo.instrument
+                instrument: userInfo.instrument,
+                intervalType: userInfo.intervalType
               });
             }
           } else if (foreground && !clicked) {
@@ -47,14 +49,16 @@ export default class App extends Component {
                 id: data.id,
                 oid: data.oid,
                 answersNeeded: data.answersNeeded,
-                instrument: data.instrument
+                instrument: data.instrument,
+                intervalType: data.intervalType
               });
             } else {
               Actions.Game({
                 id: userInfo.id,
                 oid: userInfo.id,
                 answersNeeded: userInfo.answersNeeded,
-                instrument: userInfo.instrument
+                instrument: userInfo.instrument,
+                intervalType: userInfo.intervalType
               });
             }
           }

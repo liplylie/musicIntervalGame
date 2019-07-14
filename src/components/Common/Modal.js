@@ -9,15 +9,16 @@ import NavBar from "../Common/NavBar";
 class ModalComponent extends Component {
   state = {
     selectedInstrument: this.props.instrument || "Clarinet",
+    intervalType: this.props.intervalType || "Ascending",
     changeSetting: false
   };
 
   closeModal = () => {
     const { onClose } = this.props;
-    const { changeSetting, selectedInstrument } = this.state;
+    const { changeSetting, selectedInstrument, intervalType } = this.state;
 
     if (changeSetting) {
-      onClose(selectedInstrument);
+      onClose({ instrument: selectedInstrument, intervalType });
     } else {
       onClose();
     }
@@ -29,13 +30,24 @@ class ModalComponent extends Component {
     { key: 2, label: "Clarinet", accessibilityLabel: "Clarinet" },
     { key: 2, label: "Guitar", accessibilityLabel: "Guitar" }
   ];
+
+  intervalListData = [
+    { key: 0, section: true, label: "Interval Type" },
+    { key: 1, label: "Ascending", accessibilityLabel: "Ascending" },
+    { key: 2, label: "Descending", accessibilityLabel: "Descending" }
+  ];
+
   render() {
     const { showModal } = this.props;
-    const { selectedInstrument } = this.state;
+    const { selectedInstrument, intervalType } = this.state;
 
     return (
       <View>
-        <Modal animationType="slide" transparent={false} visible={showModal}>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={showModal}
+        >
           <NavBar
             setToTop
             rightButtonIcon={"close"}
@@ -83,6 +95,51 @@ class ModalComponent extends Component {
                     }}
                   >
                     {selectedInstrument}
+                  </Text>
+                </View>
+              </ModalSelector>
+            </View>
+
+            <View style={styles.setting}>
+              <ModalSelector
+                data={this.intervalListData}
+                initValue="Select an Instrument"
+                supportedOrientations={["portrait"]}
+                accessible={true}
+                scrollViewAccessibilityLabel={"Scrollable options"}
+                cancelButtonAccessibilityLabel={"Cancel Button"}
+                onChange={({ label }) => {
+                  this.setState({
+                    intervalType: label,
+                    changeSetting: true
+                  });
+                }}
+              >
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    justifyContent: "space-around"
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: Convert(20),
+                      width: Convert(120)
+                    }}
+                  >
+                    Interval Type
+                  </Text>
+
+                  <Text
+                    style={{
+                      fontSize: Convert(20),
+                      width: Convert(120),
+                      textAlign: "center"
+                    }}
+                  >
+                    {intervalType}
                   </Text>
                 </View>
               </ModalSelector>

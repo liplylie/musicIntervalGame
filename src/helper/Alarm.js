@@ -17,7 +17,8 @@ export class Alarm {
     message,
     snoozeTime = 1,
     answersNeeded = 3,
-    instrument = ""
+    instrument = "",
+    intervalType = ""
   ) {
     this.id = id;
     this.active = active;
@@ -26,6 +27,7 @@ export class Alarm {
     this.message = message;
     this.snoozeTime = snoozeTime;
     this.answersNeeded = answersNeeded;
-    this.instrument = instrument
+    this.instrument = instrument;
+    this.intervalType = intervalType;
   }
 }

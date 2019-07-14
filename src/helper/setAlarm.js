@@ -13,7 +13,16 @@
 import PushNotification from "react-native-push-notification";
 import moment from "moment";
 
-export const setAlarm = (device, id, date, snooze, answersNeeded, message, instrument) => {
+export const setAlarm = (
+  device,
+  id,
+  date,
+  snooze,
+  answersNeeded,
+  message,
+  instrument,
+  intervalType
+) => {
   if (device === "android") {
     let repeatTime = 1000 * 60 * Number(snooze);
     PushNotification.localNotificationSchedule({
@@ -29,7 +38,8 @@ export const setAlarm = (device, id, date, snooze, answersNeeded, message, instr
         oid: JSON.stringify(id),
         snooze: snooze,
         answersNeeded: answersNeeded,
-        instrument: instrument || "Clarinet"
+        instrument: instrument || "Clarinet",
+        intervalType: intervalType || "Ascending"
       }
     });
   } else {
@@ -46,7 +56,8 @@ export const setAlarm = (device, id, date, snooze, answersNeeded, message, instr
             oid: id,
             snooze: snooze,
             answersNeeded: answersNeeded,
-            instrument: instrument || "Clarinet"
+            instrument: instrument || "Clarinet",
+            intervalType: intervalType || "Ascending"
           }
         });
       }

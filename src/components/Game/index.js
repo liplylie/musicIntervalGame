@@ -63,7 +63,8 @@ class Game extends Component {
       count: this.props.answersNeeded ? Number(this.props.answersNeeded) : 3,
       checking: false,
       instrument: this.props.instrument || "Clarinet",
-      showModal: false
+      showModal: false,
+      intervalType: this.props.intervalType || "Ascending"
     };
     this.springAnimation = this.springAnimation.bind(this);
     this.stopAnimation = this.stopAnimation.bind(this);
@@ -97,8 +98,8 @@ class Game extends Component {
     }
   };
 
-  startNewGame = difficulty => {
-    let { noteOne, noteTwo } = this.state;
+  startNewGame = () => {
+    let { noteOne, noteTwo, intervalType } = this.state;
     let randomOne = firstNum(13);
     let randomTwo = secondNum(13, randomOne);
     let firstNote = notes[randomOne];
@@ -111,8 +112,8 @@ class Game extends Component {
 
     this.setState(
       {
-        noteOne: firstNote,
-        noteTwo: secondNote,
+        noteOne: intervalType === "Ascending" ? firstNote : secondNote,
+        noteTwo: intervalType === "Ascending" ? secondNote : firstNote,
         stopAnimation: true
       },
       () => this.renderButtonData(randomTwo - randomOne)
@@ -414,7 +415,7 @@ class Game extends Component {
             attempt: true,
             count: count - 1
           },
-          () => setTimeout(() => this.startNewGame("easy"), 700)
+          () => setTimeout(() => this.startNewGame(), 700)
         );
       } else if (guess !== correctAnswer.long) {
         this.setState(
@@ -423,7 +424,7 @@ class Game extends Component {
             correct: false,
             attempt: true
           },
-          () => setTimeout(() => this.startNewGame("easy"), 700)
+          () => setTimeout(() => this.startNewGame(), 700)
         );
       }
 
@@ -446,7 +447,7 @@ class Game extends Component {
             correct: true,
             attempt: true
           },
-          () => setTimeout(() => this.startNewGame("easy"), 700)
+          () => setTimeout(() => this.startNewGame(), 700)
         );
       } else if (guess !== correctAnswer.long) {
         this.setState(
@@ -455,7 +456,7 @@ class Game extends Component {
             correct: false,
             attempt: true
           },
-          () => setTimeout(() => this.startNewGame("easy"), 700)
+          () => setTimeout(() => this.startNewGame(), 700)
         );
       }
     }
@@ -554,17 +555,17 @@ class Game extends Component {
     }
   }
 
-  onModalClose = instrument => {
-    if (!instrument) {
+  onModalClose = ({instrument, intervalType}) => {
+    if (!instrument && !intervalType) {
       this.setState({ showModal: false }, this.startNewGame);
     } else {
-      this.setState({ instrument, showModal: false }, this.loadInstrumentFiles);
+      this.setState({ instrument, intervalType, showModal: false }, this.loadInstrumentFiles);
       setTimeout(this.startNewGame, 500);
     }
   };
 
   render() {
-    let { buttonData, correct, attempt, showModal, instrument } = this.state;
+    let { buttonData, correct, attempt, showModal, instrument, intervalType } = this.state;
     let { id } = this.props;
     const dataSource = this.ds.cloneWithRows(buttonData);
     return (
@@ -585,7 +586,8 @@ class Game extends Component {
           <Modal
             showModal={showModal}
             instrument={instrument}
-            onClose={instrument => this.onModalClose(instrument)}
+            onClose={data => this.onModalClose(data)}
+            intervalType={intervalType}
           />
 
           {this.renderDirections()}

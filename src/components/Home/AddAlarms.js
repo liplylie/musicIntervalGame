@@ -45,11 +45,17 @@ class AddAlarm extends Component {
     answersNeeded: this.props.edit ? Number(this.props.edit.answersNeeded) : 3,
     snoozePicker: false,
     instrument: this.props.instrument || "Clarinet",
+    intervalType: this.props.intervalType || "Ascending",
     instrumentListData: [
       { key: 0, section: true, label: "Instruments" },
       { key: 1, label: "Piano", accessibilityLabel: "Piano" },
       { key: 2, label: "Clarinet", accessibilityLabel: "Clarinet" },
       { key: 2, label: "Guitar", accessibilityLabel: "Guitar" }
+    ],
+    intervalListData: [
+      { key: 0, section: true, label: "Interval Type" },
+      { key: 1, label: "Ascending", accessibilityLabel: "Ascending" },
+      { key: 2, label: "Descending", accessibilityLabel: "Descending" }
     ]
   };
 
@@ -85,7 +91,7 @@ class AddAlarm extends Component {
 
   _addAlarm = () => {
     let { dispatch, edit } = this.props;
-    let { time, date, message, snooze, answersNeeded, instrument } = this.state;
+    let { time, date, message, snooze, answersNeeded, instrument, intervalType } = this.state;
     if (!time) {
       alert("Please enter a time for the alarm");
     } else {
@@ -104,7 +110,8 @@ class AddAlarm extends Component {
         message || "Alarm",
         snooze,
         answersNeeded,
-        instrument
+        instrument,
+        intervalType
       );
       dispatch({ type: "addAlarm", payload: alarm });
       setAlarm(
@@ -114,7 +121,8 @@ class AddAlarm extends Component {
         snooze,
         answersNeeded,
         message,
-        instrument
+        instrument,
+        intervalType
       );
       Actions.Home();
     }
@@ -122,7 +130,7 @@ class AddAlarm extends Component {
 
   _editAlarm = () => {
     let { dispatch, edit } = this.props;
-    let { time, date, message, snooze, answersNeeded, instrument } = this.state;
+    let { time, date, message, snooze, answersNeeded, instrument, intervalType } = this.state;
     if (!time) {
       alert("Please enter a time for the alarm");
     } else {
@@ -141,7 +149,8 @@ class AddAlarm extends Component {
         message || "Alarm",
         snooze,
         answersNeeded,
-        instrument
+        instrument,
+        intervalType
       );
       cancelAlarm(Platform.OS, id);
       dispatch({ type: "editAlarm", payload: alarm });
@@ -152,7 +161,8 @@ class AddAlarm extends Component {
         snooze,
         answersNeeded,
         message,
-        instrument
+        instrument,
+        intervalType
       );
       Actions.Home();
     }
@@ -186,6 +196,40 @@ class AddAlarm extends Component {
             <Text style={{ fontSize: Convert(20) }}>Instrument</Text>
 
             <Text style={{ fontSize: Convert(20) }}>{instrument}</Text>
+          </View>
+        </ModalSelector>
+      </View>
+    );
+  };
+
+  intervalList = () => {
+    let { intervalListData, intervalType } = this.state;
+
+    return (
+      <View style={styles.setting}>
+        <ModalSelector
+          data={intervalListData}
+          initValue="Select Interval Type"
+          supportedOrientations={["portrait"]}
+          accessible={true}
+          style={{ flex: 1 }}
+          scrollViewAccessibilityLabel={"Scrollable options"}
+          cancelButtonAccessibilityLabel={"Cancel Button"}
+          onChange={({ label }) => {
+            this.setState({ intervalType: label });
+          }}
+        >
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-between"
+            }}
+          >
+            <Text style={{ fontSize: Convert(20) }}>Interval Type</Text>
+
+            <Text style={{ fontSize: Convert(20) }}>{intervalType}</Text>
           </View>
         </ModalSelector>
       </View>
@@ -354,7 +398,8 @@ class AddAlarm extends Component {
                   marginRight: Convert(50),
                   marginTop: Convert(20),
                   marginBottom: Convert(30),
-                  backgroundColor: Platform.OS === "ios" ? "dodgerblue" : null
+                  backgroundColor:
+                    Platform.OS === "ios" ? "dodgerblue" : null
                 }}
               >
                 <Button
@@ -409,6 +454,8 @@ class AddAlarm extends Component {
             >
               <View>{this.instrumentList()}</View>
 
+              <View>{this.intervalList()}</View>
+
               <View>{this.snoozeModal()}</View>
 
               <View>{this.answersNeededModal()}</View>
@@ -420,7 +467,8 @@ class AddAlarm extends Component {
               style={{
                 height: iphoneX ? Convert(80) : Convert(50),
                 width: width,
-                backgroundColor: Platform.OS === "ios" ? "dodgerblue" : null,
+                backgroundColor:
+                  Platform.OS === "ios" ? "dodgerblue" : null,
                 margin: 0
               }}
             >
