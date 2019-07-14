@@ -91,7 +91,7 @@ class Game extends Component {
     for (let key in Instrument[instrument]) {
       this[key] = new Sound(Instrument[instrument][key], error => {
         if (error) {
-          console.error(error);
+          console.log(error);
         }
       });
     }

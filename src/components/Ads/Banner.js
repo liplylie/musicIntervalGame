@@ -26,7 +26,7 @@ const Banner = () => {
       <BannerView
         placementId={placementId}
         type={iphoneX ? "large" : "standard"}
-        onError={err => console.error("error in banner", err)}
+        onError={err => console.log("error in banner", err)}
       />
     </View>
   );

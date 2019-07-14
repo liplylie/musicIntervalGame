@@ -4,7 +4,7 @@ import promise from "redux-promise-middleware";
 import logger from "redux-logger";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import propTypes from "prop-types";
+
 
 import reducer from "./reducers/reducer";
 
