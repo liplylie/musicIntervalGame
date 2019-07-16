@@ -1,12 +1,9 @@
-"use strict";
-
 import React, { Component } from "react";
 import {
   View,
   Platform,
   Dimensions
 } from "react-native";
-
 import { BannerView, NativeAdsManager, AdSettings } from "react-native-fbads";
 
 const { height, width } = Dimensions.get("window");

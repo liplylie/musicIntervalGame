@@ -20,7 +20,7 @@ class ModalComponent extends Component {
     if (changeSetting) {
       onClose({ instrument: selectedInstrument, intervalType });
     } else {
-      onClose();
+      onClose({});
     }
   };
 

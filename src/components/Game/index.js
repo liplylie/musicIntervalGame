@@ -64,7 +64,8 @@ class Game extends Component {
       checking: false,
       instrument: this.props.instrument || "Clarinet",
       showModal: false,
-      intervalType: this.props.intervalType || "Ascending"
+      intervalType: this.props.intervalType || "Ascending",
+      navToDirections: false
     };
     this.springAnimation = this.springAnimation.bind(this);
     this.stopAnimation = this.stopAnimation.bind(this);
@@ -99,7 +100,10 @@ class Game extends Component {
   };
 
   startNewGame = () => {
-    let { noteOne, noteTwo, intervalType } = this.state;
+    let { noteOne, noteTwo, intervalType, navToDirections } = this.state;
+
+    if (navToDirections) return;
+
     let randomOne = firstNum(13);
     let randomTwo = secondNum(13, randomOne);
     let firstNote = notes[randomOne];
@@ -368,7 +372,8 @@ class Game extends Component {
   };
 
   renderAnswer(val) {
-    let { renderAnswer } = this.state;
+    let { renderAnswer, navToDirections } = this.state;
+    if (navToDirections) return;
     this.answerAnimation();
     if (val) {
       return (
@@ -502,10 +507,16 @@ class Game extends Component {
   }
 
   _navToDirections = () => {
+    this.setState({
+      navToDirections: true
+    });
     this.stopSoundOne();
     this.stopSoundTwo();
     this.gearAnimation(() =>
-      this.setState({ showModal: true, spinValue: new Animated.Value(0) })
+      this.setState({
+        showModal: true,
+        spinValue: new Animated.Value(0)
+      })
     );
   };
 
@@ -524,7 +535,10 @@ class Game extends Component {
           style={{
             display: "flex",
             flexDirection: "row",
-            justifyContent: "flex-end"
+            justifyContent: "flex-end",
+            position: "absolute",
+            zIndex: 1,
+            right: 0
           }}
         >
           <TouchableOpacity
@@ -555,21 +569,39 @@ class Game extends Component {
     }
   }
 
-  onModalClose = ({instrument, intervalType}) => {
+  onModalClose = ({ instrument, intervalType }) => {
     if (!instrument && !intervalType) {
-      this.setState({ showModal: false }, this.startNewGame);
+      this.setState(
+        { showModal: false, navToDirections: false },
+        this.startNewGame
+      );
     } else {
-      this.setState({ instrument, intervalType, showModal: false }, this.loadInstrumentFiles);
+      this.setState(
+        {
+          instrument,
+          intervalType,
+          showModal: false,
+          navToDirections: false
+        },
+        this.loadInstrumentFiles
+      );
       setTimeout(this.startNewGame, 500);
     }
   };
 
   render() {
-    let { buttonData, correct, attempt, showModal, instrument, intervalType } = this.state;
+    let {
+      buttonData,
+      correct,
+      attempt,
+      showModal,
+      instrument,
+      intervalType
+    } = this.state;
     let { id } = this.props;
     const dataSource = this.ds.cloneWithRows(buttonData);
     return (
-      <View style={{ display: "flex" }}>
+      <View style={{ display: "flex", position: "relative" }}>
         <NavBar
           title="Game"
           leftButtonIcon={id ? null : "left"}
@@ -579,14 +611,13 @@ class Game extends Component {
         <View
           style={{
             display: "flex",
-            flexDirection: "column",
-            backgroundColor: "white"
+            flexDirection: "column"
           }}
         >
           <Modal
             showModal={showModal}
             instrument={instrument}
-            onClose={data => this.onModalClose(data)}
+            onClose={data => this.onModalClose((data))}
             intervalType={intervalType}
           />
 
@@ -615,7 +646,9 @@ class Game extends Component {
               {this.renderMusicIcon("separate")}
             </View>
           </View>
-          <View style={{ backgroundColor: "white", height: (height * 2) / 3 }}>
+          <View
+            style={{ backgroundColor: "white", height: (height * 2) / 3 }}
+          >
             <AnimatableListView
               dataSource={dataSource}
               renderRow={({ long }) => this.renderButton(long)}

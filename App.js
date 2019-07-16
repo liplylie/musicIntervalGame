@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import { Platform, PushNotificationIOS, AppState } from "react-native";
-import { persistor } from "./src/store.js";
-import store from "./src/store.js";
 import { Provider } from "react-redux";
-import Home from "./src/components/Home/Home";
-import AddAlarms from "./src/components/Home/AddAlarms";
-import Game from "./src/components/Game";
 import { PersistGate } from "redux-persist/integration/react";
 import { ActionConst, Actions, Router, Scene } from "react-native-router-flux";
 import PushNotification from "react-native-push-notification";
 import moment from "moment";
-import Rules from "./src/components/Game/Rules";
+
+// Global
 import { resetAlarm } from "./src/helper";
+import store, { persistor }from "./src/store.js";
+
+// Components
+import Rules from "./src/components/Game/Rules";
+import Home from "./src/components/Home/Home";
+import AddAlarms from "./src/components/Home/AddAlarms";
+import Game from "./src/components/Game";
+
 
 export default class App extends Component {
   state = {

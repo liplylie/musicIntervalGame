@@ -12,13 +12,16 @@ import {
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
-import { Convert } from "../../styles";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
-import { uuid, Alarm, cancelAlarm, setAlarm } from "../../helper";
 import PushNotification from "react-native-push-notification";
 import ModalSelector from "react-native-modal-selector";
 
+// Global
+import { uuid, Alarm, cancelAlarm, setAlarm } from "../../helper";
+import { Convert } from "../../styles";
+
+// Components
 import NavBar from "../Common/NavBar";
 
 const { height, width } = Dimensions.get("window");

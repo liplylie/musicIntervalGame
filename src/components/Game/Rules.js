@@ -1,10 +1,12 @@
-"use strict";
-
 import React from "react";
 import { View, Text, TouchableOpacity, Linking } from "react-native";
-import { Convert } from "../../styles";
-import NavBar from "../Common/NavBar";
 import { Actions } from "react-native-router-flux";
+
+// Global
+import { Convert } from "../../styles";
+
+// Component
+import NavBar from "../Common/NavBar";
 
 const Rules = () => {
   return (

@@ -1,11 +1,14 @@
 import React from "react";
 import { View, ScrollView } from "react-native";
 import { Actions } from "react-native-router-flux";
-import { Convert } from "../../styles";
-import Banner from "../Ads/Banner";
 
-import AlarmList from "./AlarmList";
+// Global
+import { Convert } from "../../styles";
+
+// Components
+import Banner from "../Ads/Banner";
 import NavBar from "../Common/NavBar";
+import AlarmList from "./AlarmList";
 
 const Home = () => {
   const handleMusicSymbolPress = () => {

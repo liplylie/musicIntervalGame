@@ -22,10 +22,12 @@ import RadioForm, {
 } from "react-native-simple-radio-button";
 import PushNotification from "react-native-push-notification";
 import moment from "moment";
+import { connect } from "react-redux";
+
+// Global
+import { Colors, Convert, Styles } from "../../styles";
 import { cancelAlarm, setAlarm } from "../../helper";
 
-import { connect } from "react-redux";
-import { Colors, Convert, Styles } from "../../styles";
 const { height, width } = Dimensions.get("window");
 
 class AlarmList extends Component {
