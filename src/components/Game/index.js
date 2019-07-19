@@ -26,6 +26,7 @@ import {
   androidCancelAlarm
 } from "../../helper";
 import { firstNum, secondNum } from "../../helper/randomNum";
+import termQuestions from "../../questions/termQuestions";
 
 // Sounds
 import * as Clarinet from "../../samples/Clarinet";
@@ -46,47 +47,41 @@ const Instrument = {
 };
 
 class Game extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      noteSpringOne: new Animated.Value(0.7),
-      noteSpringTwo: new Animated.Value(0.7),
-      renderAnswer: new Animated.Value(0),
-      spinValue: new Animated.Value(0),
-      springSpeed: 500,
-      stopAnimation: false,
-      noteOne: "",
-      noteTwo: "",
-      buttonData: ["", "", "", ""],
-      correct: false,
-      attempt: false,
-      count: this.props.answersNeeded ? Number(this.props.answersNeeded) : 3,
-      checking: false,
-      instrument: this.props.instrument || "Clarinet",
-      showModal: false,
-      intervalType: this.props.intervalType || "Ascending",
-      navToDirections: false
-    };
-    this.springAnimation = this.springAnimation.bind(this);
-    this.stopAnimation = this.stopAnimation.bind(this);
-    this.renderButton = this.renderButton.bind(this);
-    this._navToDirections = this._navToDirections.bind(this);
-    this.endGame = this.endGame.bind(this);
-
-    this.ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-
-    Sound.setCategory("Playback");
-  }
+  state = {
+    noteSpringOne: new Animated.Value(0.7),
+    noteSpringTwo: new Animated.Value(0.7),
+    renderAnswer: new Animated.Value(0),
+    spinValue: new Animated.Value(0),
+    springSpeed: 500,
+    stopAnimation: false,
+    noteOne: "",
+    noteTwo: "",
+    buttonData: ["", "", "", ""],
+    correct: false,
+    correctAnswer: "",
+    attempt: false,
+    count: this.props.answersNeeded ? Number(this.props.answersNeeded) : 3,
+    checking: false,
+    instrument: this.props.instrument || "Clarinet",
+    showModal: false,
+    intervalType: this.props.intervalType || "Ascending",
+    navToDirections: false,
+    gameType: "Interval",
+    musicTerm: {}
+  };
 
   componentWillMount() {
+    Sound.setCategory("Playback");
     this.loadInstrumentFiles();
   }
 
   componentDidMount() {
     setTimeout(() => this.startNewGame(), 700);
   }
+
+  ds = new ListView.DataSource({
+    rowHasChanged: (r1, r2) => r1 !== r2
+  });
 
   loadInstrumentFiles = () => {
     const { instrument } = this.state;
@@ -100,58 +95,107 @@ class Game extends Component {
   };
 
   startNewGame = () => {
-    let { noteOne, noteTwo, intervalType, navToDirections } = this.state;
+    let {
+      noteOne,
+      noteTwo,
+      intervalType,
+      navToDirections,
+      gameType
+    } = this.state;
 
     if (navToDirections) return;
-
-    let randomOne = firstNum(13);
-    let randomTwo = secondNum(13, randomOne);
-    let firstNote = notes[randomOne];
-    let secondNote = notes[randomTwo];
 
     if (noteOne && noteTwo) {
       this[noteOne].stop();
       this[noteTwo].stop();
     }
 
-    this.setState(
-      {
-        noteOne: intervalType === "Ascending" ? firstNote : secondNote,
-        noteTwo: intervalType === "Ascending" ? secondNote : firstNote,
-        stopAnimation: true
-      },
-      () => this.renderButtonData(randomTwo - randomOne)
-    );
-  };
-
-  renderButtonData(num) {
-    let buttonData = [];
-    let interval = intervals[num];
-    buttonData.push(interval);
-
-    while (buttonData.length < 4) {
-      // first num is used to generate a random number
-      let random = firstNum(13);
-
-      if (!buttonData.includes(intervals[random])) {
-        buttonData.push(intervals[random]);
-      }
+    if (gameType === "Terms") {
+      const [definition, term] = Object.entries(termQuestions)[0];
+      const musicTerm = { definition, term };
+      console.log(musicTerm, "music sex");
+      this.setState(
+        {
+          musicTerm,
+          stopAnimation: true
+        },
+        () => this.renderButtonData()
+      );
     }
 
-    buttonData = shuffle(buttonData);
+    if (gameType === "Interval") {
+      let randomOne = firstNum(13);
+      let randomTwo = secondNum(13, randomOne);
+      let firstNote = notes[randomOne];
+      let secondNote = notes[randomTwo];
 
-    this.setState(
-      {
+      this.setState(
+        {
+          noteOne: intervalType === "Ascending" ? firstNote : secondNote,
+          noteTwo: intervalType === "Ascending" ? secondNote : firstNote,
+          stopAnimation: true
+        },
+        () => this.renderButtonData(randomTwo - randomOne)
+      );
+    }
+  };
+
+  renderButtonData = num => {
+    const { gameType, musicTerm } = this.state;
+    let buttonData = [];
+    if (gameType === "Interval") {
+      let interval = intervals[num];
+      buttonData.push(interval);
+
+      while (buttonData.length < 4) {
+        // first num is used to generate a random number
+        let random = firstNum(13);
+
+        if (!buttonData.includes(intervals[random])) {
+          buttonData.push(intervals[random]);
+        }
+      }
+
+      buttonData = shuffle(buttonData);
+
+      this.setState(
+        {
+          buttonData,
+          correctAnswer: interval,
+          stopAnimation: false,
+          correct: false,
+          attempt: false,
+          checking: false
+        },
+        () => this.springAnimation("One")
+      );
+    }
+
+    if (gameType === "Terms") {
+      buttonData.push(musicTerm.definition);
+      console.log(buttonData, "button data terms");
+
+      while (buttonData.length < 4) {
+        // first num is used to generate a random number
+        let random = Object.keys(termQuestions)[firstNum(5)];
+        console.log(random, "random");
+        if (!buttonData.includes(random)) {
+          buttonData.push(random);
+        }
+      }
+
+      buttonData = shuffle(buttonData);
+
+      this.setState({
         buttonData,
-        correctAnswer: interval,
+        correctAnswer: musicTerm.definition,
         stopAnimation: false,
         correct: false,
         attempt: false,
         checking: false
-      },
-      () => this.springAnimation("One")
-    );
-  }
+      });
+    }
+  };
 
   goBack() {
     this.stopSoundOne();
@@ -164,7 +208,7 @@ class Game extends Component {
     );
   }
 
-  endGame() {
+  endGame = () => {
     let { id, dispatch, oid, alarm } = this.props;
     this.stopSoundOne();
     this.stopSoundTwo();
@@ -180,13 +224,13 @@ class Game extends Component {
 
       setTimeout(() => Actions.Home(), 0);
     }
-  }
+  };
 
-  stopAnimation() {
+  stopAnimation = () => {
     this.setState({
       stopAnimation: true
     });
-  }
+  };
 
   playSoundOne() {
     let { noteOne, noteTwo } = this.state;
@@ -238,7 +282,15 @@ class Game extends Component {
     if (id) {
       return (
         <View>
-          <Text style={{ fontSize: Convert(20) }}>{count}</Text>
+          <Text
+            style={{
+              fontSize: Convert(20),
+              position: "absolute",
+              top: Convert(-20)
+            }}
+          >
+            {count}
+          </Text>
         </View>
       );
     } else {
@@ -246,7 +298,7 @@ class Game extends Component {
     }
   }
 
-  springAnimation(type) {
+  springAnimation = type => {
     let {
       springSpeed,
       stopAnimation,
@@ -305,7 +357,7 @@ class Game extends Component {
       }).start();
       return;
     }
-  }
+  };
 
   renderMusicIcon(type) {
     let icon;
@@ -377,13 +429,19 @@ class Game extends Component {
     this.answerAnimation();
     if (val) {
       return (
-        <View>
+        <View
+          style={{
+            position: "absolute",
+            top: Convert(-60),
+            right: Convert(10),
+            alignSelf: "center"
+          }}
+        >
           <Animated.Image
             source={require("../../../assets/images/greenCheck.png")}
             style={{
-              height: Convert(40),
+              height: Convert(50),
               width: Convert(50),
-              //top: Convert(1)/2,
               resizeMode: "contain",
               transform: [{ scale: renderAnswer }]
             }}
@@ -392,13 +450,18 @@ class Game extends Component {
       );
     } else {
       return (
-        <View>
+        <View
+          style={{
+            position: "absolute",
+            top: Convert(-60),
+            right: Convert(20)
+          }}
+        >
           <Animated.Image
             source={require("../../../assets/images/redX.png")}
             style={{
-              height: Convert(40),
+              height: Convert(50),
               width: Convert(50),
-              //top: Convert(1)/2,
               resizeMode: "contain",
               transform: [{ scale: renderAnswer }]
             }}
@@ -408,11 +471,24 @@ class Game extends Component {
     }
   }
 
-  checkAnswer(guess) {
-    let { correctAnswer, count } = this.state;
+  checkAnswerByGameType = (guess, correct) => {
+    let { gameType } = this.state;
+    if (gameType === "Interval") {
+      return guess === correct.long;
+    }
+
+    if (gameType === "Terms") {
+      return guess === correct;
+    }
+  };
+
+  checkAnswer = guess => {
+    let { correctAnswer, count, gameType } = this.state;
     let { id } = this.props;
+    console.log(correctAnswer, "correct");
+    console.log(guess, "guess guess");
     if (id) {
-      if (guess === correctAnswer.long && count > 1) {
+      if (this.checkAnswerByGameType(guess, correctAnswer) && count > 1) {
         this.setState(
           {
             stopAnimation: true,
@@ -422,7 +498,7 @@ class Game extends Component {
           },
           () => setTimeout(() => this.startNewGame(), 700)
         );
-      } else if (guess !== correctAnswer.long) {
+      } else if (!this.checkAnswerByGameType(guess, correctAnswer)) {
         this.setState(
           {
             stopAnimation: true,
@@ -433,7 +509,7 @@ class Game extends Component {
         );
       }
 
-      if (guess === correctAnswer.long && count <= 1) {
+      if (this.checkAnswerByGameType(guess, correctAnswer) && count <= 1) {
         this.setState(
           {
             stopAnimation: true,
@@ -445,7 +521,7 @@ class Game extends Component {
         );
       }
     } else {
-      if (guess === correctAnswer.long) {
+      if (this.checkAnswerByGameType(guess, correctAnswer)) {
         this.setState(
           {
             stopAnimation: true,
@@ -454,7 +530,7 @@ class Game extends Component {
           },
           () => setTimeout(() => this.startNewGame(), 700)
         );
-      } else if (guess !== correctAnswer.long) {
+      } else if (!this.checkAnswerByGameType(guess, correctAnswer)) {
         this.setState(
           {
             stopAnimation: true,
@@ -465,9 +541,9 @@ class Game extends Component {
         );
       }
     }
-  }
+  };
 
-  renderButton(item) {
+  renderButton = item => {
     let { checking, attempt, correctAnswer } = this.state;
     let correct;
     let buttonColor = ["#4c669f", "#3b5998", "#192f6a"];
@@ -475,7 +551,7 @@ class Game extends Component {
     let correctColor = ["#0BAB64", "#3BB78F"];
 
     if (correctAnswer) {
-      correct = item === correctAnswer.long;
+      correct = this.checkAnswerByGameType(item, correctAnswer);
     }
 
     return (
@@ -504,7 +580,7 @@ class Game extends Component {
         </TouchableOpacity>
       </Animatable.View>
     );
-  }
+  };
 
   _navToDirections = () => {
     this.setState({
@@ -556,7 +632,6 @@ class Game extends Component {
               style={{
                 height: Convert(50),
                 width: Convert(50),
-                //top: Convert(1)/2,
                 resizeMode: "contain",
                 transform: [{ rotate: spin }]
               }}
@@ -569,7 +644,20 @@ class Game extends Component {
     }
   }
 
-  onModalClose = ({ instrument, intervalType }) => {
+  onModalClose = ({ instrument, intervalType, gameType }) => {
+    if (gameType) {
+      this.setState(
+        {
+          showModal: false,
+          navToDirections: false,
+          gameType,
+          buttonData: ["", "", "", ""],
+          correct: false,
+          correctAnswer: ""
+        },
+        this.startNewGame
+      );
+    }
     if (!instrument && !intervalType) {
       this.setState(
         { showModal: false, navToDirections: false },
@@ -589,6 +677,30 @@ class Game extends Component {
     }
   };
 
+  gameTypeDisplay = () => {
+    const { gameType, musicTerm } = this.state;
+
+    if (gameType === "Terms") {
+      return <Text>{musicTerm.term}</Text>;
+    }
+
+    if (gameType === "Interval") {
+      return this.renderMusicIcon("separate");
+    }
+  };
+
+  renderRow = data => {
+    const { gameType } = this.state;
+
+    if (gameType === "Terms") {
+      return this.renderButton(data);
+    }
+
+    if (gameType === "Interval") {
+      return this.renderButton(data.long);
+    }
+  };
+
   render() {
     let {
       buttonData,
@@ -596,7 +708,8 @@ class Game extends Component {
       attempt,
       showModal,
       instrument,
-      intervalType
+      intervalType,
+      gameType
     } = this.state;
     let { id } = this.props;
     const dataSource = this.ds.cloneWithRows(buttonData);
@@ -617,8 +730,9 @@ class Game extends Component {
           <Modal
             showModal={showModal}
             instrument={instrument}
-            onClose={data => this.onModalClose((data))}
+            onClose={data => this.onModalClose(data)}
             intervalType={intervalType}
+            gameType={gameType}
           />
 
           {this.renderDirections()}
@@ -629,29 +743,32 @@ class Game extends Component {
               height: (height * 1) / 3,
               display: "flex",
               justifyContent: "center",
-              alignItems: "center"
+              alignItems: "center",
+              
             }}
           >
             <View
               style={{
                 display: "flex",
+                flexDirection: "column",
+                flexWrap: "wrap",
                 justifyContent: "center",
-                alignItems: "center"
+                alignItems: "center",
+                position: "relative"
               }}
             >
               {this.renderCount()}
 
               {attempt ? this.renderAnswer(correct) : null}
 
-              {this.renderMusicIcon("separate")}
+              {this.gameTypeDisplay()}
             </View>
           </View>
-          <View
-            style={{ backgroundColor: "white", height: (height * 2) / 3 }}
-          >
+
+          <View style={{ backgroundColor: "white", height: (height * 2) / 3 }}>
             <AnimatableListView
               dataSource={dataSource}
-              renderRow={({ long }) => this.renderButton(long)}
+              renderRow={this.renderRow}
               animation="bounceInUp"
               duration={800}
               delay={0}

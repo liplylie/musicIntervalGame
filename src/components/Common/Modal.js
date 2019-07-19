@@ -37,17 +37,23 @@ class ModalComponent extends Component {
     { key: 2, label: "Descending", accessibilityLabel: "Descending" }
   ];
 
+  gameTypeListData = () => {
+    const { gameType } = this.props;
+    let list = [
+      { key: 0, section: true, label: "Question Type" },
+      { key: 1, label: "Terms", accessibilityLabel: "Terms" },
+      { key: 2, label: "Interval", accessibilityLabel: "Interval" }
+    ];
+    return list.filter(l => l.label !== gameType)
+  } 
+
   render() {
-    const { showModal } = this.props;
+    const { showModal, onClose, gameType } = this.props;
     const { selectedInstrument, intervalType } = this.state;
 
     return (
       <View>
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={showModal}
-        >
+        <Modal animationType="slide" transparent={false} visible={showModal}>
           <NavBar
             setToTop
             rightButtonIcon={"close"}
@@ -55,6 +61,48 @@ class ModalComponent extends Component {
           />
 
           <View style={[styles.container, { justifyContent: "center" }]}>
+            <View style={styles.setting}>
+              <ModalSelector
+                data={this.gameTypeListData()}
+                initValue="Change Question Type"
+                supportedOrientations={["portrait"]}
+                accessible={true}
+                scrollViewAccessibilityLabel={"Scrollable options"}
+                cancelButtonAccessibilityLabel={"Cancel Button"}
+                onChange={({ label }) => {
+                  onClose({ gameType: label });
+                }}
+              >
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    justifyContent: "space-around"
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: Convert(20),
+                      width: Convert(100)
+                    }}
+                  >
+                    Question Type
+                  </Text>
+
+                  <Text
+                    style={{
+                      fontSize: Convert(20),
+                      width: Convert(100),
+                      textAlign: "center"
+                    }}
+                  >
+                    {gameType}
+                  </Text>
+                </View>
+              </ModalSelector>
+            </View>
+
             <View style={styles.setting}>
               <ModalSelector
                 data={this.instrumentListData}
