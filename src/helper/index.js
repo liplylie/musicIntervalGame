@@ -7,4 +7,6 @@ export { Alarm } from "./Alarm";
 export { notes}  from "./noteArray";
 export { shuffle } from "./shuffle";
 export { androidCancelAlarm } from "./androidCancelAlarm";
+export { Capitalize } from "./Capitalize";
+
 

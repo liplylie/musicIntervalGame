@@ -23,7 +23,8 @@ import {
   intervals,
   cancelAlarm,
   shuffle,
-  androidCancelAlarm
+  androidCancelAlarm,
+  Capitalize
 } from "../../helper";
 import { firstNum, secondNum } from "../../helper/randomNum";
 import termQuestions from "../../questions/termQuestions";
@@ -111,9 +112,9 @@ class Game extends Component {
     }
 
     if (gameType === "Terms") {
-      const [definition, term] = Object.entries(termQuestions)[0];
+      const random = firstNum(Object.keys(termQuestions).length);
+      const [definition, term] = Object.entries(termQuestions)[random];
       const musicTerm = { definition, term };
-      console.log(musicTerm, "music sex");
       this.setState(
         {
           musicTerm,
@@ -681,7 +682,11 @@ class Game extends Component {
     const { gameType, musicTerm } = this.state;
 
     if (gameType === "Terms") {
-      return <Text>{musicTerm.term}</Text>;
+      return (
+        <Capitalize style={{ fontSize: Convert(30) }}>
+          {musicTerm.term}
+        </Capitalize>
+      );
     }
 
     if (gameType === "Interval") {
@@ -743,8 +748,7 @@ class Game extends Component {
               height: (height * 1) / 3,
               display: "flex",
               justifyContent: "center",
-              alignItems: "center",
-              
+              alignItems: "center"
             }}
           >
             <View
