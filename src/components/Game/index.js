@@ -8,7 +8,8 @@ import {
   StyleSheet,
   Animated,
   ListView,
-  Easing
+  Easing,
+  Image
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";
@@ -28,6 +29,7 @@ import {
 } from "../../helper";
 import { firstNum, secondNum } from "../../helper/randomNum";
 import termQuestions from "../../questions/termQuestions";
+import keySignatures from "../../questions/keySignatures";
 
 // Sounds
 import * as Clarinet from "../../samples/Clarinet";
@@ -68,7 +70,9 @@ class Game extends Component {
     intervalType: this.props.intervalType || "Ascending",
     navToDirections: false,
     gameType: this.props.gameType || "Interval",
-    musicTerm: {}
+    musicTerm: {},
+    keySignature: {},
+    keyMode: ""
   };
 
   componentWillMount() {
@@ -141,18 +145,36 @@ class Game extends Component {
         () => this.renderButtonData(randomTwo - randomOne)
       );
     }
+
+    if (gameType === "Key Signature") {
+      const keyMode = Object.keys(keySignatures)[firstNum(2)];
+      const length = Object.keys(keySignatures[keyMode]).length;
+      const [key, image] = Object.entries(keySignatures[keyMode])[
+        firstNum(length)
+      ];
+      const keySignature = { key, image };
+
+      this.setState(
+        {
+          keySignature,
+          keyMode,
+          stopAnimation: true
+        },
+        () => this.renderButtonData()
+      );
+    }
   };
 
   renderButtonData = num => {
-    const { gameType, musicTerm } = this.state;
+    const { gameType, musicTerm, keySignature, keyMode } = this.state;
     let buttonData = [];
     if (gameType === "Interval") {
-      let interval = intervals[num];
+      const interval = intervals[num];
       buttonData.push(interval);
 
       while (buttonData.length < 4) {
         // first num is used to generate a random number
-        let random = firstNum(13);
+        const random = firstNum(13);
 
         if (!buttonData.includes(intervals[random])) {
           buttonData.push(intervals[random]);
@@ -179,7 +201,7 @@ class Game extends Component {
 
       while (buttonData.length < 4) {
         // first num is used to generate a random number
-        let random = Object.keys(termQuestions)[firstNum(5)];
+        const random = Object.keys(termQuestions)[firstNum(5)];
         if (!buttonData.includes(random)) {
           buttonData.push(random);
         }
@@ -190,6 +212,31 @@ class Game extends Component {
       this.setState({
         buttonData,
         correctAnswer: musicTerm.definition,
+        stopAnimation: false,
+        correct: false,
+        attempt: false,
+        checking: false
+      });
+    }
+
+    if (gameType === "Key Signature") {
+      buttonData.push(keySignature.key);
+
+      while (buttonData.length < 4) {
+        // first num is used to generate a random number
+        const length = Object.keys(keySignatures[keyMode]).length;
+        const random = Object.keys(keySignatures[keyMode])[firstNum(length)];
+
+        if (random && !buttonData.includes(random)) {
+          buttonData.push(random);
+        }
+      }
+
+      buttonData = shuffle(buttonData);
+
+      this.setState({
+        buttonData,
+        correctAnswer: keySignature.key,
         stopAnimation: false,
         correct: false,
         attempt: false,
@@ -434,8 +481,7 @@ class Game extends Component {
           style={{
             position: "absolute",
             top: Convert(-60),
-            right: Convert(10),
-            alignSelf: "center"
+            right: Convert(10)
           }}
         >
           <Animated.Image
@@ -479,6 +525,10 @@ class Game extends Component {
     }
 
     if (gameType === "Terms") {
+      return guess === correct;
+    }
+
+    if (gameType === "Key Signature") {
       return guess === correct;
     }
   };
@@ -674,6 +724,16 @@ class Game extends Component {
         );
         setTimeout(this.startNewGame, 500);
       }
+    } else if (gameType === "Key Signature") {
+      this.setState({
+        showModal: false,
+        navToDirections: false,
+        gameType,
+        buttonData: ["", "", "", ""],
+        correct: false,
+        correctAnswer: ""
+      });
+      setTimeout(this.startNewGame, 500);
     } else {
       // no settings changed
       this.setState({
@@ -685,7 +745,7 @@ class Game extends Component {
   };
 
   gameTypeDisplay = () => {
-    const { gameType, musicTerm } = this.state;
+    const { gameType, musicTerm, keySignature } = this.state;
 
     if (gameType === "Terms") {
       return (
@@ -698,6 +758,15 @@ class Game extends Component {
     if (gameType === "Interval") {
       return this.renderMusicIcon("separate");
     }
+
+    if (gameType === "Key Signature") {
+      return (
+        <Image
+          style={{ width: Convert(200), height: Convert(200) }}
+          source={keySignature.image}
+        />
+      );
+    }
   };
 
   renderRow = data => {
@@ -709,6 +778,10 @@ class Game extends Component {
 
     if (gameType === "Interval") {
       return this.renderButton(data.long);
+    }
+
+    if (gameType === "Key Signature") {
+      return this.renderButton(data);
     }
   };
 

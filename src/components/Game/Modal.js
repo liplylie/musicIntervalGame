@@ -49,6 +49,7 @@ class ModalComponent extends Component {
       intervalType,
       gameType
     } = this.state;
+
     if (handle === "cancel") {
       onClose({});
       return;
@@ -80,7 +81,8 @@ class ModalComponent extends Component {
     let list = [
       { key: 0, section: true, label: "Question Type" },
       { key: 1, label: "Terms", accessibilityLabel: "Terms" },
-      { key: 2, label: "Interval", accessibilityLabel: "Interval" }
+      { key: 2, label: "Interval", accessibilityLabel: "Interval" },
+      { key: 2, label: "Key Signature", accessibilityLabel: "Key Signature" }
     ];
     return list.filter(l => l.label !== gameType);
   };
