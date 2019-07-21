@@ -45,7 +45,7 @@ export default class App extends Component {
                 answersNeeded: userInfo.answersNeeded,
                 instrument: userInfo.instrument,
                 intervalType: userInfo.intervalType,
-                gameType: userInfo.intervalType
+                gameType: userInfo.gameType
               });
             }
           } else if (foreground && !clicked) {
@@ -65,7 +65,7 @@ export default class App extends Component {
                 answersNeeded: userInfo.answersNeeded,
                 instrument: userInfo.instrument,
                 intervalType: userInfo.intervalType,
-                gameType: userInfo.intervalType
+                gameType: userInfo.gameType
               });
             }
           }
