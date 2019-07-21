@@ -36,7 +36,7 @@ import * as Guitar from "../../samples/Guitar";
 
 // Components
 import NavBar from "../Common/NavBar";
-import Modal from "../Common/Modal";
+import Modal from "./Modal";
 
 const { height } = Dimensions.get("window");
 const AnimatableListView = Animatable.createAnimatableComponent(ListView);
@@ -647,17 +647,16 @@ class Game extends Component {
 
   onModalClose = ({ instrument, intervalType, gameType }) => {
     if (gameType) {
-      this.setState(
-        {
-          showModal: false,
-          navToDirections: false,
-          gameType,
-          buttonData: ["", "", "", ""],
-          correct: false,
-          correctAnswer: ""
-        },
-        this.startNewGame
-      );
+      this.setState({
+        showModal: false,
+        navToDirections: false,
+        gameType,
+        buttonData: ["", "", "", ""],
+        correct: false,
+        correctAnswer: ""
+      });
+      setTimeout(this.startNewGame, 500);
+      return;
     }
     if (!instrument && !intervalType) {
       this.setState(

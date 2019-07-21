@@ -8,14 +8,13 @@ import moment from "moment";
 
 // Global
 import { resetAlarm } from "./src/helper";
-import store, { persistor }from "./src/store.js";
+import store, { persistor } from "./src/store.js";
 
 // Components
 import Rules from "./src/components/Game/Rules";
 import Home from "./src/components/Home/Home";
 import AddAlarms from "./src/components/Home/AddAlarms";
 import Game from "./src/components/Game";
-
 
 export default class App extends Component {
   state = {
@@ -154,7 +153,12 @@ export default class App extends Component {
         if (moment(a.date).isAfter(moment.now())) {
           // if the alarms are after the current time, schedule them
           if (a.active) {
-            resetAlarm(Platform.OS, a, id, (a.snoozeTime = 3));
+            resetAlarm({
+              device: Platform.OS,
+              alarm: a,
+              id,
+              snooze: snoozeTime
+            });
           }
         } else {
           // set the alarms to the next day
@@ -166,7 +170,12 @@ export default class App extends Component {
           }
 
           if (a.active) {
-            resetAlarm(Platform.OS, a, id, (a.snoozeTime = 3));
+            resetAlarm({
+              device: Platform.OS,
+              alarm: a,
+              id,
+              snooze: snoozeTime
+            });
           }
         }
       });

@@ -44,8 +44,8 @@ class ModalComponent extends Component {
       { key: 1, label: "Terms", accessibilityLabel: "Terms" },
       { key: 2, label: "Interval", accessibilityLabel: "Interval" }
     ];
-    return list.filter(l => l.label !== gameType)
-  } 
+    return list.filter(l => l.label !== gameType);
+  };
 
   render() {
     const { showModal, onClose, gameType } = this.props;
@@ -78,13 +78,13 @@ class ModalComponent extends Component {
                     display: "flex",
                     flexDirection: "row",
                     flexWrap: "wrap",
-                    justifyContent: "space-around"
+                    justifyContent: "space-between"
                   }}
                 >
                   <Text
                     style={{
                       fontSize: Convert(20),
-                      width: Convert(100)
+                      width: "auto"
                     }}
                   >
                     Question Type
@@ -93,8 +93,7 @@ class ModalComponent extends Component {
                   <Text
                     style={{
                       fontSize: Convert(20),
-                      width: Convert(100),
-                      textAlign: "center"
+                      width: "auto"
                     }}
                   >
                     {gameType}
@@ -123,13 +122,13 @@ class ModalComponent extends Component {
                     display: "flex",
                     flexDirection: "row",
                     flexWrap: "wrap",
-                    justifyContent: "space-around"
+                    justifyContent: "space-between"
                   }}
                 >
                   <Text
                     style={{
                       fontSize: Convert(20),
-                      width: Convert(100)
+                      width: "auto"
                     }}
                   >
                     Instrument
@@ -138,8 +137,7 @@ class ModalComponent extends Component {
                   <Text
                     style={{
                       fontSize: Convert(20),
-                      width: Convert(100),
-                      textAlign: "center"
+                      width: "auto"
                     }}
                   >
                     {selectedInstrument}
@@ -168,13 +166,13 @@ class ModalComponent extends Component {
                     display: "flex",
                     flexDirection: "row",
                     flexWrap: "wrap",
-                    justifyContent: "space-around"
+                    justifyContent: "space-between"
                   }}
                 >
                   <Text
                     style={{
                       fontSize: Convert(20),
-                      width: Convert(120)
+                      width: "auto"
                     }}
                   >
                     Interval Type
@@ -183,8 +181,7 @@ class ModalComponent extends Component {
                   <Text
                     style={{
                       fontSize: Convert(20),
-                      width: Convert(120),
-                      textAlign: "center"
+                      width: "auto"
                     }}
                   >
                     {intervalType}
@@ -197,8 +194,7 @@ class ModalComponent extends Component {
               <TouchableOpacity onPress={Actions.Rules}>
                 <Text
                   style={{
-                    fontSize: Convert(20),
-                    textAlign: "center"
+                    fontSize: Convert(20)
                   }}
                 >
                   Rules
@@ -223,7 +219,9 @@ const styles = StyleSheet.create({
   setting: {
     borderBottomColor: "lightgray",
     borderBottomWidth: 1,
-    width: "100%"
+    width: "100%",
+    paddingLeft: Convert(15),
+    paddingRight: Convert(15)
   },
   centerContainer: {
     display: "flex",

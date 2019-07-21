@@ -1,25 +1,25 @@
 /**
-  * Alarm
-  * @id {string} int for android
-  * @active {boolean}
-  * @time {string} formatted hh:mm A
-  * @date {string} ISO string
-  * @message {string} Alarm message
-  * @snoozeTime {int}
-  * @answersNeeded {int}
-*/
+ * Alarm
+ * @id {string} int for android
+ * @active {boolean}
+ * @time {string} formatted hh:mm A
+ * @date {string} ISO string
+ * @message {string} Alarm message
+ * @snoozeTime {int}
+ * @answersNeeded {int}
+ */
 export class Alarm {
-  constructor(
+  constructor({
     id,
     active,
     time,
     date,
-    message,
+    message = "Alarm",
     snoozeTime = 1,
     answersNeeded = 3,
     instrument = "",
     intervalType = ""
-  ) {
+  }) {
     this.id = id;
     this.active = active;
     this.time = time;

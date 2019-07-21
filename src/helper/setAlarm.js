@@ -13,7 +13,7 @@
 import PushNotification from "react-native-push-notification";
 import moment from "moment";
 
-export const setAlarm = (
+export const setAlarm = ({
   device,
   id,
   date,
@@ -22,7 +22,7 @@ export const setAlarm = (
   message,
   instrument,
   intervalType
-) => {
+}) => {
   if (device === "android") {
     let repeatTime = 1000 * 60 * Number(snooze);
     PushNotification.localNotificationSchedule({

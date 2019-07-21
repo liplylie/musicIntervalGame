@@ -94,7 +94,15 @@ class AddAlarm extends Component {
 
   _addAlarm = () => {
     let { dispatch, edit } = this.props;
-    let { time, date, message, snooze, answersNeeded, instrument, intervalType } = this.state;
+    let {
+      time,
+      date,
+      message,
+      snooze,
+      answersNeeded,
+      instrument,
+      intervalType
+    } = this.state;
     if (!time) {
       alert("Please enter a time for the alarm");
     } else {
@@ -105,20 +113,20 @@ class AddAlarm extends Component {
           .startOf("minute")
           .format();
       }
-      let alarm = new Alarm(
+      let alarm = new Alarm({
         id,
-        1,
+        active: 1,
         time,
         date,
-        message || "Alarm",
-        snooze,
+        message,
+        snoozeTime: snooze,
         answersNeeded,
         instrument,
         intervalType
-      );
+      });
       dispatch({ type: "addAlarm", payload: alarm });
-      setAlarm(
-        Platform.OS,
+      setAlarm({
+        device: Platform.OS,
         id,
         date,
         snooze,
@@ -126,14 +134,22 @@ class AddAlarm extends Component {
         message,
         instrument,
         intervalType
-      );
+      });
       Actions.Home();
     }
   };
 
   _editAlarm = () => {
     let { dispatch, edit } = this.props;
-    let { time, date, message, snooze, answersNeeded, instrument, intervalType } = this.state;
+    let {
+      time,
+      date,
+      message,
+      snooze,
+      answersNeeded,
+      instrument,
+      intervalType
+    } = this.state;
     if (!time) {
       alert("Please enter a time for the alarm");
     } else {
@@ -144,21 +160,21 @@ class AddAlarm extends Component {
           .startOf("minute")
           .format();
       }
-      let alarm = new Alarm(
+      let alarm = new Alarm({
         id,
-        1,
+        active: 1,
         time,
         date,
-        message || "Alarm",
-        snooze,
+        message,
+        snoozeTime: snooze,
         answersNeeded,
         instrument,
         intervalType
-      );
+      });
       cancelAlarm(Platform.OS, id);
       dispatch({ type: "editAlarm", payload: alarm });
-      setAlarm(
-        Platform.OS,
+      setAlarm({
+        device: Platform.OS,
         id,
         date,
         snooze,
@@ -166,7 +182,7 @@ class AddAlarm extends Component {
         message,
         instrument,
         intervalType
-      );
+      });
       Actions.Home();
     }
   };
@@ -401,8 +417,7 @@ class AddAlarm extends Component {
                   marginRight: Convert(50),
                   marginTop: Convert(20),
                   marginBottom: Convert(30),
-                  backgroundColor:
-                    Platform.OS === "ios" ? "dodgerblue" : null
+                  backgroundColor: Platform.OS === "ios" ? "dodgerblue" : null
                 }}
               >
                 <Button
@@ -470,8 +485,7 @@ class AddAlarm extends Component {
               style={{
                 height: iphoneX ? Convert(80) : Convert(50),
                 width: width,
-                backgroundColor:
-                  Platform.OS === "ios" ? "dodgerblue" : null,
+                backgroundColor: Platform.OS === "ios" ? "dodgerblue" : null,
                 margin: 0
               }}
             >

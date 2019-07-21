@@ -69,15 +69,16 @@ class AlarmList extends Component {
           .add(diff + 1, "days")
           .format();
       }
-      setAlarm(
-        Platform.OS,
-        alarm.id,
-        alarm.date,
-        alarm.snoozeTime,
-        alarm.answersNeeded,
-        alarm.message,
-        alarm.instrument
-      );
+      setAlarm({
+        device: Platform.OS,
+        id: alarm.id,
+        date: alarm.date,
+        snooze: alarm.snooze,
+        answersNeeded: alarm.answersNeeded,
+        message: alarm.message,
+        instrument: alarm.instrument,
+        intervalType: alarm.intervalType
+      });
     }
   }
 
