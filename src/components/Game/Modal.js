@@ -66,7 +66,7 @@ class ModalComponent extends Component {
     { key: 0, section: true, label: "Instruments" },
     { key: 1, label: "Piano", accessibilityLabel: "Piano" },
     { key: 2, label: "Clarinet", accessibilityLabel: "Clarinet" },
-    { key: 2, label: "Guitar", accessibilityLabel: "Guitar" }
+    { key: 3, label: "Guitar", accessibilityLabel: "Guitar" }
   ];
 
   intervalListData = [
@@ -82,7 +82,7 @@ class ModalComponent extends Component {
       { key: 0, section: true, label: "Question Type" },
       { key: 1, label: "Terms", accessibilityLabel: "Terms" },
       { key: 2, label: "Interval", accessibilityLabel: "Interval" },
-      { key: 2, label: "Key Signature", accessibilityLabel: "Key Signature" }
+      { key: 3, label: "Key Signature", accessibilityLabel: "Key Signature" }
     ];
     return list.filter(l => l.label !== gameType);
   };
@@ -330,7 +330,7 @@ const styles = StyleSheet.create({
     textDecorationColor: "#000"
   },
   editButton: {
-    height: Convert(40),
+    height: 40,
     width: Convert(160),
     borderRadius: Convert(10),
     marginLeft: Convert(50),

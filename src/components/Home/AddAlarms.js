@@ -64,7 +64,8 @@ class AddAlarm extends Component {
     gameTypeListData: [
       { key: 0, section: true, label: "Question Type" },
       { key: 1, label: "Terms", accessibilityLabel: "Terms" },
-      { key: 2, label: "Interval", accessibilityLabel: "Interval" }
+      { key: 2, label: "Interval", accessibilityLabel: "Interval" },
+      { key: 3, label: "Key Signature", accessibilityLabel: "Key Signature" }
     ]
   };
 
@@ -552,7 +553,7 @@ const styles = StyleSheet.create({
     marginTop: Convert(10)
   },
   editButton: {
-    height: Convert(40),
+    height: 40,
     width: Convert(160),
     borderRadius: Convert(10),
     marginLeft: Convert(50),
