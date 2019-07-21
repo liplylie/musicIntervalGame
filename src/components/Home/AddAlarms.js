@@ -408,18 +408,7 @@ class AddAlarm extends Component {
             </View>
 
             <View>
-              <TouchableHighlight
-                style={{
-                  height: Convert(40),
-                  width: Convert(160),
-                  borderRadius: Convert(10),
-                  marginLeft: Convert(50),
-                  marginRight: Convert(50),
-                  marginTop: Convert(20),
-                  marginBottom: Convert(30),
-                  backgroundColor: Platform.OS === "ios" ? "dodgerblue" : null
-                }}
-              >
+              <TouchableHighlight style={[styles.editButton]}>
                 <Button
                   onPress={this._showDateTimePicker}
                   title="Edit"
@@ -510,6 +499,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderBottomColor: "lightgray",
     borderBottomWidth: 1
+  },
+  editButton: {
+    height: Convert(40),
+    width: Convert(160),
+    borderRadius: Convert(10),
+    marginLeft: Convert(50),
+    marginRight: Convert(50),
+    marginTop: Convert(20),
+    marginBottom: Convert(30),
+    backgroundColor: Platform.OS === "ios" ? "dodgerblue" : null
   }
 });
 

@@ -64,7 +64,7 @@ class Game extends Component {
     count: this.props.answersNeeded ? Number(this.props.answersNeeded) : 3,
     checking: false,
     instrument: this.props.instrument || "Clarinet",
-    showModal: false,
+    showModal: this.props.id ? false : true,
     intervalType: this.props.intervalType || "Ascending",
     navToDirections: false,
     gameType: "Interval",
@@ -77,7 +77,9 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => this.startNewGame(), 700);
+    if (this.props.id) {
+      setTimeout(() => this.startNewGame(), 700);
+    }
   }
 
   ds = new ListView.DataSource({
@@ -174,12 +176,10 @@ class Game extends Component {
 
     if (gameType === "Terms") {
       buttonData.push(musicTerm.definition);
-      console.log(buttonData, "button data terms");
 
       while (buttonData.length < 4) {
         // first num is used to generate a random number
         let random = Object.keys(termQuestions)[firstNum(5)];
-        console.log(random, "random");
         if (!buttonData.includes(random)) {
           buttonData.push(random);
         }
@@ -486,8 +486,7 @@ class Game extends Component {
   checkAnswer = guess => {
     let { correctAnswer, count, gameType } = this.state;
     let { id } = this.props;
-    console.log(correctAnswer, "correct");
-    console.log(guess, "guess guess");
+
     if (id) {
       if (this.checkAnswerByGameType(guess, correctAnswer) && count > 1) {
         this.setState(
@@ -646,7 +645,7 @@ class Game extends Component {
   }
 
   onModalClose = ({ instrument, intervalType, gameType }) => {
-    if (gameType) {
+    if (gameType === "Terms") {
       this.setState({
         showModal: false,
         navToDirections: false,
@@ -656,23 +655,31 @@ class Game extends Component {
         correctAnswer: ""
       });
       setTimeout(this.startNewGame, 500);
-      return;
-    }
-    if (!instrument && !intervalType) {
-      this.setState(
-        { showModal: false, navToDirections: false },
-        this.startNewGame
-      );
+    } else if (gameType === "Interval") {
+      if (!instrument && !intervalType) {
+        this.setState(
+          { showModal: false, navToDirections: false, gameType },
+          this.startNewGame
+        );
+      } else {
+        this.setState(
+          {
+            instrument,
+            intervalType,
+            showModal: false,
+            navToDirections: false,
+            gameType
+          },
+          this.loadInstrumentFiles
+        );
+        setTimeout(this.startNewGame, 500);
+      }
     } else {
-      this.setState(
-        {
-          instrument,
-          intervalType,
-          showModal: false,
-          navToDirections: false
-        },
-        this.loadInstrumentFiles
-      );
+      // no settings changed
+      this.setState({
+        showModal: false,
+        navToDirections: false
+      });
       setTimeout(this.startNewGame, 500);
     }
   };
@@ -706,7 +713,7 @@ class Game extends Component {
   };
 
   render() {
-    let {
+    const {
       buttonData,
       correct,
       attempt,
@@ -715,8 +722,20 @@ class Game extends Component {
       intervalType,
       gameType
     } = this.state;
-    let { id } = this.props;
+    const { id } = this.props;
     const dataSource = this.ds.cloneWithRows(buttonData);
+
+    if (showModal) {
+      return (
+        <Modal
+          showModal={showModal}
+          instrument={instrument}
+          onClose={data => this.onModalClose(data)}
+          intervalType={intervalType}
+          gameType={gameType}
+        />
+      );
+    }
     return (
       <View style={{ display: "flex", position: "relative" }}>
         <NavBar
@@ -731,14 +750,6 @@ class Game extends Component {
             flexDirection: "column"
           }}
         >
-          <Modal
-            showModal={showModal}
-            instrument={instrument}
-            onClose={data => this.onModalClose(data)}
-            intervalType={intervalType}
-            gameType={gameType}
-          />
-
           {this.renderDirections()}
 
           <View
