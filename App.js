@@ -35,7 +35,8 @@ export default class App extends Component {
                 oid: data.oid,
                 answersNeeded: data.answersNeeded,
                 instrument: data.instrument,
-                intervalType: data.intervalType
+                intervalType: data.intervalType,
+                gameType: data.gameType
               });
             } else {
               Actions.Game({
@@ -43,7 +44,8 @@ export default class App extends Component {
                 oid: userInfo.id,
                 answersNeeded: userInfo.answersNeeded,
                 instrument: userInfo.instrument,
-                intervalType: userInfo.intervalType
+                intervalType: userInfo.intervalType,
+                gameType: userInfo.intervalType
               });
             }
           } else if (foreground && !clicked) {
@@ -53,7 +55,8 @@ export default class App extends Component {
                 oid: data.oid,
                 answersNeeded: data.answersNeeded,
                 instrument: data.instrument,
-                intervalType: data.intervalType
+                intervalType: data.intervalType,
+                gameType: data.gameType
               });
             } else {
               Actions.Game({
@@ -61,7 +64,8 @@ export default class App extends Component {
                 oid: userInfo.id,
                 answersNeeded: userInfo.answersNeeded,
                 instrument: userInfo.instrument,
-                intervalType: userInfo.intervalType
+                intervalType: userInfo.intervalType,
+                gameType: userInfo.intervalType
               });
             }
           }

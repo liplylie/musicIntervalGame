@@ -8,6 +8,7 @@
  * @snooze {int}
  * @answersNeeded {int}
  * @message {string} Alarm message
+ * @gameType {string}
  */
 
 import PushNotification from "react-native-push-notification";
@@ -21,7 +22,8 @@ export const setAlarm = ({
   answersNeeded,
   message,
   instrument,
-  intervalType
+  intervalType,
+  gameType
 }) => {
   if (device === "android") {
     let repeatTime = 1000 * 60 * Number(snooze);
@@ -36,10 +38,11 @@ export const setAlarm = ({
       userInfo: {
         id: JSON.stringify(id),
         oid: JSON.stringify(id),
-        snooze: snooze,
-        answersNeeded: answersNeeded,
+        snooze,
+        answersNeeded,
         instrument: instrument || "Clarinet",
-        intervalType: intervalType || "Ascending"
+        intervalType: intervalType || "Ascending",
+        gameType
       }
     });
   } else {
@@ -54,10 +57,11 @@ export const setAlarm = ({
           userInfo: {
             id: id + String(j) + String(i),
             oid: id,
-            snooze: snooze,
-            answersNeeded: answersNeeded,
+            snooze,
+            answersNeeded,
             instrument: instrument || "Clarinet",
-            intervalType: intervalType || "Ascending"
+            intervalType: intervalType || "Ascending",
+            gameType
           }
         });
       }

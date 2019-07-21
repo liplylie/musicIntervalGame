@@ -49,6 +49,7 @@ class AddAlarm extends Component {
     snoozePicker: false,
     instrument: this.props.instrument || "Clarinet",
     intervalType: this.props.intervalType || "Ascending",
+    gameType: this.props.gameType || "Interval",
     instrumentListData: [
       { key: 0, section: true, label: "Instruments" },
       { key: 1, label: "Piano", accessibilityLabel: "Piano" },
@@ -59,6 +60,11 @@ class AddAlarm extends Component {
       { key: 0, section: true, label: "Interval Type" },
       { key: 1, label: "Ascending", accessibilityLabel: "Ascending" },
       { key: 2, label: "Descending", accessibilityLabel: "Descending" }
+    ],
+    gameTypeListData: [
+      { key: 0, section: true, label: "Question Type" },
+      { key: 1, label: "Terms", accessibilityLabel: "Terms" },
+      { key: 2, label: "Interval", accessibilityLabel: "Interval" }
     ]
   };
 
@@ -101,7 +107,8 @@ class AddAlarm extends Component {
       snooze,
       answersNeeded,
       instrument,
-      intervalType
+      intervalType,
+      gameType
     } = this.state;
     if (!time) {
       alert("Please enter a time for the alarm");
@@ -122,7 +129,8 @@ class AddAlarm extends Component {
         snoozeTime: snooze,
         answersNeeded,
         instrument,
-        intervalType
+        intervalType,
+        gameType
       });
       dispatch({ type: "addAlarm", payload: alarm });
       setAlarm({
@@ -133,7 +141,8 @@ class AddAlarm extends Component {
         answersNeeded,
         message,
         instrument,
-        intervalType
+        intervalType,
+        gameType
       });
       Actions.Home();
     }
@@ -148,7 +157,8 @@ class AddAlarm extends Component {
       snooze,
       answersNeeded,
       instrument,
-      intervalType
+      intervalType,
+      gameType
     } = this.state;
     if (!time) {
       alert("Please enter a time for the alarm");
@@ -169,7 +179,8 @@ class AddAlarm extends Component {
         snoozeTime: snooze,
         answersNeeded,
         instrument,
-        intervalType
+        intervalType,
+        gameType
       });
       cancelAlarm(Platform.OS, id);
       dispatch({ type: "editAlarm", payload: alarm });
@@ -181,10 +192,45 @@ class AddAlarm extends Component {
         answersNeeded,
         message,
         instrument,
-        intervalType
+        intervalType,
+        gameType
       });
       Actions.Home();
     }
+  };
+
+  gameType = () => {
+    let { gameTypeListData, gameType } = this.state;
+
+    return (
+      <View style={styles.setting}>
+        <ModalSelector
+          data={gameTypeListData}
+          initValue="Question Type"
+          supportedOrientations={["portrait"]}
+          accessible={true}
+          style={{ flex: 1 }}
+          scrollViewAccessibilityLabel={"Scrollable options"}
+          cancelButtonAccessibilityLabel={"Cancel Button"}
+          onChange={({ label }) => {
+            this.setState({ gameType: label });
+          }}
+        >
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-between"
+            }}
+          >
+            <Text style={{ fontSize: Convert(20) }}>Question Type</Text>
+
+            <Text style={{ fontSize: Convert(20) }}>{gameType}</Text>
+          </View>
+        </ModalSelector>
+      </View>
+    );
   };
 
   instrumentList = () => {
@@ -375,7 +421,7 @@ class AddAlarm extends Component {
   }
 
   render() {
-    let { time, isDateTimePickerVisible } = this.state;
+    let { time, isDateTimePickerVisible, gameType } = this.state;
     let { edit } = this.props;
 
     return (
@@ -455,14 +501,18 @@ class AddAlarm extends Component {
                 display: "flex",
                 flex: 0.4,
                 flexDirection: "column",
-                justifyContent: "space-around",
                 width: Convert(300)
               }}
             >
-              <View>{this.instrumentList()}</View>
+              <View>{this.gameType()}</View>
 
-              <View>{this.intervalList()}</View>
+              {gameType === "Interval" && (
+                <>
+                  <View>{this.instrumentList()}</View>
 
+                  <View>{this.intervalList()}</View>
+                </>
+              )}
               <View>{this.snoozeModal()}</View>
 
               <View>{this.answersNeededModal()}</View>
@@ -498,7 +548,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomColor: "lightgray",
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    marginTop: Convert(10)
   },
   editButton: {
     height: Convert(40),

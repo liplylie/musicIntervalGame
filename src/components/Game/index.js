@@ -67,7 +67,7 @@ class Game extends Component {
     showModal: this.props.id ? false : true,
     intervalType: this.props.intervalType || "Ascending",
     navToDirections: false,
-    gameType: "Interval",
+    gameType: this.props.gameType || "Interval",
     musicTerm: {}
   };
 
@@ -546,7 +546,7 @@ class Game extends Component {
   renderButton = item => {
     let { checking, attempt, correctAnswer } = this.state;
     let correct;
-    let buttonColor = ["#4c669f", "#3b5998", "#192f6a"];
+    let buttonColor = ["#1564b2", "#1E90FF", "#1b81e5"];
     let wrongColor = ["#ff4d4d", "#e60000"];
     let correctColor = ["#0BAB64", "#3BB78F"];
 
@@ -575,7 +575,7 @@ class Game extends Component {
               attempt ? (correct ? correctColor : wrongColor) : buttonColor
             }
           >
-            <Text style={styles.fontStyle}>{item}</Text>
+            <Capitalize style={styles.fontStyle}>{item}</Capitalize>
           </LinearGradient>
         </TouchableOpacity>
       </Animatable.View>

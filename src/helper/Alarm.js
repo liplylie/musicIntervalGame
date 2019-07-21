@@ -7,6 +7,7 @@
  * @message {string} Alarm message
  * @snoozeTime {int}
  * @answersNeeded {int}
+ * @gameType {string}
  */
 export class Alarm {
   constructor({
@@ -18,7 +19,8 @@ export class Alarm {
     snoozeTime = 1,
     answersNeeded = 3,
     instrument = "",
-    intervalType = ""
+    intervalType = "",
+    gameType = "Interval"
   }) {
     this.id = id;
     this.active = active;
@@ -29,5 +31,6 @@ export class Alarm {
     this.answersNeeded = answersNeeded;
     this.instrument = instrument;
     this.intervalType = intervalType;
+    this.gameType = gameType;
   }
 }

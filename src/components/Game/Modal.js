@@ -314,10 +314,8 @@ const styles = StyleSheet.create({
   setting: {
     borderBottomColor: "lightgray",
     borderBottomWidth: 1,
-    width: "100%",
-    paddingLeft: Convert(15),
-    paddingRight: Convert(15),
-    marginBottom: Convert(10)
+    width: Convert(300),
+    marginTop: Convert(10)
   },
   centerContainer: {
     display: "flex",
