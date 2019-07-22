@@ -47,9 +47,9 @@ class AddAlarm extends Component {
     snooze: this.props.edit ? Number(this.props.edit.snoozeTime) : 1,
     answersNeeded: this.props.edit ? Number(this.props.edit.answersNeeded) : 3,
     snoozePicker: false,
-    instrument: this.props.instrument || "Clarinet",
-    intervalType: this.props.intervalType || "Ascending",
-    gameType: this.props.gameType || "Interval",
+    instrument: this.props.edit ? this.props.edit.instrument : "Clarinet",
+    intervalType: this.props.edit ? this.props.edit.intervalType : "Ascending",
+    gameType: this.props.edit ? this.props.edit.gameType : "Interval",
     instrumentListData: [
       { key: 0, section: true, label: "Instruments" },
       { key: 1, label: "Piano", accessibilityLabel: "Piano" },
