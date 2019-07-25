@@ -17,13 +17,13 @@
 
     <application
       android:name=".MainApplication"
-      android:label="MusicIntervalAlarm"
+      android:label="Music Theory Alarm"
       android:icon="@mipmap/ic_launcher"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
       <activity
         android:name=".MainActivity"
-        android:label="MusicIntervalAlarm"
+        android:label="Music Theory Alarm"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
         android:windowSoftInputMode="adjustResize">
 
